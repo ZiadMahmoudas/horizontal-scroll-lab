@@ -3442,3 +3442,1083 @@ body.is-ar.home-v3 .home-contact-details.lang-ar a[href^="tel:"]{
   unicode-bidi:isolate!important;
   text-align:left!important;
 }
+
+/* =========================================================
+   V25 — CROSS SECTOR BRAND SYSTEM
+   Palette supplied by client. Green remains a restrained accent,
+   never a large-area scheme. Hairlines are neutral 1px rules.
+   English: Archivo / Newsreader / IBM Plex Mono.
+   Arabic: DIN Next LT Arabic (local installed font), with a
+   conservative system fallback when the licensed face is absent.
+   ========================================================= */
+
+:root{
+  /* client palette */
+  --ground:#0B0E11;
+  --ground-deep:#0A0D10;
+  --ground-soft:#0C0F12;
+  --brand-ink:#14171C;
+  --bone:#E9E8E2;
+  --stone:#E5E4DE;
+  --stone-2:#DCDAD2;
+  --accent-deep:#1F5C46;
+  --accent-light:#8FCBA9;
+  --accent-web:#7BB396;
+  --accent-wash:rgba(31,92,70,.08);
+  --ink-soft:#5C5F58;
+  --brand-line:rgba(20,23,28,.14);
+  --brand-line-2:rgba(20,23,28,.28);
+  --line-on-ground:rgba(233,232,226,.18);
+  --line-on-ground-2:rgba(233,232,226,.28);
+  --bone-80:rgba(233,232,226,.82);
+  --bone-70:rgba(233,232,226,.72);
+  --bone-60:rgba(233,232,226,.62);
+  --bone-50:rgba(233,232,226,.50);
+  --scrim-behind-type:rgba(11,14,17,.92);
+  --scrim-over-subject:rgba(11,14,17,.24);
+  --scrim-directional:linear-gradient(90deg,rgba(9,11,13,.90) 0,rgba(9,11,13,.62) 46%,rgba(9,11,13,.40) 100%);
+
+  /* compatibility aliases used by the existing build */
+  --paper:var(--stone);
+  --paper-2:var(--bone);
+  --ink:var(--brand-ink);
+  --ink-2:var(--ground-deep);
+  --muted:var(--ink-soft);
+  --line:var(--brand-line);
+  --accent:var(--accent-deep);
+
+  /* typography */
+  --font-ui-en:"Archivo",Arial,sans-serif;
+  --font-display-en:"Newsreader",Georgia,serif;
+  --font-mono:"IBM Plex Mono","Courier New",monospace;
+  --font-ar:"DIN Next LT Arabic","DIN Next Arabic",Tahoma,Arial,sans-serif;
+  --sans:var(--font-ui-en);
+  --serif:var(--font-display-en);
+  --arabic:var(--font-ar);
+  --arabic-ui:var(--font-ar);
+}
+
+/* Licensed Arabic font: use the installed local face by its real family name.
+   For production self-hosting, keep using the original licensed files supplied
+   by the client and place them in your hosting/font pipeline. */
+@font-face{font-family:"CS DIN Arabic";src:local("DIN Next LT Arabic"),local("DINNextLTArabic-Regular");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"CS DIN Arabic";src:local("DIN Next LT Arabic Light"),local("DINNextLTArabic-Light");font-style:normal;font-weight:300;font-display:swap}
+@font-face{font-family:"CS DIN Arabic";src:local("DIN Next LT Arabic Medium"),local("DINNextLTArabic-Medium");font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:"CS DIN Arabic";src:local("DIN Next LT Arabic"),local("DINNextLTArabic-Bold");font-style:normal;font-weight:700;font-display:swap}
+:root{--font-ar:"CS DIN Arabic","DIN Next LT Arabic","DIN Next Arabic",Tahoma,Arial,sans-serif}
+
+html,body,.site-shell,.home-shell,.inner-main,.blog-main{
+  background:var(--stone)!important;
+  color:var(--brand-ink)!important;
+}
+body{font-family:var(--font-ui-en)!important;font-weight:400;letter-spacing:-.008em}
+body.is-ar{font-family:var(--font-ar)!important;letter-spacing:0}
+
+/* The design language: Newsreader for editorial display, Archivo for utility,
+   IBM Plex Mono for small system/meta data, DIN Arabic for every Arabic voice. */
+body:not(.is-ar) :is(h1,h2,h3,.about-hero-title,.menu-links a,.thorsten-footer-logo,.ref-over-caption strong,.ref-closing-copy h2,.ref-card-copy h2,.ref-intro-copy h1,.blog-post h2,.blog-quote p,.contact-ref-title h1,.contact-ref-form-block h2,.contact-ref-office h3){
+  font-family:var(--font-display-en)!important;
+  font-weight:400!important;
+}
+body:not(.is-ar) :is(.desktop-nav a,.language-toggle,.ref-cta,.home-contact-details,.home-directions-link,.contact-ref-submit,.thorsten-footer-col,.thorsten-footer-lead,.menu-address,.about-feature p,.about-services-intro p,.about-service-item p,.blog-post>p,.about-widget p,.location-card p){
+  font-family:var(--font-ui-en)!important;
+}
+body:not(.is-ar) :is(.ref-category,.ref-kicker,.micro-label,.thorsten-kicker,.blog-breadcrumb,.post-meta,.section-number,.service-no,.location-no,.about-service-item>span,.thorsten-newsletter>span,.menu-follow,.team-kicker){
+  font-family:var(--font-mono)!important;
+  font-weight:500!important;
+  letter-spacing:.12em!important;
+}
+body.is-ar :is(h1,h2,h3,p,a,button,input,textarea,label,strong,span,.desktop-nav a,.menu-links a,.thorsten-footer-col,.thorsten-footer-lead,.contact-ref-office,.about-team-overlay){
+  font-family:var(--font-ar)!important;
+}
+body.is-ar :is(h1,h2,h3,.about-hero-title,.ref-intro-copy h1,.ref-card-copy h2,.contact-ref-title h1,.contact-ref-form-block h2,.contact-ref-office h3){font-weight:300!important}
+body.is-ar :is(.desktop-nav a,.language-toggle,.ref-cta,.contact-ref-submit,.home-directions-link){font-weight:500!important}
+
+/* ------------------------------
+   Header / navigation
+   ------------------------------ */
+.site-header,
+body.is-ar .site-header{
+  background:rgba(229,228,222,.965)!important;
+  border-bottom:1px solid var(--brand-line)!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(16px) saturate(.7)!important;
+}
+.site-header .brand,body.is-ar .site-header .brand,
+.header-socials,.language-toggle,.menu-trigger{
+  background:var(--stone)!important;
+  border-color:var(--brand-line)!important;
+}
+.desktop-nav a{color:var(--brand-ink)!important;font-family:var(--font-ui-en)!important;font-size:13px!important;font-weight:500!important;letter-spacing:-.01em!important}
+body.is-ar .desktop-nav a{font-family:var(--font-ar)!important;font-size:13px!important;font-weight:500!important;letter-spacing:0!important}
+.desktop-nav a.active,.desktop-nav a:hover{color:var(--accent-deep)!important}
+.site-header .desktop-nav a::after{background:var(--brand-ink)!important;height:1px!important}
+.header-socials a{color:var(--brand-ink)!important}
+.header-socials a:hover{background:transparent!important;color:var(--accent-deep)!important;transform:translateY(-1px) scale(1.04)!important}
+.language-toggle{color:var(--brand-ink)!important}
+.menu-trigger span{background:var(--brand-ink)!important;height:1px!important}
+
+/* ------------------------------
+   Home horizontal experience
+   ------------------------------ */
+.home-v3 .h-panel,.home-v3 .ref-intro-panel,.home-v3 .ref-project-panel,.home-v3 .ref-contact-panel{
+  background:var(--stone)!important;
+  border-right:1px solid var(--brand-line)!important;
+}
+.home-v3 .ref-card-copy,.home-v3 .ref-intro-copy,.home-v3 .ref-closing-copy{color:var(--brand-ink)!important}
+.home-v3 .ref-intro-copy h1{font-size:clamp(50px,4.2vw,69px)!important;line-height:.98!important;letter-spacing:-.035em!important}
+body.is-ar.home-v3 .ref-intro-copy h1{font-size:clamp(40px,3.55vw,58px)!important;line-height:1.42!important;letter-spacing:0!important}
+.home-v3 .ref-intro-copy p,.home-v3 .ref-card-copy p{color:var(--ink-soft)!important}
+.home-v3 .ref-category{color:var(--ink-soft)!important}
+.home-v3 .ref-category::before{background:var(--brand-ink)!important}
+.home-v3 .ref-card-copy h2{color:var(--brand-ink)!important}
+.home-v3 .ref-card-copy h2 a:hover,.home-v3 .ref-card-copy:hover h2{color:var(--accent-deep)!important}
+
+.ref-cta,.primary-cta{
+  background:var(--ground)!important;
+  color:var(--bone)!important;
+  border:1px solid var(--ground)!important;
+  box-shadow:none!important;
+  font-family:var(--font-ui-en)!important;
+  font-weight:600!important;
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease,transform .25s ease!important;
+}
+body.is-ar .ref-cta,body.is-ar .primary-cta{font-family:var(--font-ar)!important;font-weight:500!important}
+.ref-cta:hover,.primary-cta:hover{background:var(--accent-deep)!important;border-color:var(--accent-deep)!important;color:var(--bone)!important;box-shadow:none!important}
+.ref-cta .ui-icon,.primary-cta .ui-icon{stroke:currentColor!important}
+
+/* Type over photography gets a proper scrim instead of blend-mode tricks. */
+.ref-over-caption,.visual-caption{
+  mix-blend-mode:normal!important;
+  color:var(--bone)!important;
+  background:rgba(11,14,17,.88)!important;
+  padding:15px 18px 16px!important;
+  border:1px solid var(--line-on-ground)!important;
+  max-width:min(360px,72%)!important;
+}
+.ref-over-caption span,.visual-caption span{color:var(--accent-light)!important}
+.ref-hero-image::after,.paper-media.full-media::after{content:"";position:absolute;inset:0;background:var(--scrim-over-subject);pointer-events:none;z-index:1}
+.ref-over-caption{z-index:5!important}
+
+.home-v3 .ref-contact-copy h2,.home-contact-details,.home-directions-link{color:var(--brand-ink)!important}
+.home-contact-details b{color:var(--ink-soft)!important}
+.home-directions-link{border-bottom:1px solid var(--brand-line-2)!important;padding-bottom:5px!important}
+.home-directions-link:hover{color:var(--accent-deep)!important;border-bottom-color:var(--brand-ink)!important}
+.home-footer-bar{background:var(--stone)!important;color:var(--brand-ink)!important;border-top:1px solid var(--brand-line)!important}
+
+/* ------------------------------
+   Fullscreen menu — intentional inverse surface
+   ------------------------------ */
+.menu-overlay{background:var(--ground)!important;color:var(--bone)!important}
+.menu-topline,.menu-brand,.menu-x{border-color:var(--line-on-ground)!important}
+.menu-brand img{filter:brightness(0) invert(1);opacity:.9}
+.menu-close-text,.menu-x{color:var(--bone)!important}
+.menu-links{border-color:var(--line-on-ground)!important}
+.menu-links a{color:var(--bone)!important}
+.menu-links a:hover{color:var(--accent-light)!important}
+.menu-contact{color:var(--bone-80)!important}
+.menu-address{color:var(--bone-70)!important}
+.menu-follow{color:var(--accent-light)!important}
+.menu-social-inline a{color:var(--bone)!important}
+.menu-social-inline a:hover{color:var(--accent-light)!important}
+.shape-mark i:nth-child(1){background:var(--bone)!important}
+.shape-mark i:nth-child(2){border-left-color:var(--bone)!important}
+.shape-mark i:nth-child(3){background:var(--accent-light)!important}
+
+/* ------------------------------
+   Inner page surfaces
+   ------------------------------ */
+.about-thorsten,.about-main,.blog-main,.contact-main,.contact-thorsten-exact{
+  background:var(--stone)!important;
+  color:var(--brand-ink)!important;
+}
+.editorial-section,.about-concepts,.about-team-section,.about-services-section,.blog-title-band,.contact-ref-heading,.contact-ref-map-section,.contact-ref-content{
+  background:var(--stone)!important;
+  border-color:var(--brand-line)!important;
+}
+
+/* About */
+.about-thorsten{
+  --din-en:var(--font-ui-en)!important;
+  --din-ar:var(--font-ar)!important;
+  --about-blue:var(--brand-ink)!important;
+  --about-blue-2:var(--brand-ink)!important;
+  --about-orange:var(--accent-deep)!important;
+  --about-line:var(--brand-line)!important;
+  --about-muted:var(--ink-soft)!important;
+  --about-beige:var(--stone-2)!important;
+  --about-white:var(--stone)!important;
+  font-family:var(--font-ui-en)!important;
+}
+.about-thorsten .site-header{background:rgba(229,228,222,.965)!important}
+.about-hero::after{background:linear-gradient(90deg,rgba(11,14,17,.34),rgba(11,14,17,.12),rgba(11,14,17,.26))!important}
+.about-hero-title{color:var(--bone)!important;text-shadow:none!important;font-family:var(--font-display-en)!important;font-weight:400!important}
+body.is-ar.about-thorsten .about-hero-title{font-family:var(--font-ar)!important;font-weight:300!important}
+.about-concepts h1,.about-team-heading h2,.about-services-intro h2,.about-feature h3,.about-service-item h3{color:var(--brand-ink)!important}
+.about-concepts-copy p,.about-feature p,.about-services-intro p,.about-service-item p{color:var(--ink-soft)!important}
+.thorsten-kicker{color:var(--ink-soft)!important}
+.thorsten-kicker i{height:1px!important;background:var(--brand-ink)!important}
+.about-feature>i{color:var(--accent-deep)!important}
+.about-progress-head,.about-progress-head b{color:var(--brand-ink)!important}
+.about-progress-track{height:1px!important;background:var(--brand-line-2)!important;overflow:visible!important}
+.about-progress-track i{background:var(--brand-ink)!important}
+.about-progress-track em{display:none!important}
+.about-progress-track::after{content:"";position:absolute;top:50%;left:var(--value);width:5px;height:5px;border-radius:50%;background:var(--accent-deep);transform:translate(-50%,-50%)}
+.about-team-inner{background:var(--stone-2)!important}
+.about-team-card{background:var(--stone-2)!important}
+.about-team-overlay{background:rgba(229,228,222,.965)!important;border:1px solid var(--brand-line)!important;color:var(--brand-ink)!important}
+.about-team-overlay h3,.about-team-overlay a{color:var(--brand-ink)!important}
+.about-team-overlay p{color:var(--ink-soft)!important}
+.about-team-overlay a:hover{color:var(--accent-deep)!important}
+
+/* Blog */
+.blog-title-band{background:var(--stone)!important}
+.blog-title-band h1,.blog-post h2,.sidebar-widget>h3,.blog-quote p{color:var(--brand-ink)!important}
+.blog-breadcrumb,.post-meta,.sidebar-widget,.popular-post small{color:var(--ink-soft)!important}
+.blog-post>p,.about-widget p,.popular-post span,.sidebar-list a{color:var(--ink-soft)!important}
+.blog-media{background:var(--stone-2)!important}
+.blog-post h2 a:hover,.post-read-more:hover,.sidebar-list a:hover,.popular-post:hover b{color:var(--accent-deep)!important}
+.post-read-more{color:var(--brand-ink)!important;border-bottom:1px solid transparent!important}
+.post-read-more:hover{border-bottom-color:var(--brand-line-2)!important}
+.blog-quote{background:var(--stone-2)!important;border-left:1px solid var(--brand-line)!important}
+.blog-quote-warm{background:var(--bone)!important}
+.blog-quote>i{color:var(--accent-deep)!important;opacity:.42}
+.blog-pagination a.active{border-color:var(--brand-line-2)!important;color:var(--accent-deep)!important}
+.sidebar-search input{background:transparent!important;color:var(--brand-ink)!important;border-color:var(--brand-line-2)!important}
+
+/* Contact */
+.contact-ref-title h1,.contact-ref-form-block h2,.contact-ref-office h3{color:var(--brand-ink)!important}
+.contact-ref-breadcrumb{color:var(--ink-soft)!important}
+.contact-ref-map{border:1px solid var(--brand-line)!important;background:var(--stone-2)!important}
+.contact-ref-form textarea,.contact-ref-form input{color:var(--brand-ink)!important;border-color:var(--brand-line-2)!important;background:transparent!important}
+.contact-ref-form textarea:focus,.contact-ref-form input:focus{border-color:var(--brand-ink)!important}
+.contact-ref-submit{color:var(--brand-ink)!important;background:transparent!important;padding-left:0!important;padding-right:0!important}
+.contact-ref-submit:hover{color:var(--accent-deep)!important}
+.contact-ref-office p{color:var(--ink-soft)!important}
+
+/* Dark utility bands on inner pages use Bone, not white. */
+.manifesto-band,.featured-location,.dark-service{background:var(--ground-deep)!important;color:var(--bone)!important;border-color:var(--line-on-ground)!important}
+.manifesto-band p,.featured-location h3,.dark-service h2{color:var(--bone)!important}
+.featured-location p,.dark-service p,.dark-service ul{color:var(--bone-70)!important}
+.featured-location .location-no,.dark-service .service-no{color:var(--accent-light)!important}
+
+/* ------------------------------
+   Unified footer
+   ------------------------------ */
+.site-footer.thorsten-footer.unified-footer,.about-thorsten .site-footer.thorsten-footer{
+  background:var(--stone-2)!important;
+  color:var(--brand-ink)!important;
+  border-color:var(--brand-line)!important;
+  font-family:var(--font-ui-en)!important;
+}
+.unified-footer .thorsten-footer-main,.thorsten-footer-main{border-color:var(--brand-line)!important}
+.thorsten-footer-logo,.thorsten-footer-lead>p,.thorsten-footer-col h4,.thorsten-footer-contact .footer-directions{color:var(--brand-ink)!important}
+.thorsten-footer-col a,.thorsten-footer-col p,.thorsten-footer-bottom{color:var(--ink-soft)!important}
+.thorsten-footer-col a:hover,.thorsten-footer-social a:hover,.thorsten-footer-contact .footer-directions:hover{color:var(--accent-deep)!important}
+.thorsten-newsletter>span{color:var(--ink-soft)!important}
+.thorsten-newsletter label{border-color:var(--brand-line-2)!important}
+.thorsten-newsletter input{color:var(--brand-ink)!important}
+.thorsten-newsletter button{color:var(--brand-ink)!important}
+.site-backtop,.about-backtop{background:var(--stone)!important;color:var(--brand-ink)!important;border:1px solid var(--brand-line-2)!important}
+.site-backtop:hover,.about-backtop:hover{background:var(--ground)!important;color:var(--bone)!important;border-color:var(--ground)!important}
+.thorsten-footer-social small{color:var(--ink-soft)!important}
+
+/* ------------------------------
+   Cursor / micro accents
+   ------------------------------ */
+.cursor-dot{background:var(--accent-deep)!important}
+.cursor-ring{border-color:var(--brand-line-2)!important}
+a:hover~.cursor-ring,button:hover~.cursor-ring{border-color:var(--accent-deep)!important}
+
+/* Remove the remaining legacy orange/blue accent from commonly visible UI. */
+.service-no,.location-no,.section-number,.ref-scroll-progress .current,.team-kicker{color:var(--accent-deep)!important}
+.progress-bar i,.scroll-progress b{background:var(--brand-ink)!important}
+.ref-scroll-progress i,.scroll-progress i{background:var(--brand-line-2)!important}
+
+/* Mobile keeps the same brand surfaces and preserves readable touch contrast. */
+@media(max-width:900px){
+  .site-header,body.is-ar .site-header{background:rgba(229,228,222,.985)!important}
+  .home-v3 .ref-over-caption{background:rgba(11,14,17,.90)!important}
+  .about-team-overlay{background:rgba(229,228,222,.975)!important}
+  .home-footer-bar{background:var(--stone)!important}
+}
+
+/* =========================================================
+   V26 — MOBILE HOME IS HORIZONTAL TOO
+   ---------------------------------------------------------
+   One motion model on every viewport:
+   vertical Lenis progress -> GSAP horizontal rail.
+   Phones additionally accept deliberate sideways swipes.
+   ========================================================= */
+@media (max-width:900px){
+  :root{--home-footer-h:42px}
+
+  html,body{max-width:100%!important;overflow-x:hidden!important}
+  body.home-page{
+    width:100%!important;
+    height:auto!important;
+    min-height:100dvh!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-x:none!important;
+    overscroll-behavior-y:none!important;
+    touch-action:pan-y pinch-zoom!important;
+  }
+
+  .home-v3 #horizontal-stage,
+  .home-v3 .ref-horizontal-stage{
+    position:relative!important;
+    inset:auto!important;
+    margin:0!important;
+    padding:0!important;
+    width:100%!important;
+    height:var(--home-stage-h)!important;
+    min-height:100dvh!important;
+    overflow:visible!important;
+    background:var(--stone)!important;
+  }
+
+  .home-v3 .ref-horizontal-viewport,
+  .home-v3 .horizontal-viewport{
+    position:sticky!important;
+    top:var(--header-h)!important;
+    left:0!important;
+    width:100%!important;
+    height:calc(100svh - var(--header-h) - var(--home-footer-h))!important;
+    height:calc(100dvh - var(--header-h) - var(--home-footer-h))!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+    touch-action:pan-y pinch-zoom!important;
+    background:var(--stone)!important;
+  }
+
+  .home-v3 .ref-track,
+  .home-v3 .horizontal-track,
+  body.is-ar.home-v3 .ref-track,
+  body.is-ar.home-v3 .horizontal-track{
+    position:absolute!important;
+    inset:0 auto auto 0!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    height:100%!important;
+    min-height:100%!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    flex-direction:row!important;
+    direction:ltr!important;
+    transform:translate3d(0,0,0);
+    will-change:transform!important;
+  }
+  body.is-ar.home-v3 .ref-track,
+  body.is-ar.home-v3 .horizontal-track{flex-direction:row-reverse!important}
+
+  .home-v3 .h-panel{
+    position:relative!important;
+    height:100%!important;
+    min-height:100%!important;
+    overflow:hidden!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+    flex:none!important;
+  }
+
+  /* Opening copy and hero are each a complete phone frame. */
+  .home-v3 .ref-intro-panel,
+  .home-v3 .ref-hero-panel{
+    width:100vw!important;
+    min-width:100vw!important;
+    height:100%!important;
+    min-height:100%!important;
+  }
+  .home-v3 .ref-intro-panel{
+    display:flex!important;
+    align-items:stretch!important;
+    background:var(--stone)!important;
+  }
+  .home-v3 .ref-intro-copy{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    padding:clamp(38px,7vh,62px) 26px 28px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+  }
+  .home-v3 .ref-intro-copy h1{
+    font-size:clamp(38px,11.4vw,52px)!important;
+    line-height:1.01!important;
+    max-width:94%!important;
+    margin:0!important;
+  }
+  .home-v3 .ref-intro-copy p{
+    max-width:92%!important;
+    margin:24px 0 0!important;
+    font-size:14px!important;
+    line-height:1.65!important;
+  }
+  .home-v3 .ref-cta{
+    margin:30px 0 0!important;
+    min-height:44px!important;
+    padding:0 22px!important;
+    flex:none!important;
+  }
+
+  .home-v3 .ref-hero-panel{background:var(--ground-soft)!important}
+  .home-v3 .ref-hero-image,
+  .home-v3 .ref-hero-image img{width:100%!important;height:100%!important}
+  .home-v3 .ref-hero-image img{object-fit:cover!important;object-position:center center!important}
+  .home-v3 .ref-over-caption{
+    left:22px!important;
+    right:22px!important;
+    bottom:22px!important;
+    max-width:calc(100% - 44px)!important;
+    padding:17px 18px!important;
+  }
+  .home-v3 .ref-over-caption strong{font-size:23px!important}
+
+  /* Every service is a compact horizontal slide, not a vertical page section. */
+  .home-v3 .ref-project-panel{
+    width:92vw!important;
+    min-width:92vw!important;
+    height:100%!important;
+    min-height:100%!important;
+    padding:14px 14px 12px!important;
+    background:var(--stone)!important;
+  }
+  .home-v3 .ref-project-card{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  .home-v3 .ref-card-image{
+    width:100%!important;
+    height:55%!important;
+    min-height:0!important;
+    max-height:none!important;
+    flex:0 0 55%!important;
+    overflow:hidden!important;
+  }
+  .home-v3 .ref-card-copy{
+    min-height:0!important;
+    flex:1 1 auto!important;
+    padding:17px 3px 2px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:flex-start!important;
+    overflow:hidden!important;
+  }
+  .home-v3 .ref-card-copy h2{
+    margin:0 0 8px!important;
+    font-size:clamp(24px,7.1vw,29px)!important;
+    line-height:1.08!important;
+  }
+  .home-v3 .ref-card-copy p{
+    margin:0!important;
+    font-size:12.3px!important;
+    line-height:1.58!important;
+    display:-webkit-box!important;
+    -webkit-box-orient:vertical!important;
+    -webkit-line-clamp:4!important;
+    overflow:hidden!important;
+  }
+
+  /* Contact ending occupies one full horizontal frame. */
+  .home-v3 .ref-closing-panel,
+  .home-v3 .ref-contact-panel{
+    width:100vw!important;
+    min-width:100vw!important;
+    height:100%!important;
+    min-height:100%!important;
+    display:flex!important;
+    background:var(--stone)!important;
+  }
+  .home-v3 .ref-contact-copy,
+  .home-v3 .ref-closing-copy{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    padding:clamp(44px,8vh,68px) 26px 28px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+  }
+  .home-v3 .ref-contact-copy h2{
+    margin:0 0 26px!important;
+    font-size:clamp(42px,12vw,53px)!important;
+    line-height:1!important;
+  }
+  .home-contact-details{font-size:14px!important;line-height:1.55!important;gap:8px!important}
+  .home-directions-link{margin-top:28px!important;font-size:14px!important}
+
+  .home-v3 .ref-scroll-progress{display:none!important}
+
+  /* Arabic remains a mirrored horizontal composition; only text itself is RTL. */
+  body.is-ar.home-v3 .ref-intro-copy,
+  body.is-ar.home-v3 .ref-card-copy,
+  body.is-ar.home-v3 .ref-contact-copy{
+    direction:rtl!important;
+    text-align:right!important;
+    align-items:flex-end!important;
+  }
+  body.is-ar.home-v3 .ref-intro-copy h1{
+    font-size:clamp(32px,9.6vw,43px)!important;
+    line-height:1.48!important;
+    max-width:100%!important;
+  }
+  body.is-ar.home-v3 .ref-intro-copy p{
+    font-size:13.5px!important;
+    line-height:1.9!important;
+    max-width:100%!important;
+  }
+  body.is-ar.home-v3 .ref-card-copy h2{
+    font-size:clamp(22px,6.4vw,27px)!important;
+    line-height:1.5!important;
+    margin-bottom:6px!important;
+  }
+  body.is-ar.home-v3 .ref-card-copy p{
+    font-size:12px!important;
+    line-height:1.82!important;
+    -webkit-line-clamp:4!important;
+  }
+  body.is-ar.home-v3 .ref-contact-copy h2{
+    font-size:clamp(36px,10.4vw,47px)!important;
+    line-height:1.35!important;
+  }
+
+  /* The home footer is part of the fixed horizontal frame, as on desktop. */
+  .home-footer-bar{
+    position:fixed!important;
+    z-index:66!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100%!important;
+    height:var(--home-footer-h)!important;
+    min-height:var(--home-footer-h)!important;
+    padding:0 14px!important;
+    gap:8px!important;
+    font-size:9px!important;
+    white-space:nowrap!important;
+    background:rgba(229,228,222,.985)!important;
+  }
+}
+
+@media (max-width:420px){
+  .home-v3 .ref-intro-copy{padding-left:21px!important;padding-right:21px!important}
+  .home-v3 .ref-intro-copy h1{font-size:clamp(35px,10.7vw,46px)!important}
+  .home-v3 .ref-project-panel{width:94vw!important;min-width:94vw!important;padding:12px!important}
+  .home-v3 .ref-card-image{height:53%!important;flex-basis:53%!important}
+  .home-v3 .ref-card-copy{padding-top:14px!important}
+  .home-v3 .ref-card-copy h2{font-size:23px!important}
+  .home-v3 .ref-card-copy p{font-size:11.7px!important;line-height:1.52!important}
+  body.is-ar.home-v3 .ref-intro-copy h1{font-size:31px!important;line-height:1.5!important}
+  body.is-ar.home-v3 .ref-card-copy h2{font-size:21px!important;line-height:1.5!important}
+  body.is-ar.home-v3 .ref-card-copy p{font-size:11.5px!important;line-height:1.75!important}
+  .home-v3 .ref-contact-copy,.home-v3 .ref-closing-copy{padding-left:21px!important;padding-right:21px!important}
+}
+
+/* =========================================================
+   V27 — ARABIC MIRROR POLISH / TEAM ICONS / RTL BLOG
+   ---------------------------------------------------------
+   1) Home photo caption is title-only, no dark plaque/kicker.
+   2) About Arabic is a true mirrored composition on desktop.
+   3) Team socials use Font Awesome icons.
+   4) Arabic blog mirrors the sidebar to the left.
+   ========================================================= */
+
+/* Home image caption: keep only the statement, like a clean editorial caption. */
+.home-v3 .ref-over-caption{
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  box-shadow:none!important;
+  max-width:min(430px,78%)!important;
+}
+.home-v3 .ref-over-caption>span{display:none!important}
+.home-v3 .ref-over-caption strong{
+  color:var(--bone)!important;
+  text-shadow:0 2px 16px rgba(11,14,17,.62)!important;
+}
+body.is-ar.home-v3 .ref-over-caption strong{
+  font-size:clamp(27px,2.25vw,35px)!important;
+  font-weight:400!important;
+}
+
+/* Team overlay: actual brand icons, not letter abbreviations. */
+.about-team-overlay .team-social-icons{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:18px!important;
+  direction:ltr!important;
+}
+.about-team-overlay .team-social-icons a{
+  width:27px!important;
+  height:27px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:1px solid var(--brand-line-2)!important;
+  border-radius:50%!important;
+  color:var(--brand-ink)!important;
+  font-size:11px!important;
+  line-height:1!important;
+  transition:background-color .22s ease,color .22s ease,border-color .22s ease,transform .22s ease!important;
+}
+.about-team-overlay .team-social-icons a:hover{
+  background:var(--accent-deep)!important;
+  border-color:var(--accent-deep)!important;
+  color:var(--bone)!important;
+  transform:translateY(-2px)!important;
+}
+body.is-ar.about-thorsten .about-team-overlay .team-social-icons{direction:ltr!important}
+
+/* ---------- Arabic About: true mirror on desktop ---------- */
+@media(min-width:901px){
+  body.is-ar.about-thorsten .about-concepts-top{
+    direction:ltr!important;
+    grid-template-columns:minmax(0,54%) minmax(0,46%)!important;
+  }
+  body.is-ar.about-thorsten .about-concepts-copy{
+    grid-column:2!important;
+    grid-row:1!important;
+    justify-self:end!important;
+    max-width:520px!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-progress-list{
+    grid-column:1!important;
+    grid-row:1!important;
+    width:100%!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-progress-head{
+    direction:rtl!important;
+    flex-direction:row!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-progress-head b{
+    direction:ltr!important;
+    unicode-bidi:isolate!important;
+  }
+  body.is-ar.about-thorsten .about-feature-grid{
+    direction:rtl!important;
+  }
+  body.is-ar.about-thorsten .about-feature{
+    direction:rtl!important;
+    grid-template-columns:34px minmax(0,1fr)!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-feature>.ui-icon{
+    grid-column:1!important;
+    grid-row:1!important;
+    justify-self:start!important;
+  }
+  body.is-ar.about-thorsten .about-feature>div{
+    grid-column:2!important;
+    grid-row:1!important;
+  }
+
+  /* Methodology: copy on the right, numbered capabilities on the left. */
+  body.is-ar.about-thorsten .about-services-section{
+    direction:ltr!important;
+    grid-template-columns:minmax(0,56%) minmax(0,44%)!important;
+  }
+  body.is-ar.about-thorsten .about-services-intro{
+    grid-column:2!important;
+    grid-row:1!important;
+    justify-self:end!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-services-grid{
+    grid-column:1!important;
+    grid-row:1!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-service-item{
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-service-item>span{
+    direction:ltr!important;
+    text-align:right!important;
+    unicode-bidi:isolate!important;
+  }
+}
+
+/* On smaller screens, Arabic remains RTL without forcing desktop column swaps. */
+@media(max-width:900px){
+  body.is-ar.about-thorsten .about-concepts-top,
+  body.is-ar.about-thorsten .about-services-section{
+    direction:rtl!important;
+  }
+  body.is-ar.about-thorsten .about-concepts-copy,
+  body.is-ar.about-thorsten .about-progress-list,
+  body.is-ar.about-thorsten .about-services-intro,
+  body.is-ar.about-thorsten .about-service-item{
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.about-thorsten .about-progress-head{
+    direction:rtl!important;
+    flex-direction:row!important;
+  }
+  body.is-ar.about-thorsten .about-feature-grid{direction:rtl!important}
+  body.is-ar.about-thorsten .about-feature{
+    direction:rtl!important;
+    text-align:right!important;
+  }
+}
+
+/* ---------- Arabic blog: mirror the Thorsten right-sidebar layout ---------- */
+@media(min-width:901px){
+  body.is-ar.blog-page .blog-shell{
+    direction:ltr!important;
+    grid-template-columns:minmax(235px,.82fr) minmax(0,2.7fr)!important;
+  }
+  body.is-ar.blog-page .blog-sidebar{
+    grid-column:1!important;
+    grid-row:1!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+  body.is-ar.blog-page .blog-list{
+    grid-column:2!important;
+    grid-row:1!important;
+    direction:rtl!important;
+    text-align:right!important;
+  }
+}
+@media(min-width:901px) and (max-width:1100px){
+  body.is-ar.blog-page .blog-shell{
+    grid-template-columns:minmax(220px,.78fr) minmax(0,2.25fr)!important;
+  }
+}
+body.is-ar.blog-page .post-meta{
+  direction:rtl!important;
+  justify-content:flex-start!important;
+}
+body.is-ar.blog-page .post-read-more{
+  direction:rtl!important;
+}
+body.is-ar.blog-page .post-read-more .ui-icon,
+body.is-ar.blog-page .blog-pagination .icon-arrow-right{
+  transform:rotate(180deg)!important;
+}
+body.is-ar.blog-page .blog-pagination{
+  direction:rtl!important;
+  justify-content:flex-start!important;
+}
+body.is-ar.blog-page .sidebar-search label{direction:rtl!important}
+body.is-ar.blog-page .sidebar-search input{text-align:right!important;direction:rtl!important}
+
+/* =========================================================
+   V28 — MOBILE HORIZONTAL HOME FINAL FIX
+   ---------------------------------------------------------
+   Native horizontal scrolling on phones for the home page.
+   This keeps the first screen, hero, service cards and contact
+   as real sideways slides with snap behavior.
+   ========================================================= */
+@media (max-width:900px){
+  body.home-page.home-mobile-native{
+    height:100svh!important;
+    height:100dvh!important;
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+
+  body.home-page.home-mobile-native .site-shell.home-shell{
+    display:flex!important;
+    flex-direction:column!important;
+    min-height:100svh!important;
+    min-height:100dvh!important;
+    height:100svh!important;
+    height:100dvh!important;
+  }
+
+  body.home-page.home-mobile-native #horizontal-stage,
+  body.home-page.home-mobile-native .ref-horizontal-stage{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    height:calc(100svh - var(--header-h))!important;
+    height:calc(100dvh - var(--header-h))!important;
+  }
+
+  body.home-page.home-mobile-native .horizontal-viewport,
+  body.home-page.home-mobile-native .ref-horizontal-viewport{
+    position:relative!important;
+    top:0!important;
+    left:0!important;
+    width:100%!important;
+    height:calc(100svh - var(--header-h) - var(--home-footer-h))!important;
+    height:calc(100dvh - var(--header-h) - var(--home-footer-h))!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-behavior:smooth!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-x:contain!important;
+    overscroll-behavior-y:none!important;
+    touch-action:pan-x pinch-zoom!important;
+    scrollbar-width:none!important;
+  }
+  body.home-page.home-mobile-native .horizontal-viewport::-webkit-scrollbar,
+  body.home-page.home-mobile-native .ref-horizontal-viewport::-webkit-scrollbar{display:none!important}
+
+  body.home-page.home-mobile-native .horizontal-track,
+  body.home-page.home-mobile-native .ref-track{
+    position:relative!important;
+    top:0!important;
+    left:0!important;
+    right:auto!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    height:100%!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    flex-direction:row!important;
+    transform:none!important;
+    will-change:auto!important;
+  }
+
+  body.home-page.home-mobile-native .h-panel{
+    scroll-snap-align:start!important;
+    scroll-snap-stop:always!important;
+  }
+
+  /* Same first viewport composition as desktop: copy + image together. */
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:44vw!important;
+    min-width:44vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:56vw!important;
+    min-width:56vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-contact-panel,
+  body.home-page.home-mobile-native .ref-closing-panel{
+    width:88vw!important;
+    min-width:88vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-project-panel{
+    width:88vw!important;
+    min-width:88vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-intro-copy{
+    justify-content:center!important;
+  }
+
+  body.home-page.home-mobile-native .ref-card-copy,
+  body.home-page.home-mobile-native .ref-contact-copy{
+    overflow:hidden!important;
+  }
+}
+
+@media (max-width:420px){
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:46vw!important;
+    min-width:46vw!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:54vw!important;
+    min-width:54vw!important;
+  }
+  body.home-page.home-mobile-native .ref-project-panel,
+  body.home-page.home-mobile-native .ref-contact-panel,
+  body.home-page.home-mobile-native .ref-closing-panel{
+    width:92vw!important;
+    min-width:92vw!important;
+  }
+}
+
+/* =========================================================
+   V29 — MOBILE HORIZONTAL INPUT + BLOG SURFACE CLEANUP
+   ========================================================= */
+@media (max-width:900px){
+  body.home-page.home-mobile-native .horizontal-viewport,
+  body.home-page.home-mobile-native .ref-horizontal-viewport{
+    cursor:grab!important;
+  }
+  body.home-page.home-mobile-native .horizontal-viewport:active,
+  body.home-page.home-mobile-native .ref-horizontal-viewport:active{
+    cursor:grabbing!important;
+  }
+
+  /* Keep mobile home completely inside the screen; no vertical ghost strip. */
+  body.home-page.home-mobile-native,
+  body.home-page.home-mobile-native .site-shell.home-shell,
+  body.home-page.home-mobile-native #horizontal-stage,
+  body.home-page.home-mobile-native .ref-horizontal-stage{
+    max-height:100dvh!important;
+  }
+}
+
+/* Blog title must read as one continuous stone canvas, not a white block. */
+body.blog-page,
+body.blog-page .blog-main,
+body.blog-page .blog-title-band,
+body.blog-page .blog-shell{
+  background:var(--stone)!important;
+}
+body.blog-page .blog-title-band{
+  min-height:140px!important;
+  padding:34px clamp(42px,6vw,82px) 26px!important;
+  border-bottom:1px solid var(--brand-line)!important;
+  align-items:flex-end!important;
+}
+@media(max-width:900px){
+  body.blog-page .blog-title-band{
+    min-height:118px!important;
+    padding:28px 24px 22px!important;
+  }
+}
+@media(max-width:620px){
+  body.blog-page .blog-title-band{
+    min-height:104px!important;
+    padding:24px 18px 18px!important;
+  }
+  body.blog-page .blog-title-band h1{font-size:30px!important}
+}
+
+/* =========================================================
+   V30 — MOBILE HOME = DESKTOP HORIZONTAL ARCHITECTURE
+   ---------------------------------------------------------
+   The phone version now starts and scrolls exactly like desktop:
+   intro + hero share the opening viewport, and vertical Lenis
+   progress drives the horizontal GSAP rail.
+   ========================================================= */
+@media (max-width:900px){
+  body.home-page{
+    height:auto!important;
+    min-height:100dvh!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:auto!important;
+    touch-action:pan-y pinch-zoom!important;
+  }
+
+  body.home-page .site-shell.home-shell{
+    height:auto!important;
+    min-height:0!important;
+    display:block!important;
+  }
+
+  .home-v3 #horizontal-stage,
+  .home-v3 .ref-horizontal-stage{
+    position:relative!important;
+    width:100%!important;
+    height:var(--home-stage-h)!important;
+    min-height:100dvh!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  .home-v3 .horizontal-viewport,
+  .home-v3 .ref-horizontal-viewport{
+    position:sticky!important;
+    top:var(--header-h)!important;
+    width:100%!important;
+    height:calc(100svh - var(--header-h) - var(--home-footer-h))!important;
+    height:calc(100dvh - var(--header-h) - var(--home-footer-h))!important;
+    overflow:hidden!important;
+    touch-action:pan-y pinch-zoom!important;
+    scroll-snap-type:none!important;
+  }
+
+  .home-v3 .horizontal-track,
+  .home-v3 .ref-track,
+  body.is-ar.home-v3 .horizontal-track,
+  body.is-ar.home-v3 .ref-track{
+    position:absolute!important;
+    inset:0 auto auto 0!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    height:100%!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    transform:translate3d(0,0,0);
+    will-change:transform!important;
+  }
+
+  /* Same opening composition as desktop: 44% copy + 56% image. */
+  .home-v3 .ref-intro-panel{
+    width:44vw!important;
+    min-width:44vw!important;
+  }
+  .home-v3 .ref-hero-panel{
+    width:56vw!important;
+    min-width:56vw!important;
+  }
+
+  .home-v3 .ref-intro-copy{
+    padding:26px 16px 22px!important;
+    justify-content:center!important;
+  }
+  .home-v3 .ref-intro-copy h1{
+    font-size:clamp(21px,7vw,31px)!important;
+    line-height:1.04!important;
+    max-width:100%!important;
+  }
+  .home-v3 .ref-intro-copy p{
+    margin-top:15px!important;
+    max-width:100%!important;
+    font-size:10.5px!important;
+    line-height:1.55!important;
+  }
+  .home-v3 .ref-cta{
+    margin-top:19px!important;
+    min-height:38px!important;
+    padding:0 14px!important;
+    font-size:10px!important;
+  }
+
+  body.is-ar.home-v3 .ref-intro-copy h1{
+    font-size:clamp(19px,6vw,27px)!important;
+    line-height:1.42!important;
+  }
+  body.is-ar.home-v3 .ref-intro-copy p{
+    font-size:10.2px!important;
+    line-height:1.75!important;
+  }
+
+  .home-v3 .ref-hero-image img{
+    object-position:center center!important;
+  }
+
+  /* Project panels keep a readable width while staying in the same rail. */
+  .home-v3 .ref-project-panel{
+    width:86vw!important;
+    min-width:86vw!important;
+  }
+
+  .home-v3 .ref-contact-panel,
+  .home-v3 .ref-closing-panel{
+    width:88vw!important;
+    min-width:88vw!important;
+  }
+}
+
+@media (max-width:420px){
+  .home-v3 .ref-intro-panel{width:46vw!important;min-width:46vw!important}
+  .home-v3 .ref-hero-panel{width:54vw!important;min-width:54vw!important}
+  .home-v3 .ref-intro-copy{padding:22px 12px 18px!important}
+  .home-v3 .ref-intro-copy h1{font-size:20px!important}
+  .home-v3 .ref-intro-copy p{font-size:9.6px!important;line-height:1.5!important}
+  .home-v3 .ref-cta{margin-top:15px!important;min-height:36px!important;padding:0 12px!important}
+  body.is-ar.home-v3 .ref-intro-copy h1{font-size:18.5px!important;line-height:1.45!important}
+  body.is-ar.home-v3 .ref-intro-copy p{font-size:9.4px!important;line-height:1.7!important}
+  .home-v3 .ref-project-panel{width:90vw!important;min-width:90vw!important}
+}

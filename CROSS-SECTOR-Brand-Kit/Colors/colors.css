@@ -1,0 +1,46 @@
+/* Four fixed values plus stone. Green is an accent at ~3% of the surface, never a scheme. */
+:root{
+  /* base */
+  --ground:#0B0E11;        /* the default ground. blue-leaning ink, not black */
+  --ground-deep:#0A0D10;   /* dark section band */
+  --ground-soft:#0C0F12;   /* photographic dark panel */
+  --ink:#14171C;           /* pre-press wordmark ink, dark type on stone */
+  --bone:#E9E8E2;          /* all type on the ground, and the wordmark */
+  --stone:#E5E4DE;         /* light section ground */
+  --stone-2:#DCDAD2;
+  --accent:#1F5C46;        /* green deep — light grounds only */
+  --accent-lt:#8FCBA9;     /* green light — dark grounds. the one used most */
+  --accent-lt-web:#7BB396; /* the site's hover/nav variant of the light green */
+  --accent-wash:rgba(31,92,70,.08);
+  --ink-soft:#5C5F58;      /* secondary prose on stone */
+
+  /* hairlines — 1px only, never thicker, never coloured */
+  --line:rgba(20,23,28,.14);
+  --line-2:rgba(20,23,28,.28);
+  --line-on-ground:rgba(233,232,226,.18);
+  --line-on-ground-2:rgba(233,232,226,.28);
+
+  /* type on dark */
+  --bone-80:rgba(233,232,226,.82);
+  --bone-70:rgba(233,232,226,.72);
+  --bone-60:rgba(233,232,226,.62);
+  --bone-50:rgba(233,232,226,.5);
+
+  /* semantic aliases */
+  --surface-page:var(--stone);
+  --surface-inverse:var(--ground);
+  --surface-panel:var(--ground-soft);
+  --text-body:var(--ink);
+  --text-muted:var(--ink-soft);
+  --text-on-inverse:var(--bone);
+  --text-muted-on-inverse:var(--bone-70);
+  --figure-on-light:var(--accent);
+  --figure-on-dark:var(--accent-lt);
+  --rule:1px solid var(--line); /* @kind other */
+  --rule-on-ground:1px solid var(--line-on-ground); /* @kind other */
+
+  /* scrim — type never sits on an unmodified photograph */
+  --scrim-behind-type:rgba(11,14,17,.92);   /* 88–96% */
+  --scrim-over-subject:rgba(11,14,17,.24);  /* 14–35% */
+  --scrim-directional:linear-gradient(90deg,rgba(9,11,13,.90) 0,rgba(9,11,13,.62) 46%,rgba(9,11,13,.40) 100%); /* @kind other */
+}

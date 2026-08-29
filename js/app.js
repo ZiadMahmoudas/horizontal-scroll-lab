@@ -73,7 +73,7 @@
   if (typeof window.Lenis !== 'undefined') {
     lenis = new Lenis(isHome ? {
       orientation: 'vertical',
-      gestureOrientation: 'both',
+      gestureOrientation: matchMedia('(max-width: 900px)').matches ? 'vertical' : 'both',
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.05,
@@ -222,14 +222,12 @@
   /* =========================================================
      HOME — responsive motion architecture (V8)
      ---------------------------------------------------------
-     Desktop (>900px): Lenis vertical progress drives the GSAP
-     horizontal rail. Arabic runs in the opposite visual direction.
-
-     Mobile/tablet (<=900px): no pinned/fake horizontal document.
-     The same panels become a normal vertical editorial page and
-     Lenis owns a standard vertical scroll. This avoids the sticky +
-     dynamic mobile viewport conflict that could leave touch scrolling
-     unresponsive on Chrome/Safari mobile.
+     Every viewport uses the same horizontal story.
+     Lenis owns vertical page progress and GSAP maps that progress to
+     the horizontal rail. On touch devices we additionally translate
+     deliberate horizontal swipes into the same Lenis progress, so the
+     home feels genuinely horizontal without creating two competing
+     scroll owners. Arabic mirrors the visual travel direction.
   ========================================================= */
   function initHomeHorizontal() {
     if (!isHome) return;
@@ -256,7 +254,7 @@
       const raw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w'));
       return Number.isFinite(raw) ? raw : 0;
     };
-    const homeFooterHeight = () => mobileMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0);
+    const homeFooterHeight = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0);
     const viewportWidth = () => Math.max(1, innerWidth - railWidth());
     const maxTravel = () => Math.max(0, track.scrollWidth - viewportWidth());
 
@@ -265,19 +263,10 @@
       const hero = panels[1];
       if (!intro) return;
 
-      if (mobileMQ.matches) {
-        // Inline sizes from desktop must not survive orientation/resize.
-        intro.style.removeProperty('width');
-        intro.style.removeProperty('min-width');
-        if (hero) {
-          hero.style.removeProperty('width');
-          hero.style.removeProperty('min-width');
-        }
-        return;
-      }
-
-      // Desktop opening screen is exactly one usable viewport.
       const width = viewportWidth();
+
+      // V30: mobile starts exactly like desktop — intro copy + hero image
+      // share the first viewport instead of becoming two full-screen slides.
       const introWidth = Math.round(width * 0.44);
       const heroWidth = width - introWidth;
       intro.style.width = `${introWidth}px`;
@@ -289,10 +278,6 @@
     }
 
     function setStageHeight() {
-      if (mobileMQ.matches) {
-        stage.style.removeProperty('--home-stage-h');
-        return 0;
-      }
       const travel = maxTravel();
       // The sticky horizontal viewport ends above the fixed Thorsten-style
       // footer strip, so the parent height must reserve that exact space too.
@@ -339,14 +324,6 @@
     }
 
     function updateVisiblePanels() {
-      if (mobileMQ.matches) {
-        const vh = innerHeight || document.documentElement.clientHeight;
-        panels.forEach(panel => {
-          const rect = panel.getBoundingClientRect();
-          if (rect.bottom > 30 && rect.top < vh - 30) revealPanel(panel);
-        });
-        return;
-      }
       const left = viewport.getBoundingClientRect().left;
       const right = viewport.getBoundingClientRect().right;
       panels.forEach(panel => {
@@ -356,6 +333,8 @@
     }
 
     function updateParallax() {
+      // Parallax is intentionally disabled on touch-sized viewports to keep
+      // 60fps while the rail itself still uses GSAP transforms.
       if (!hasGSAP || mobileMQ.matches) return;
       const viewportRect = viewport.getBoundingClientRect();
       const vw = viewportRect.width || 1;
@@ -373,7 +352,7 @@
     function updateProgress(progress = currentProgress) {
       currentProgress = clamp(progress, 0, 1);
       if (progressFill) progressFill.style.transform = `scaleX(${currentProgress})`;
-      if (!mobileMQ.matches && progressCurrent && panels.length) {
+      if (progressCurrent && panels.length) {
         const logicalCenter = currentProgress * maxTravel() + viewportWidth() * 0.5;
         let cursor = 0;
         let active = panels.length - 1;
@@ -391,21 +370,6 @@
       if (horizontalTween) { horizontalTween.kill(); horizontalTween = null; }
       if (horizontalST) { horizontalST.kill(); horizontalST = null; }
       if (hasGSAP) gsap.set(track, { clearProps: 'x,transform' });
-    }
-
-    function buildMobile() {
-      killHorizontal();
-      setOpeningViewSize();
-      setStageHeight();
-      track.style.removeProperty('flex-direction');
-      currentProgress = 0;
-      if (progressFill) progressFill.style.transform = 'scaleX(0)';
-      // Make any desktop parallax translate disappear on mobile.
-      if (hasGSAP) track.querySelectorAll('.image-wrap img').forEach(img => gsap.set(img, { clearProps: 'x' }));
-      requestAnimationFrame(() => {
-        if (hasScrollTrigger) ScrollTrigger.refresh(true);
-        updateVisiblePanels();
-      });
     }
 
     function buildDesktop({ keepProgress = true } = {}) {
@@ -463,26 +427,57 @@
       });
     }
 
+    function buildMobile({ keepProgress = true } = {}) {
+      const previousProgress = keepProgress ? currentProgress : 0;
+      killHorizontal();
+      body.classList.add('home-mobile-native');
+      const ar = body.classList.contains('is-ar');
+      track.style.flexDirection = ar ? 'row-reverse' : 'row';
+      setOpeningViewSize();
+      stage.style.setProperty('--home-stage-h', `${Math.max(1, innerHeight - headerHeight())}px`);
+
+      const syncMobilePosition = () => {
+        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        const left = ar
+          ? clamp((1 - previousProgress) * max, 0, max)
+          : clamp(previousProgress * max, 0, max);
+        viewport.scrollLeft = left;
+        updateProgress(previousProgress);
+      };
+
+      requestAnimationFrame(() => {
+        syncMobilePosition();
+        requestAnimationFrame(syncMobilePosition);
+      });
+
+      // Keep Lenis alive; the viewport itself owns scrolling on phone.
+      lenis?.start();
+    }
+
     function buildHome({ keepProgress = true } = {}) {
-      if (mobileMQ.matches) buildMobile();
-      else buildDesktop({ keepProgress });
+      // V31: phones must behave horizontally as well. We keep the same
+      // opening composition as desktop, but on touch-sized viewports we
+      // use the proven native horizontal owner so vertical finger/wheel
+      // gestures are bridged into sideways movement with no vertical fall-through.
+      if (mobileMQ.matches) {
+        buildMobile({ keepProgress });
+        return;
+      }
+      body.classList.remove('home-mobile-native');
+      lenis?.start();
+      buildDesktop({ keepProgress });
     }
 
     function scrollToPanel(target, immediate = false) {
       if (!target) return;
 
-      if (mobileMQ.matches) {
-        if (lenis) {
-          lenis.scrollTo(target, {
-            offset: -headerHeight(),
-            immediate,
-            duration: immediate ? 0 : 1.0,
-            force: true
-          });
-        } else {
-          const y = target.getBoundingClientRect().top + scrollY - headerHeight();
-          scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
-        }
+      if (mobileMQ.matches && body.classList.contains('home-mobile-native')) {
+        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        const ar = body.classList.contains('is-ar');
+        const left = clamp(target.offsetLeft, 0, max);
+        viewport.scrollTo({ left, behavior: immediate ? 'auto' : 'smooth' });
+        const logical = max ? (ar ? 1 - left / max : left / max) : 0;
+        updateProgress(logical);
         return;
       }
 
@@ -508,8 +503,26 @@
     });
 
     viewport.addEventListener('keydown', event => {
-      if (mobileMQ.matches) return;
       const step = Math.max(260, viewportWidth() * 0.72);
+      if (mobileMQ.matches && body.classList.contains('home-mobile-native')) {
+        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        const ar = body.classList.contains('is-ar');
+        const forward = ar ? -step : step;
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          viewport.scrollBy({ left: forward, behavior: 'smooth' });
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          viewport.scrollBy({ left: -forward, behavior: 'smooth' });
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          viewport.scrollTo({ left: ar ? max : 0, behavior: 'smooth' });
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          viewport.scrollTo({ left: ar ? 0 : max, behavior: 'smooth' });
+        }
+        return;
+      }
       const ar = body.classList.contains('is-ar');
       const sign = ar ? -1 : 1;
       const y = scrollY + step * sign;
@@ -528,10 +541,18 @@
       }
     });
 
+    viewport.addEventListener('scroll', () => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
+      const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const ar = body.classList.contains('is-ar');
+      const logical = max ? (ar ? 1 - viewport.scrollLeft / max : viewport.scrollLeft / max) : 0;
+      updateProgress(logical);
+    }, { passive: true });
+
     panels[0] && (panels[0].dataset.revealed = '1');
     buildHome({ keepProgress: false });
 
-    window.__crossSectorHomeRefresh = () => buildHome({ keepProgress: !mobileMQ.matches });
+    window.__crossSectorHomeRefresh = () => buildHome({ keepProgress: true });
 
     const ready = () => {
       buildHome({ keepProgress: false });
@@ -541,25 +562,131 @@
       }
     };
 
-    if (document.fonts?.ready) document.fonts.ready.then(ready);
+    if (document.fonts?.ready) document.fonts.ready.then(() => {
+      ready();
+      addEventListener('load', () => buildHome({ keepProgress: true }), { once: true });
+    });
     else addEventListener('load', ready, { once: true });
 
     mobileMQ.addEventListener?.('change', () => {
-      // Return to the top when switching architectures so no stale desktop
-      // vertical progress leaves mobile halfway through an invisible stage.
-      if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
-      else scrollTo(0, 0);
-      setTimeout(() => buildHome({ keepProgress: false }), 40);
+      setTimeout(() => buildHome({ keepProgress: true }), 60);
     });
 
+    // Mobile address bars emit many height-only resize events. Rebuild the
+    // horizontal geometry only when width/orientation meaningfully changes.
+    let lastViewportWidth = innerWidth;
     addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => buildHome({ keepProgress: true }), 180);
+      resizeTimer = setTimeout(() => {
+        const widthChanged = Math.abs(innerWidth - lastViewportWidth) > 8;
+        if (!mobileMQ.matches || widthChanged) {
+          lastViewportWidth = innerWidth;
+          buildHome({ keepProgress: true });
+        }
+      }, 180);
     });
 
-    // Mobile vertical reveals follow real vertical scrolling.
-    addEventListener('scroll', () => {
-      if (mobileMQ.matches) updateVisiblePanels();
+    // V29 mobile bridge: responsive browser wheel/trackpad and vertical finger
+    // gestures advance the exact same native horizontal viewport. Horizontal
+    // swipes remain native. Arabic intentionally travels in the opposite direction.
+    let mobileWheelTimer = 0;
+    const nearestMobileSnap = () => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
+      const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const current = viewport.scrollLeft;
+      let nearest = current;
+      let best = Infinity;
+      panels.forEach(panel => {
+        const candidate = clamp(panel.offsetLeft, 0, max);
+        const d = Math.abs(candidate - current);
+        if (d < best) { best = d; nearest = candidate; }
+      });
+      viewport.scrollTo({ left: nearest, behavior: 'smooth' });
+    };
+
+    viewport.addEventListener('wheel', event => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
+      if (Math.abs(event.deltaX) < 0.01 && Math.abs(event.deltaY) < 0.01) return;
+      event.preventDefault();
+      const ar = body.classList.contains('is-ar');
+      const dominant = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      viewport.scrollLeft += dominant * (ar ? -1 : 1);
+      clearTimeout(mobileWheelTimer);
+      mobileWheelTimer = setTimeout(nearestMobileSnap, 125);
+    }, { passive: false });
+
+    let nativeTouchStartX = 0;
+    let nativeTouchStartY = 0;
+    let nativeTouchStartLeft = 0;
+    let nativeVerticalBridge = false;
+    viewport.addEventListener('touchstart', event => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
+      const t = event.touches[0];
+      nativeTouchStartX = t.clientX;
+      nativeTouchStartY = t.clientY;
+      nativeTouchStartLeft = viewport.scrollLeft;
+      nativeVerticalBridge = false;
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', event => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
+      const t = event.touches[0];
+      const dx = t.clientX - nativeTouchStartX;
+      const dy = t.clientY - nativeTouchStartY;
+      if (!nativeVerticalBridge && Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx) * 1.08) nativeVerticalBridge = true;
+      if (!nativeVerticalBridge) return; // horizontal gesture remains native
+      event.preventDefault();
+      const ar = body.classList.contains('is-ar');
+      const forward = -dy; // swipe up advances in English
+      viewport.scrollLeft = nativeTouchStartLeft + forward * (ar ? -1 : 1);
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', () => {
+      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || !nativeVerticalBridge) return;
+      nativeVerticalBridge = false;
+      nearestMobileSnap();
+    }, { passive: true });
+
+    // Native-feeling sideways swipe bridge for phones/tablets. Vertical swipe
+    // still works through Lenis, while a clear horizontal gesture advances the
+    // same timeline. One scroll owner means no jump or double movement.
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartScroll = 0;
+    let touchHorizontal = false;
+    let touchLastTarget = 0;
+    viewport.addEventListener('touchstart', event => {
+      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
+      const t = event.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touchStartScroll = window.scrollY || document.documentElement.scrollTop || 0;
+      touchLastTarget = touchStartScroll;
+      touchHorizontal = false;
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', event => {
+      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
+      const t = event.touches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if (!touchHorizontal && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.12) touchHorizontal = true;
+      if (!touchHorizontal) return;
+      event.preventDefault();
+      const ar = body.classList.contains('is-ar');
+      const signedDelta = ar ? dx : -dx;
+      const st = horizontalTween?.scrollTrigger;
+      const min = st?.start || 0;
+      const max = st?.end || maxTravel();
+      touchLastTarget = clamp(touchStartScroll + signedDelta * 1.18, min, max);
+      if (lenis) lenis.scrollTo(touchLastTarget, { immediate: true, force: true });
+      else window.scrollTo(0, touchLastTarget);
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', () => {
+      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || !touchHorizontal) return;
+      if (lenis) lenis.scrollTo(touchLastTarget, { duration: .42, force: true });
+      touchHorizontal = false;
     }, { passive: true });
   }
 
