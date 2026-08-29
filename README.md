@@ -1,35 +1,17 @@
-# Horizontal Scroll Lab
+# Cross Sector — Thorsten V7
 
-A static HTML/CSS/JS portfolio experiment inspired by horizontal editorial layouts.
+This build keeps the V6 About/Team work and changes only the Home scrolling architecture.
 
-## Stack
-- Lenis for smooth wheel/touch scrolling
-- GSAP + ScrollTrigger for the vertical-to-horizontal scroll mapping, parallax and reveals
-- Three.js for the short paper-drop intro
-- Font Awesome for icons
-- Google Fonts: DM Sans + Libre Caslon Display
+## Home
+- Lenis owns the vertical wheel/trackpad input.
+- GSAP + ScrollTrigger map that smooth vertical progress to the horizontal rail.
+- EN: scroll down reveals projects toward the right.
+- AR: the rail is mirrored and scroll down reveals projects toward the left.
+- The first desktop view is exactly one screen: intro copy + hero image, with no third card peeking in.
+- Hash links such as `#research` and `#articles` scroll to the matching horizontal panel.
+
+## Language
+Arabic text stays RTL, and Home also mirrors the project rail itself. Switching languages preserves the logical horizontal position.
 
 ## Run
-Open `index.html` directly, or preferably use a local server:
-
-```bash
-python -m http.server 8080
-```
-
-Then open `http://localhost:8080`.
-
-## Main files
-- `index.html`
-- `css/style.css`
-- `js/app.js`
-- `assets/images/*`
-
-## Customizing
-1. Replace images in `assets/images/`.
-2. Edit panel copy inside `index.html`.
-3. Tweak colors and fixed dimensions in `:root` at the top of `css/style.css`.
-4. Horizontal motion is controlled in `buildHorizontalScroll()` inside `js/app.js`.
-5. The paper-like project reveal is the `rotationX + curtain scaleY` sequence.
-
-## Notes
-Libraries load from CDN, while project images are bundled locally.
+Open with a local server (for example VS Code Live Server), because Lenis, GSAP, Three.js, Font Awesome and Google Fonts are loaded from CDNs.

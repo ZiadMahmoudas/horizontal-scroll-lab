@@ -1,176 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f7f4ee" />
-  <title>Horizontal Projects — GSAP + Lenis + Three.js</title>
-  <meta name="description" content="A horizontal scrolling portfolio experiment powered by Lenis, GSAP and a subtle Three.js paper intro." />
-
+  <meta name="theme-color" content="#f8f6f2" />
+  <title>Cross Sector — Integrated Expertise</title>
+  <meta name="description" content="Cross Sector — Saudi capability, global benchmarks. Research, strategy, communications, marketing, experiences and innovation." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Display&family=Noto+Kufi+Arabic:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="home-page is-en home-v3">
   <div class="noise" aria-hidden="true"></div>
   <div id="three-paper" aria-hidden="true"></div>
 
-  <div class="page-shell">
-    <header class="topbar">
-      <a class="brand" href="#home" aria-label="Home">T</a>
-      <nav class="topnav" aria-label="Primary navigation">
-        <a class="active" href="#home">Home</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#journal">Journal</a>
-        <a href="#contact">Contact</a>
+  <div class="site-shell home-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Cross Sector home"><span>CS</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#home"><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></a>
+        <a href="our-ecosystem.html"><span class="lang-en">Our Ecosystem</span><span class="lang-ar">منظومتنا</span></a>
+        <a href="#research"><span class="lang-en">Research &amp; Studies</span><span class="lang-ar">الأبحاث والتقارير</span></a>
+        <a href="#articles"><span class="lang-en">Articles &amp; Insight</span><span class="lang-ar">المقالات والرؤى</span></a>
+        <a href="contact.html"><span class="lang-en">Contact Us</span><span class="lang-ar">تواصل معنا</span></a>
       </nav>
-      <button class="menu-btn" type="button" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
+      <div class="header-actions">
+        <button class="language-toggle" type="button" aria-label="Switch language"><span class="current-lang">AR</span></button>
+        <button class="menu-trigger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
     </header>
 
-    <aside class="side-rail">
-      <div class="rail-social">
-        <a href="#" aria-label="X / Twitter">Tw</a>
-        <a href="#" aria-label="LinkedIn">In</a>
-        <a href="#" aria-label="Facebook">Fb</a>
-      </div>
-      <span class="rail-copy">FOLLOW US</span>
+    <aside class="side-rail" aria-label="Social links">
+      <div class="rail-social"><a href="#" aria-label="LinkedIn">In</a><a href="#" aria-label="Instagram">Ig</a></div>
+      <span class="rail-label"><span class="lang-en">FOLLOW US</span><span class="lang-ar">تابعنا</span></span>
     </aside>
 
-    <main id="scroll-stage">
-      <section class="h-scroll" id="home">
-        <div class="track" id="track">
-          <section class="panel intro-panel" data-title="Intro">
-            <div class="intro-inner">
-              <div class="eyebrow"><span>01</span> Creative Studio</div>
-              <h1>We Enjoy<br>Building<br>Experiences</h1>
-              <p>Digital direction, identity and interfaces built as one continuous story — crafted to move, react and feel alive.</p>
-              <a class="cta" href="#projects">View projects <i class="fa-solid fa-arrow-right-long"></i></a>
+    <main id="horizontal-stage" class="ref-horizontal-stage">
+      <section class="horizontal-viewport ref-horizontal-viewport" id="home" tabindex="0" aria-label="Horizontal projects">
+        <div class="horizontal-track ref-track" id="horizontal-track">
+
+          <section class="h-panel ref-intro-panel" data-index="01">
+            <div class="ref-intro-copy reveal-copy">
+              <span class="ref-kicker"><span>01</span><span class="lang-en">CROSS SECTOR</span><span class="lang-ar">كروس سكتور</span></span>
+              <h1 class="lang-en">Integrated Expertise,<br>Established Standing</h1>
+              <h1 class="lang-ar">خبرات تتكامل،<br>ومكانة تترسخ</h1>
+              <p class="lang-en">Saudi capability, global benchmarks. Projecting our impact outward from the Kingdom, and serving as the natural anchor for global ambition.</p>
+              <p class="lang-ar">قدرات سعودية بمعايير عالمية.. ننقل أثَرنا من قلب المملكة إلى العالم، ونستقبل طموحاته.</p>
+              <a class="ref-cta" href="#services"><span class="lang-en">View More</span><span class="lang-ar">اكتشف المزيد</span><i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
           </section>
 
-          <section class="panel hero-panel project-panel" id="projects" data-index="01">
-            <a class="media-link" href="#case-01" aria-label="Open project Northline">
-              <div class="image-wrap tall">
-                <img src="assets/images/project-01.jpg" alt="Modern interior architecture" />
-                <div class="image-curtain"></div>
-              </div>
-              <div class="project-meta over-image">
-                <span>INTERIORS</span>
-                <h2>Northline House</h2>
-              </div>
-            </a>
-          </section>
-
-          <section class="panel card-panel project-panel" data-index="02">
-            <a class="project-card" href="#case-02">
-              <div class="image-wrap square">
-                <img src="assets/images/project-02.jpg" alt="Geometric modern building facade" />
-                <div class="image-curtain"></div>
-              </div>
-              <div class="card-copy">
-                <span class="kicker">ARCHITECTURE</span>
-                <h2>Digital Patterns</h2>
-                <p>Structure, repetition and rhythm translated into a calm visual system.</p>
-              </div>
-            </a>
-          </section>
-
-          <section class="panel card-panel project-panel" data-index="03">
-            <a class="project-card" href="#case-03">
-              <div class="image-wrap square">
-                <img src="assets/images/project-03.jpg" alt="Editorial portrait in a dark studio" />
-                <div class="image-curtain"></div>
-              </div>
-              <div class="card-copy">
-                <span class="kicker">CAMPAIGN</span>
-                <h2>Motion Study</h2>
-                <p>A stripped-back campaign exploring movement, confidence and contrast.</p>
-              </div>
-            </a>
-          </section>
-
-          <section class="panel wide-panel project-panel" data-index="04">
-            <a class="project-card landscape" href="#case-04">
-              <div class="image-wrap landscape-img">
-                <img src="assets/images/project-04.jpg" alt="Minimal concrete architecture" />
-                <div class="image-curtain"></div>
-              </div>
-              <div class="card-copy split-copy">
-                <div>
-                  <span class="kicker">BRANDING</span>
-                  <h2>Quiet Concrete</h2>
-                </div>
-                <p>Editorial art direction for a material-led architectural practice.</p>
-              </div>
-            </a>
-          </section>
-
-          <section class="panel card-panel project-panel" data-index="05" id="about">
-            <a class="project-card" href="#case-05">
-              <div class="image-wrap square">
-                <img src="assets/images/project-05.jpg" alt="Workspace with warm natural light" />
-                <div class="image-curtain"></div>
-              </div>
-              <div class="card-copy">
-                <span class="kicker">DIGITAL</span>
-                <h2>Field Notes</h2>
-                <p>A modular digital language built around strong imagery and measured typography.</p>
-              </div>
-            </a>
-          </section>
-
-          <section class="panel statement-panel project-panel" data-index="06" id="journal">
-            <div class="statement-copy">
-              <span class="kicker">OUR APPROACH</span>
-              <h2>Less noise.<br>More direction.</h2>
-              <p>We make visual systems that are simple to understand and difficult to forget.</p>
-              <div class="statement-stats">
-                <div><strong>12</strong><span>Selected works</span></div>
-                <div><strong>08</strong><span>Disciplines</span></div>
-              </div>
+          <section class="h-panel ref-hero-panel project-panel" data-index="02">
+            <div class="image-wrap ref-hero-image">
+              <img src="assets/images/project-01.jpg" alt="Cross Sector visual experience" />
+              <div class="image-curtain"></div>
+            </div>
+            <div class="ref-over-caption">
+              <span class="lang-en">WE SHAPE EXPERIENCES</span><span class="lang-ar">نصنع تجارب</span>
+              <strong class="lang-en">That Elevate the Industry</strong><strong class="lang-ar">ترتقي بالمشهد</strong>
             </div>
           </section>
 
-          <section class="panel final-panel project-panel" data-index="07" id="contact">
-            <div class="final-inner">
-              <span class="kicker">START A PROJECT</span>
-              <h2>Have a direction<br>in mind?</h2>
-              <a class="big-link" href="mailto:hello@example.com">hello@example.com <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-              <p class="small-note">Scroll to go back <i class="fa-solid fa-arrow-left-long"></i></p>
+          <section class="h-panel ref-project-panel project-panel" id="services" data-index="03">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-02.jpg" alt="Research and consulting" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">RESEARCH &amp; CONSULTING</span><span class="lang-ar">الأبحاث والاستشارات</span></span>
+                <h2 class="lang-en">Research and Consulting</h2><h2 class="lang-ar">الأبحاث والاستشارات</h2>
+                <p class="lang-en">We analyze market dynamics and conduct institutional diagnostics, separating facts from assumptions to empower executive decisions.</p>
+                <p class="lang-ar">نبدأ بقراءة السوق والتشخيص المؤسسي الدقيق، لنحلل البيانات والسياسات ونفصل الحقائق عن الافتراضات؛ مما يمنح صناع القرار رؤية واضحة.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" id="research" data-index="04">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-03.jpg" alt="Strategy" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">STRATEGY</span><span class="lang-ar">الاستراتيجية</span></span>
+                <h2 class="lang-en">Strategy</h2><h2 class="lang-ar">الاستراتيجية</h2>
+                <p class="lang-en">We turn vision into actionable growth plans, defining market positioning and frameworks that drive corporate targets.</p>
+                <p class="lang-ar">نحول الرؤى والأهداف إلى خطط عمل هيكلية ومسارات نمو واضحة، مطورين استراتيجيات الأعمال والتموضع المؤسسي.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="05">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-04.jpg" alt="Communications and public relations" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">COMMUNICATIONS</span><span class="lang-ar">الاتصال والعلاقات العامة</span></span>
+                <h2 class="lang-en">Communications &amp; Public Relations</h2><h2 class="lang-ar">الاتصال والعلاقات العامة</h2>
+                <p class="lang-en">Managing media and institutional presence with high effectiveness, focusing on reputation building and crisis communication.</p>
+                <p class="lang-ar">ندير الحضور الإعلامي والمؤسسي بفاعلية عالية، مركزين على بناء السمعة وإدارة الاتصال في الأزمات وتوجيه الرسائل بدقة.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="06">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-05.jpg" alt="Marketing and branding" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">MARKETING &amp; BRANDING</span><span class="lang-ar">التسويق والعلامة التجارية</span></span>
+                <h2 class="lang-en">Marketing &amp; Branding</h2><h2 class="lang-ar">التسويق والعلامة التجارية</h2>
+                <p class="lang-en">We build high-impact brand identities and performance-driven campaigns that deliver measurable return.</p>
+                <p class="lang-ar">نربط العلامة بجمهورها عبر حملات تسويقية مبنية على الأداء، ونصمم رحلة العميل لنحقق نتائج ملموسة.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="07">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image ref-tone-dark"><img src="assets/images/project-01.jpg" alt="Digital relations CrossWire" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">CROSSWIRE</span><span class="lang-ar">العلاقات الرقمية</span></span>
+                <h2 class="lang-en">Digital Relations</h2><h2 class="lang-ar">العلاقات الرقمية (CrossWire)</h2>
+                <p class="lang-en">We amplify organizational presence globally, managing content and digital authority across networks.</p>
+                <p class="lang-ar">نرسخ حضور الجهات عبر المنصات والصحف العالمية، وندير نشر المحتوى والمرجعية الرقمية للعلامة التجارية.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="08">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-02.jpg" alt="Creative studio" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">CREATIVE STUDIO</span><span class="lang-ar">الاستديو الإبداعي</span></span>
+                <h2 class="lang-en">Creative Studio</h2><h2 class="lang-ar">الاستديو الإبداعي</h2>
+                <p class="lang-en">We merge strategic thinking with visual identities and cinematic storytelling that capture attention.</p>
+                <p class="lang-ar">ندمج الفكر الاستراتيجي بالحلول البصرية لنطور الهويات المميزة وننتج المحتوى المرئي بمختلف أشكاله.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="09">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-03.jpg" alt="Experiences and events" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">EXPERIENCES &amp; EVENTS</span><span class="lang-ar">التجارب والفعاليات</span></span>
+                <h2 class="lang-en">Experiences &amp; Events</h2><h2 class="lang-ar">التجارب والفعاليات</h2>
+                <p class="lang-en">We design and orchestrate on-ground experiences and events, managing logistics and Saudi official protocol with precision.</p>
+                <p class="lang-ar">نصمم ونقود التجارب والفعاليات والتفعيلات الميدانية، وندير اللوجستيات والبروتوكول السعودي باقتدار.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-project-panel project-panel" data-index="10">
+            <article class="ref-project-card">
+              <div class="image-wrap ref-card-image"><img src="assets/images/project-04.jpg" alt="Innovation lab" /><div class="image-curtain"></div></div>
+              <div class="ref-card-copy reveal-copy">
+                <span class="ref-category"><span class="lang-en">INNOVATION LAB</span><span class="lang-ar">مركز الابتكار</span></span>
+                <h2 class="lang-en">Innovation Lab</h2><h2 class="lang-ar">مركز الابتكار</h2>
+                <p class="lang-en">We harness modern technologies and artificial intelligence to pioneer advanced communication solutions and measurable projects.</p>
+                <p class="lang-ar">نوظف التقنيات الحديثة وأدوات الذكاء الاصطناعي لتطوير حلول اتصال متقدمة وتحويل الأفكار إلى مشاريع قابلة للقياس.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="h-panel ref-closing-panel project-panel" id="articles" data-index="11">
+            <div class="ref-closing-copy reveal-copy">
+              <span class="ref-category"><span class="lang-en">CROSS SECTOR</span><span class="lang-ar">كروس سكتور</span></span>
+              <h2 class="lang-en">We Shape Experiences<br>That Elevate the Industry</h2>
+              <h2 class="lang-ar">نصنع تجارب<br>ترتقي بالمشهد</h2>
+              <p class="lang-en">An integrated Saudi ecosystem that connects strategy, communications, creativity and execution.</p>
+              <p class="lang-ar">منظومة سعودية متكاملة تربط الاستراتيجية والاتصال والإبداع بالتنفيذ.</p>
+              <a class="ref-text-link" href="our-ecosystem.html"><span class="lang-en">Discover More</span><span class="lang-ar">اكتشف المزيد</span><i class="fa-solid fa-arrow-right-long"></i></a>
+              <div class="ref-scroll-progress" aria-hidden="true"><span class="progress-current">01</span><i><b id="progress-fill"></b></i><span>11</span></div>
             </div>
           </section>
         </div>
       </section>
     </main>
-
-    <footer class="footerbar">
-      <span>© 2026 Horizontal Studio</span>
-      <div class="progress-wrap" aria-hidden="true">
-        <span class="progress-label">01</span>
-        <div class="progress-line"><i id="progress-fill"></i></div>
-        <span>07</span>
-      </div>
-      <span>All Rights Reserved</span>
-    </footer>
   </div>
-
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
 
   <div class="menu-overlay" aria-hidden="true">
-    <div class="menu-grid">
-      <a href="#home"><span>01</span>Home</a>
-      <a href="#projects"><span>02</span>Projects</a>
-      <a href="#about"><span>03</span>About</a>
-      <a href="#journal"><span>04</span>Journal</a>
-      <a href="#contact"><span>05</span>Contact</a>
+    <div class="menu-topline">
+      <span class="menu-brand">CS</span>
+      <button class="menu-close-text" type="button"><span class="lang-en">Close</span><span class="lang-ar">إغلاق</span></button>
+      <button class="menu-x" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="menu-rail"><div class="rail-social"><a href="#">In</a><a href="#">Ig</a></div><span class="rail-label"><span class="lang-en">FOLLOW US</span><span class="lang-ar">تابعنا</span></span></div>
+    <div class="menu-body">
+      <nav class="menu-links">
+        <a href="index.html"><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></a>
+        <a href="our-ecosystem.html"><span class="lang-en">Our Ecosystem</span><span class="lang-ar">منظومتنا</span></a>
+        <a href="index.html#research"><span class="lang-en">Research &amp; Studies</span><span class="lang-ar">الأبحاث والتقارير</span></a>
+        <a href="index.html#articles"><span class="lang-en">Articles &amp; Insight</span><span class="lang-ar">المقالات والرؤى</span></a>
+        <a href="contact.html"><span class="lang-en">Contact Us</span><span class="lang-ar">تواصل معنا</span></a>
+      </nav>
+      <div class="menu-contact">
+        <div class="shape-mark" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="menu-address lang-en">King Abdullah Financial District<br>Floor 7, Building 4.07<br>Riyadh, Kingdom of Saudi Arabia<br><a href="mailto:info@cross-sector.co">info@cross-sector.co</a><br><a href="tel:+966115256800">+966 11 525 6800</a></div>
+        <div class="menu-address lang-ar">مركز الملك عبدالله المالي<br>الطابق 7، مبنى 4.07<br>الرياض، المملكة العربية السعودية<br><a href="mailto:info@cross-sector.co">info@cross-sector.co</a><br><a href="tel:+966115256800">+966 11 525 6800</a></div>
+        <span class="menu-follow"><span class="lang-en">FOLLOW US</span><span class="lang-ar">تابعنا</span></span>
+        <div class="menu-social-inline"><a href="#">In</a><a href="#">Ig</a></div>
+      </div>
     </div>
   </div>
+
+  <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
