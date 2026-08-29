@@ -16,6 +16,16 @@
      header, horizontal rail, grids, cards and footer geometry.
   ========================================================= */
   const langButtons = [...document.querySelectorAll('.language-toggle')];
+
+  // V22: keep contact form placeholders bilingual without duplicating form controls.
+  const syncBilingualPlaceholders = () => {
+    const ar = document.body.classList.contains('is-ar');
+    document.querySelectorAll('[data-placeholder-en]').forEach((el) => {
+      el.setAttribute('placeholder', ar ? el.dataset.placeholderAr : el.dataset.placeholderEn);
+    });
+  };
+  syncBilingualPlaceholders();
+  langButtons.forEach((btn) => btn.addEventListener('click', () => requestAnimationFrame(syncBilingualPlaceholders)));
   const storedLang = localStorage.getItem('cross-sector-lang');
   const initialLang = storedLang === 'ar' || storedLang === 'en' ? storedLang : 'en';
 
@@ -44,6 +54,7 @@
   }
 
   setLanguage(initialLang, false);
+  syncBilingualPlaceholders();
   langButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       setLanguage(body.classList.contains('is-ar') ? 'en' : 'ar');
@@ -92,6 +103,33 @@
       };
       requestAnimationFrame(raf);
     }
+  }
+
+  /* Back to top — hidden at the top, appears as soon as an inner page starts scrolling.
+     Home intentionally never shows it. */
+  const backTopButtons = [...document.querySelectorAll('.site-backtop,.about-backtop')];
+
+  function updateBackTop(scrollY = window.scrollY || 0) {
+    if (isHome) {
+      backTopButtons.forEach(btn => btn.classList.remove('is-visible'));
+      return;
+    }
+    const visible = scrollY > 8;
+    backTopButtons.forEach(btn => btn.classList.toggle('is-visible', visible));
+  }
+
+  backTopButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      if (lenis) lenis.scrollTo(0, { duration: 1.05, force: true });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  if (!isHome && backTopButtons.length) {
+    if (lenis) lenis.on('scroll', ({ scroll }) => updateBackTop(scroll));
+    window.addEventListener('scroll', () => updateBackTop(window.scrollY), { passive: true });
+    updateBackTop(window.scrollY);
   }
 
   /* =========================================================
@@ -213,7 +251,12 @@
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     const headerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 74;
-    const railWidth = () => mobileMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w')) || 74);
+    const railWidth = () => {
+      if (mobileMQ.matches) return 0;
+      const raw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w'));
+      return Number.isFinite(raw) ? raw : 0;
+    };
+    const homeFooterHeight = () => mobileMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0);
     const viewportWidth = () => Math.max(1, innerWidth - railWidth());
     const maxTravel = () => Math.max(0, track.scrollWidth - viewportWidth());
 
@@ -251,7 +294,11 @@
         return 0;
       }
       const travel = maxTravel();
-      stage.style.setProperty('--home-stage-h', `${Math.ceil(innerHeight + travel)}px`);
+      // The sticky horizontal viewport ends above the fixed Thorsten-style
+      // footer strip, so the parent height must reserve that exact space too.
+      // This keeps the sticky release point aligned with ScrollTrigger.end.
+      const visibleStageHeight = Math.max(1, innerHeight - homeFooterHeight());
+      stage.style.setProperty('--home-stage-h', `${Math.ceil(visibleStageHeight + travel)}px`);
       return travel;
     }
 
@@ -532,6 +579,15 @@
       });
     });
 
+    document.querySelectorAll('.about-progress-fill').forEach(fill => {
+      gsap.fromTo(fill, { scaleX: 0 }, {
+        scaleX: 1,
+        duration: 1.15,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: fill, start: 'top 90%', once: true }
+      });
+    });
+
     document.querySelectorAll('.hero-paper').forEach(hero => {
       const curtain = hero.querySelector('.vertical-curtain');
       const img = hero.querySelector('img');
@@ -641,8 +697,70 @@
     }
   }
 
+
+  /* =========================================================
+     V18 — touch-friendly team cards
+     On coarse/touch pointers a tap opens the exact same centered
+     overlay used by desktop hover. A second tap or outside tap closes it.
+  ========================================================= */
+  function initMobileTeamCards() {
+    const cards = Array.from(document.querySelectorAll('.about-team-card'));
+    if (!cards.length) return;
+
+    const touchQuery = window.matchMedia('(hover: none), (pointer: coarse)');
+    const closeAll = except => cards.forEach(card => {
+      if (card !== except) card.classList.remove('is-active');
+    });
+
+    cards.forEach(card => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-expanded', 'false');
+
+      const syncAria = () => card.setAttribute('aria-expanded', card.classList.contains('is-active') ? 'true' : 'false');
+
+      card.addEventListener('click', event => {
+        if (!touchQuery.matches || window.innerWidth > 900) return;
+
+        const clickedLink = event.target.closest('.about-team-overlay a');
+        if (clickedLink && card.classList.contains('is-active')) return;
+
+        event.preventDefault();
+        const willOpen = !card.classList.contains('is-active');
+        closeAll(card);
+        card.classList.toggle('is-active', willOpen);
+        cards.forEach(sync => sync.setAttribute('aria-expanded', sync.classList.contains('is-active') ? 'true' : 'false'));
+      });
+
+      card.addEventListener('keydown', event => {
+        if (!touchQuery.matches || window.innerWidth > 900) return;
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        const willOpen = !card.classList.contains('is-active');
+        closeAll(card);
+        card.classList.toggle('is-active', willOpen);
+        cards.forEach(sync => sync.setAttribute('aria-expanded', sync.classList.contains('is-active') ? 'true' : 'false'));
+      });
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!touchQuery.matches || window.innerWidth > 900) return;
+      if (event.target.closest('.about-team-card')) return;
+      closeAll();
+      cards.forEach(card => card.setAttribute('aria-expanded', 'false'));
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        closeAll();
+        cards.forEach(card => card.setAttribute('aria-expanded', 'false'));
+      }
+    }, { passive: true });
+  }
+
   initHomeHorizontal();
   initInnerAnimations();
+  initMobileTeamCards();
   initThreePaper();
 
   if (hasGSAP && isHome) {

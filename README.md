@@ -1,10 +1,9 @@
-# Cross Sector — Thorsten V10
+Cross Sector — V24 final directional pass
 
-Targeted visual fix on top of V9.
-
-- Hero subject stays visible across desktop height/zoom variations.
-- Current navigation item has a stable Thorsten-style underline in EN and AR.
-- Arabic navbar typography is explicitly applied.
-- Existing Lenis + GSAP home scrolling, mobile behavior, inner pages and team remain unchanged.
-
-Run with a local server (for example VS Code Live Server), then hard refresh the browser.
+Changes from V23:
+- English horizontal action arrows point right.
+- Arabic horizontal action arrows point left.
+- Contact form Send Message arrow follows the active language.
+- Home View More / Blog Read More / shared right-arrow actions follow the active language.
+- Arabic Home closing Contact block is locked to the visual right side of its panel.
+- No changes to Lenis, GSAP, map, footer, team or page architecture.

@@ -1302,3 +1302,2143 @@ body.is-ar .site-header .desktop-nav a .lang-ar{
   font-size:12.5px!important;
   line-height:1.9!important;
 }
+
+/* =========================================================
+   V11 — Thorsten-style Right Sidebar List / Articles & Insight
+   Structure mirrors the reference blog while preserving the
+   Cross Sector header, bilingual system and internal footer.
+   ========================================================= */
+.blog-main{padding-top:var(--header-h);background:var(--paper-2)}
+.blog-title-band{min-height:210px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:54px clamp(42px,5.1vw,78px) 44px;background:var(--paper-2)}
+.blog-title-band h1{font-family:var(--serif);font-size:clamp(34px,3.2vw,52px);font-weight:400;line-height:1;margin:0 0 11px;letter-spacing:-.02em}
+.blog-breadcrumb{font-size:8px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase}
+.blog-shell{width:min(1180px,calc(100% - 84px));margin:0 auto;display:grid;grid-template-columns:minmax(0,2.55fr) minmax(250px,.82fr);gap:48px;padding:76px 0 95px}
+.blog-list{min-width:0}
+.blog-post{margin-bottom:67px}
+.blog-media{display:block;position:relative;overflow:hidden;background:#e8e5df;aspect-ratio:1.72/1}
+.blog-media img{transition:transform .7s cubic-bezier(.22,.61,.36,1);object-position:center}
+.blog-media:hover img{transform:scale(1.025)}
+.post-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:18px 0 8px;font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:#738498}
+.post-meta i{width:10px;height:1px;background:#9ba7b3;display:inline-block}
+.blog-post h2{font-family:var(--serif);font-size:27px;font-weight:400;line-height:1.13;letter-spacing:-.015em;margin:0 0 12px}
+.blog-post>p{font-family:var(--serif);font-size:13px;line-height:1.75;color:#65768a;margin:0 0 15px;max-width:96%}
+.post-read-more{display:inline-flex;align-items:center;gap:9px;font-size:9px;font-weight:500;margin-top:2px}
+.post-read-more i{font-size:8px;transition:transform .25s ease}.post-read-more:hover i{transform:translateX(4px)}
+.video-mock{position:relative}.video-mock:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,40,63,.42),transparent 34%);pointer-events:none}
+.video-play{position:absolute;z-index:2;left:50%;top:50%;width:56px;height:56px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.8);border-radius:50%;background:rgba(16,40,63,.3);color:#fff;display:grid;place-items:center}
+.video-bar{position:absolute;z-index:3;left:0;right:0;bottom:0;height:29px;background:rgba(12,28,43,.9);display:flex;align-items:center;gap:9px;padding:0 10px;color:#fff;font-size:7px}.video-bar span{height:2px;background:rgba(255,255,255,.45);flex:1;position:relative}.video-bar span:before{content:"";position:absolute;left:0;top:0;bottom:0;width:20%;background:#fff}.video-bar i{font-size:7px}.video-bar small{font-size:6px;letter-spacing:.05em}
+.blog-quote{position:relative;margin:12px 0 67px;background:#e9f5fb;min-height:146px;padding:41px 54px;border:0;display:flex;align-items:center}
+.blog-quote>i{position:absolute;right:25px;top:23px;font-size:20px;color:#c0dce9;transform:rotate(-42deg)}
+.blog-quote p{font-family:var(--serif);font-size:24px;line-height:1.2;margin:0;color:#526b83}
+.blog-quote-warm{background:#f2eee8;display:block;padding-top:38px}.blog-quote-warm>i{transform:none;color:#d9d0c5}.blog-quote-warm cite{display:block;margin-top:12px;font-style:normal;font-size:7px;letter-spacing:.19em;text-transform:uppercase;color:#7d8996}
+.blog-pagination{border-top:1px solid var(--line);padding-top:28px;display:flex;align-items:center;justify-content:center;gap:18px}
+.blog-pagination a{font-family:var(--serif);font-size:12px;min-width:22px;height:22px;display:grid;place-items:center;border:1px solid transparent;border-radius:50%}.blog-pagination a.active{border-color:#d9dfe4;color:var(--accent)}.blog-pagination i{font-size:8px}
+.blog-sidebar{min-width:0}
+.sidebar-widget{margin-bottom:42px}
+.sidebar-widget>h3{font-family:var(--serif);font-weight:400;font-size:18px;margin:0 0 16px}
+.about-widget>img{height:164px;object-position:center 48%;margin-bottom:14px}
+.about-widget p{font-family:var(--serif);font-size:12.5px;line-height:1.7;color:#67788b;margin:0}
+.popular-post{display:grid;grid-template-columns:72px 1fr;gap:11px;align-items:center;margin:0 0 13px}.popular-post img{width:72px;height:58px}.popular-post span{min-width:0}.popular-post small{display:block;font-size:6.5px;letter-spacing:.17em;text-transform:uppercase;color:#8b98a5;margin-bottom:4px}.popular-post b{display:block;font-family:var(--serif);font-weight:400;font-size:11.5px;line-height:1.2}
+.sidebar-list{list-style:none;padding:0;margin:0}.sidebar-list li{margin:0 0 8px}.sidebar-list a{font-family:var(--serif);font-size:12.5px;color:#5d7084;transition:color .2s}.sidebar-list a:hover,.tag-cloud a:hover{color:var(--accent)}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:7px 12px}.tag-cloud a{font-family:var(--serif);font-size:11px;color:#728197}
+.sidebar-search label{height:38px;border:1px solid var(--line);display:grid;grid-template-columns:1fr 38px;background:#fff}.sidebar-search input{min-width:0;border:0;background:transparent;padding:0 12px;outline:0;font-size:10px}.sidebar-search button{border:0;background:transparent;display:grid;place-items:center;font-size:10px}
+
+body.is-ar .blog-title-band,body.is-ar .blog-list,body.is-ar .blog-sidebar{direction:rtl;text-align:right}
+body.is-ar .blog-shell{direction:ltr}
+body.is-ar .blog-title-band h1,body.is-ar .blog-post h2,body.is-ar .blog-post>p,body.is-ar .blog-quote p,body.is-ar .sidebar-widget>h3,body.is-ar .about-widget p,body.is-ar .popular-post b,body.is-ar .sidebar-list a{font-family:var(--arabic)}
+body.is-ar .post-meta{direction:rtl;justify-content:flex-start}
+body.is-ar .post-read-more{direction:rtl}.blog-page.is-ar .post-read-more i{transform:rotate(180deg)}.blog-page.is-ar .post-read-more:hover i{transform:rotate(180deg) translateX(4px)}
+body.is-ar .blog-quote>i{right:auto;left:25px}
+body.is-ar .blog-pagination{direction:ltr}
+body.is-ar .popular-post{direction:rtl;grid-template-columns:1fr 72px}.blog-page.is-ar .popular-post img{grid-column:2}.blog-page.is-ar .popular-post span{grid-column:1;grid-row:1}
+body.is-ar .sidebar-search label{direction:rtl}
+
+@media(max-width:1100px){.blog-shell{width:min(100% - 54px,1000px);grid-template-columns:minmax(0,2fr) minmax(235px,.8fr);gap:34px}.blog-title-band{padding-left:38px;padding-right:38px}}
+@media(max-width:900px){.blog-title-band{min-height:180px;padding:44px 26px 34px}.blog-shell{width:min(100% - 44px,760px);grid-template-columns:1fr;padding-top:55px}.blog-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:35px 28px;border-top:1px solid var(--line);padding-top:45px}.sidebar-widget{margin:0}.about-widget{grid-row:span 2}.blog-post{margin-bottom:55px}.blog-quote{margin-bottom:55px}}
+@media(max-width:620px){.blog-title-band{min-height:150px;padding:34px 21px 28px}.blog-title-band h1{font-size:37px}.blog-breadcrumb{font-size:6.5px;letter-spacing:.16em}.blog-shell{width:calc(100% - 34px);padding:42px 0 65px}.blog-media{aspect-ratio:1.42/1}.blog-post h2{font-size:24px}.blog-post>p{font-size:12.5px;max-width:none}.blog-quote{padding:33px 28px;min-height:128px}.blog-quote p{font-size:20px}.blog-sidebar{grid-template-columns:1fr}.about-widget{grid-row:auto}.about-widget>img{height:210px}.popular-post{grid-template-columns:92px 1fr}.popular-post img{width:92px;height:68px}body.is-ar .popular-post{grid-template-columns:1fr 92px}.post-meta{font-size:6.2px;letter-spacing:.13em}}
+
+/* =========================================================
+   V12 — THORSTEN ABOUT / PIXEL-STRUCTURE REBUILD
+   Layout follows the supplied Thorsten About Us reference:
+   hero, concepts + progress, four feature columns, 4x2 team,
+   services/timeline, light editorial footer.
+   Typography uses DIN-family stacks in both languages.
+   ========================================================= */
+.about-thorsten{
+  --din-en:"DIN Next LT Pro","DIN Next","DIN 2014","Arial Narrow",Arial,sans-serif;
+  --din-ar:"DIN Next LT Arabic","DIN Next Arabic","DIN Next LT W23","DIN Next LT Pro",Tahoma,Arial,sans-serif;
+  --about-blue:#173754;
+  --about-blue-2:#0e4f88;
+  --about-orange:#ff805f;
+  --about-line:#dfe4e7;
+  --about-muted:#71879a;
+  --about-beige:#f1eee9;
+  --about-white:#fff;
+  background:#fff;
+  color:var(--about-blue);
+  font-family:var(--din-en);
+}
+.about-thorsten .noise{opacity:.012}
+.about-thorsten .site-header{background:rgba(255,255,255,.97)}
+.about-thorsten .brand,.about-thorsten .desktop-nav a,.about-thorsten .language-toggle,.about-thorsten .rail-social a{font-family:var(--din-en)}
+.about-thorsten .desktop-nav a{font-size:13px;font-weight:400;letter-spacing:0;padding-top:30px}
+.about-thorsten .about-rail{background:#fff}
+.about-thorsten .rail-label{font-family:var(--din-en);font-size:8px;letter-spacing:.42em}
+.about-thorsten .inner-main.about-main{margin-left:var(--rail-w);margin-right:var(--rail-w);padding-top:var(--header-h);background:#fff;overflow:visible}
+
+/* hero */
+.about-hero{position:relative;height:390px;overflow:hidden;background:#d9d5cf;border-bottom:0}
+.about-hero>img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none;transform:scale(1.005)}
+.about-hero:after{content:"";position:absolute;inset:0;background:rgba(9,29,47,.02);pointer-events:none}
+.about-hero-title{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-family:var(--din-en);font-size:48px;line-height:1;font-weight:300;letter-spacing:-.02em;text-shadow:0 1px 7px rgba(0,0,0,.08);white-space:nowrap}
+body.is-ar.about-thorsten .about-hero-title{font-family:var(--din-ar);font-size:42px;letter-spacing:0;direction:rtl}
+
+/* concepts */
+.about-concepts{padding:118px 66px 104px;background:#fff}
+.about-concepts-top{max-width:1195px;margin:0 auto;display:grid;grid-template-columns:minmax(0,46%) minmax(0,54%);gap:86px;align-items:start}
+.about-concepts-copy{max-width:500px}
+.thorsten-kicker{display:flex;align-items:center;gap:14px;margin:0 0 19px;font-family:var(--din-en);font-size:9px;font-weight:500;letter-spacing:.38em;color:#55718a;text-transform:uppercase}
+.thorsten-kicker i{display:block;width:66px;height:2px;background:linear-gradient(90deg,var(--about-blue) 0 28%,var(--about-orange) 28% 100%)}
+.about-concepts h1{margin:0;color:var(--about-blue);font-family:var(--din-en);font-size:49px;font-weight:300;line-height:1.08;letter-spacing:-.025em}
+.about-concepts-copy p{margin:24px 0 0;max-width:485px;color:#6e8394;font-family:var(--din-en);font-size:14px;font-weight:400;line-height:1.9}
+.about-progress-list{padding-top:23px}
+.about-progress{margin:0 0 31px}
+.about-progress-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:6px;font-family:var(--din-en);font-size:14px;color:var(--about-blue)}
+.about-progress-head b{font-size:13px;font-weight:400;color:#71869a}
+.about-progress-track{position:relative;height:2px;background:#e3e5e5;overflow:hidden}
+.about-progress-track i{position:absolute;left:0;top:0;bottom:0;width:var(--value);background:#0c5ca1;transform-origin:left center}
+.about-progress-track em{position:absolute;right:0;top:0;bottom:0;width:calc(100% - var(--value));background:var(--about-orange)}
+
+.about-feature-grid{max-width:1195px;margin:91px auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:44px}
+.about-feature{display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:start}
+.about-feature>i{font-size:26px;color:var(--about-orange);margin-top:2px;font-weight:400}
+.about-feature h3{margin:0 0 14px;font-family:var(--din-en);font-size:20px;font-weight:300;line-height:1.2;color:var(--about-blue)}
+.about-feature p{margin:0;font-family:var(--din-en);font-size:13px;line-height:1.75;color:#71879a}
+
+/* team */
+.about-team-section{padding:0 0 0;background:#fff}
+.about-team-inner{max-width:1350px;margin:0 auto;background:var(--about-beige);padding:106px 62px 92px}
+.about-team-heading{max-width:980px;margin:0 auto 70px;text-align:center}
+.about-team-heading h2{margin:0;font-family:var(--din-en);font-size:47px;font-weight:300;line-height:1.12;letter-spacing:-.022em;color:var(--about-blue)}
+.about-team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;max-width:1190px;margin:0 auto;direction:ltr!important}
+@media(min-width:901px){
+  .about-team-grid.team-grid-seven{grid-template-columns:repeat(8,minmax(0,1fr))}
+  .about-team-grid.team-grid-seven>.about-team-card{grid-column:span 2}
+  .about-team-grid.team-grid-seven>.about-team-card:nth-child(5){grid-column:2/span 2}
+  .about-team-grid.team-grid-seven>.about-team-card:nth-child(6){grid-column:4/span 2}
+  .about-team-grid.team-grid-seven>.about-team-card:nth-child(7){grid-column:6/span 2}
+}
+
+.about-team-card{position:relative;aspect-ratio:1/1;overflow:hidden;background:#ddd8d1;isolation:isolate}
+.about-team-card>img{width:100%;height:100%;object-fit:cover;object-position:var(--team-pos,50% 50%);transform:scale(1.002);filter:none;transition:transform .65s cubic-bezier(.2,.75,.2,1)}
+.about-team-overlay{position:absolute;z-index:2;left:50%;top:50%;width:74%;min-height:63%;transform:translate(-50%,-44%);opacity:0;pointer-events:none;background:rgba(255,255,255,.975);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 20px;transition:opacity .32s ease,transform .45s cubic-bezier(.2,.75,.2,1)}
+.about-team-card:hover .about-team-overlay,.about-team-card:focus-within .about-team-overlay{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.about-team-card:hover>img{transform:scale(1.04)}
+.about-team-overlay h3{margin:0;font-family:var(--din-en);font-size:25px;font-weight:300;line-height:1.15;color:var(--about-blue)}
+.about-team-overlay p{margin:14px 0 18px;font-family:var(--din-en);font-size:13px;color:#75899a}
+.about-team-overlay div{display:flex;gap:17px}
+.about-team-overlay a{font-family:var(--din-en);font-size:12px;color:var(--about-blue)}
+.about-team-overlay a:hover{color:var(--about-orange)}
+
+/* services / timeline */
+.about-services-section{max-width:1195px;margin:0 auto;padding:110px 0 122px;display:grid;grid-template-columns:minmax(0,44%) minmax(0,56%);gap:70px;background:#fff}
+.about-services-intro{max-width:455px}
+.about-services-intro h2{margin:0;font-family:var(--din-en);font-size:44px;font-weight:300;line-height:1.08;letter-spacing:-.025em;color:var(--about-blue)}
+.about-services-intro p{margin:23px 0 0;font-family:var(--din-en);font-size:13.5px;line-height:1.8;color:#72879a}
+.about-services-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:74px;row-gap:46px;padding-top:7px}
+.about-service-item>span{display:block;margin-bottom:8px;font-family:var(--din-en);font-size:9px;letter-spacing:.34em;color:#678095}
+.about-service-item h3{margin:0 0 14px;font-family:var(--din-en);font-size:21px;font-weight:300;color:var(--about-blue)}
+.about-service-item p{margin:0;max-width:255px;font-family:var(--din-en);font-size:12.5px;line-height:1.72;color:#72879a}
+
+/* exact-style light footer */
+.about-thorsten .site-footer.thorsten-footer{margin:0!important;padding:0!important;background:var(--about-beige)!important;color:var(--about-blue)!important;display:block!important;border:0!important;font-family:var(--din-en)!important}
+.thorsten-footer-main{min-height:346px;padding:64px max(64px,calc(var(--rail-w) + 36px)) 54px;display:grid;grid-template-columns:minmax(360px,1.75fr) .58fr .66fr 1fr;gap:54px;border-top:1px solid #e5e0d9;border-bottom:1px solid #e2ded8}
+.thorsten-footer-lead{max-width:520px}
+.thorsten-footer-logo{font-family:var(--din-en);font-size:33px;font-weight:300;line-height:1;margin-bottom:15px}
+.thorsten-footer-lead>p{margin:0;max-width:455px;font-family:var(--din-en);font-size:13px;line-height:1.7;font-weight:500;color:var(--about-blue)}
+.thorsten-newsletter{margin-top:34px;max-width:355px}
+.thorsten-newsletter>span{display:block;margin-bottom:15px;font-size:8px;font-weight:500;letter-spacing:.36em;color:#526d84}
+.thorsten-newsletter label{display:flex;align-items:center;border-bottom:1px solid #cfd6da;padding-bottom:10px}
+.thorsten-newsletter input{width:100%;border:0;background:transparent;outline:0;font-family:var(--din-en);font-size:11px;color:#71879a}
+.thorsten-newsletter button{width:32px;height:24px;border:0;background:transparent;color:#49657c;font-size:10px}
+.thorsten-footer-col{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:5px}
+.thorsten-footer-col h4{margin:0 0 15px;font-family:var(--din-en);font-size:13px;font-weight:400;color:var(--about-blue)}
+.thorsten-footer-col a,.thorsten-footer-col p{margin:0;font-family:var(--din-en);font-size:11px;line-height:1.7;color:#667f92}
+.thorsten-footer-col a:hover{color:var(--about-orange)}
+.thorsten-footer-contact .footer-directions{margin-top:15px;color:var(--about-blue);font-weight:500}
+.thorsten-footer-bottom{min-height:65px;padding:0 max(64px,calc(var(--rail-w) + 36px));display:grid;grid-template-columns:1fr auto 38px;align-items:center;gap:30px;font-family:var(--din-en);font-size:9px;color:#667f92}
+.thorsten-footer-social{display:flex;align-items:center;gap:18px}
+.thorsten-footer-social small{font-size:7px;letter-spacing:.35em;margin-right:10px;color:#55718a}
+.thorsten-footer-social a{font-size:10px;color:var(--about-blue)}
+.about-backtop{width:28px;height:28px;display:grid;place-items:center;background:#fff;border:1px solid #d6dde0;color:var(--about-blue);font-size:10px}
+
+/* Arabic: keep Thorsten geometry, switch text only to DIN Arabic */
+body.is-ar.about-thorsten .about-main,
+body.is-ar.about-thorsten .about-concepts-top,
+body.is-ar.about-thorsten .about-feature-grid,
+body.is-ar.about-thorsten .about-team-grid,
+body.is-ar.about-thorsten .about-services-section,
+body.is-ar.about-thorsten .about-services-grid,
+body.is-ar.about-thorsten .thorsten-footer-main,
+body.is-ar.about-thorsten .thorsten-footer-bottom{direction:ltr!important;text-align:left!important}
+body.is-ar.about-thorsten .about-concepts-copy,
+body.is-ar.about-thorsten .about-progress-list,
+body.is-ar.about-thorsten .about-feature,
+body.is-ar.about-thorsten .about-team-heading,
+body.is-ar.about-thorsten .about-team-overlay,
+body.is-ar.about-thorsten .about-services-intro,
+body.is-ar.about-thorsten .about-service-item,
+body.is-ar.about-thorsten .thorsten-footer-lead,
+body.is-ar.about-thorsten .thorsten-footer-col{direction:rtl!important;text-align:right!important;font-family:var(--din-ar)!important}
+body.is-ar.about-thorsten .thorsten-kicker{direction:rtl;font-family:var(--din-ar);letter-spacing:0;text-transform:none;justify-content:flex-start}
+body.is-ar.about-thorsten .about-concepts h1,
+body.is-ar.about-thorsten .about-concepts-copy p,
+body.is-ar.about-thorsten .about-progress-head,
+body.is-ar.about-thorsten .about-feature h3,
+body.is-ar.about-thorsten .about-feature p,
+body.is-ar.about-thorsten .about-team-heading h2,
+body.is-ar.about-thorsten .about-team-overlay h3,
+body.is-ar.about-thorsten .about-team-overlay p,
+body.is-ar.about-thorsten .about-services-intro h2,
+body.is-ar.about-thorsten .about-services-intro p,
+body.is-ar.about-thorsten .about-service-item h3,
+body.is-ar.about-thorsten .about-service-item p,
+body.is-ar.about-thorsten .thorsten-footer-logo,
+body.is-ar.about-thorsten .thorsten-footer-lead>p,
+body.is-ar.about-thorsten .thorsten-newsletter,
+body.is-ar.about-thorsten .thorsten-footer-col h4,
+body.is-ar.about-thorsten .thorsten-footer-col a,
+body.is-ar.about-thorsten .thorsten-footer-col p,
+body.is-ar.about-thorsten .thorsten-footer-bottom{font-family:var(--din-ar)!important;letter-spacing:0!important}
+body.is-ar.about-thorsten .about-concepts h1{font-size:42px;line-height:1.55}
+body.is-ar.about-thorsten .about-concepts-copy p{font-size:14px;line-height:2}
+body.is-ar.about-thorsten .about-progress-head{flex-direction:row-reverse}
+body.is-ar.about-thorsten .about-progress-track i{left:auto;right:0;transform-origin:right center}
+body.is-ar.about-thorsten .about-progress-track em{right:auto;left:0}
+body.is-ar.about-thorsten .about-feature{grid-template-columns:1fr 34px}
+body.is-ar.about-thorsten .about-feature>i{grid-column:2;grid-row:1;text-align:right}
+body.is-ar.about-thorsten .about-feature>div{grid-column:1;grid-row:1}
+body.is-ar.about-thorsten .about-team-heading h2{font-size:40px;line-height:1.6}
+body.is-ar.about-thorsten .about-team-overlay{direction:rtl!important;text-align:center!important}
+body.is-ar.about-thorsten .about-services-intro h2{font-size:38px;line-height:1.55}
+body.is-ar.about-thorsten .about-services-intro p,body.is-ar.about-thorsten .about-service-item p{line-height:2}
+body.is-ar.about-thorsten .thorsten-footer-col{align-items:flex-end}
+body.is-ar.about-thorsten .thorsten-newsletter label{direction:rtl}
+body.is-ar.about-thorsten .thorsten-footer-social{direction:ltr!important}
+body.is-ar.about-thorsten .thorsten-footer-bottom>span{direction:rtl;text-align:right}
+
+/* responsive faithful stacking */
+@media(max-width:1180px){
+  .about-thorsten .inner-main.about-main{margin-right:0}
+  .about-hero{height:340px}
+  .about-concepts{padding-left:44px;padding-right:44px}
+  .about-concepts-top{gap:52px}
+  .about-concepts h1{font-size:42px}
+  .about-feature-grid{gap:28px}
+  .about-team-inner{padding-left:44px;padding-right:44px}
+  .about-team-heading h2{font-size:41px}
+  .about-services-section{padding-left:44px;padding-right:44px}
+  .thorsten-footer-main{grid-template-columns:1.4fr .65fr .7fr 1fr;gap:34px}
+}
+@media(max-width:900px){
+  .about-thorsten .inner-main.about-main{margin:0;padding-top:var(--header-h)}
+  .about-hero{height:42vw;min-height:260px;max-height:380px}
+  .about-hero-title{font-size:40px}
+  .about-concepts{padding:76px 28px 72px}
+  .about-concepts-top{grid-template-columns:1fr;gap:48px}
+  .about-concepts-copy{max-width:650px}
+  .about-progress-list{padding-top:0}
+  .about-feature-grid{margin-top:62px;grid-template-columns:repeat(2,minmax(0,1fr));gap:42px 36px}
+  .about-team-inner{padding:72px 28px 70px}
+  .about-team-heading{margin-bottom:48px}
+  .about-team-heading h2{font-size:37px}
+  .about-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about-team-overlay{opacity:1;top:auto;bottom:12px;min-height:0;width:calc(100% - 24px);padding:16px 14px 14px;transform:translateX(-50%);background:rgba(255,255,255,.93)}
+  .about-team-card:hover .about-team-overlay,.about-team-card:focus-within .about-team-overlay{transform:translateX(-50%)}
+  .about-team-overlay p{margin:8px 0 10px}
+  .about-services-section{padding:76px 28px 82px;grid-template-columns:1fr;gap:55px}
+  .about-services-intro{max-width:650px}
+  .thorsten-footer-main{padding:52px 28px 46px;grid-template-columns:1.4fr .7fr .8fr;gap:38px}
+  .thorsten-footer-contact{grid-column:1/-1;border-top:1px solid #e1ddd7;padding-top:34px}
+  .thorsten-footer-bottom{padding:14px 28px;grid-template-columns:1fr auto 34px}
+}
+@media(max-width:620px){
+  .about-hero{height:54vw;min-height:240px}
+  .about-hero-title{font-size:34px}
+  body.is-ar.about-thorsten .about-hero-title{font-size:31px}
+  .about-concepts{padding:62px 20px 66px}
+  .thorsten-kicker{font-size:8px}
+  .thorsten-kicker i{width:50px}
+  .about-concepts h1{font-size:35px;line-height:1.12}
+  body.is-ar.about-thorsten .about-concepts h1{font-size:31px;line-height:1.65}
+  .about-feature-grid{grid-template-columns:1fr;gap:34px}
+  .about-team-inner{padding:60px 16px 58px}
+  .about-team-heading{margin-bottom:38px}
+  .about-team-heading h2{font-size:31px;line-height:1.18}
+  body.is-ar.about-thorsten .about-team-heading h2{font-size:28px;line-height:1.65}
+  .about-team-grid{gap:8px}
+  .about-team-overlay h3{font-size:18px}
+  .about-team-overlay p{font-size:10px}
+  .about-team-overlay a{font-size:9px}
+  .about-services-section{padding:65px 20px 72px}
+  .about-services-intro h2{font-size:34px}
+  body.is-ar.about-thorsten .about-services-intro h2{font-size:30px;line-height:1.6}
+  .about-services-grid{grid-template-columns:1fr;row-gap:32px}
+  .about-service-item p{max-width:100%}
+  .thorsten-footer-main{padding:46px 22px 40px;grid-template-columns:1fr;gap:34px}
+  .thorsten-footer-lead{max-width:100%}
+  .thorsten-footer-col,.thorsten-footer-contact{grid-column:auto;border-top:1px solid #e1ddd7;padding-top:26px}
+  .thorsten-footer-bottom{padding:18px 22px;grid-template-columns:1fr 34px;gap:14px}
+  .thorsten-footer-social{grid-column:1/-1;grid-row:2;justify-content:flex-start}
+  .about-backtop{grid-column:2;grid-row:1}
+}
+
+/* =========================================================
+   V13 — CROSS SECTOR BRAND / SVG ICON / DIN POLISH
+   Uses the supplied wordmark artwork. No Lenis/GSAP changes.
+   ========================================================= */
+:root{
+  --din-en:"DIN Next LT Pro","DIN Next","DIN 2014","Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --din-ar:"DIN Next LT Arabic","DIN Next Arabic","DIN Next LT W23","Tajawal",Tahoma,Arial,sans-serif;
+  --serif:var(--din-en);
+  --sans:var(--din-en);
+  --arabic:var(--din-ar);
+  --arabic-ui:var(--din-ar);
+}
+body{font-family:var(--din-en);font-weight:400}
+body.is-ar{font-family:var(--din-ar)}
+body.is-ar button,body.is-ar input,body.is-ar textarea{font-family:var(--din-ar)}
+
+/* Keep the Thorsten 74px rail geometry, but make the actual Cross Sector
+   monogram larger and sharper inside the same cell. */
+.site-header .brand,
+body.is-ar .site-header .brand{
+  overflow:hidden!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  background:inherit;
+}
+.brand-monogram{
+  width:auto!important;
+  height:34px!important;
+  max-width:56px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  filter:none!important;
+}
+.about-thorsten .brand-monogram{height:35px!important}
+
+/* Full wordmark where the layout has enough horizontal room. */
+.menu-brand{padding:0 12px!important;overflow:hidden!important}
+.menu-brand img{
+  width:100%!important;
+  max-width:48px!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+.footer-logo img{width:164px!important;height:auto!important;object-fit:contain!important}
+.thorsten-footer-logo{margin-bottom:21px!important}
+.thorsten-footer-logo img{width:190px!important;height:auto!important;object-fit:contain!important}
+
+/* Icon system: thin, consistent SVG lines instead of mixed icon-font shapes. */
+.ui-icon{
+  width:1em;height:1em;display:inline-block;flex:0 0 auto;
+  fill:none;stroke:currentColor;stroke-width:1.55;
+  stroke-linecap:round;stroke-linejoin:round;
+  overflow:visible;vertical-align:-.12em;
+}
+.ui-icon .icon-fill{fill:currentColor;stroke:none}
+.primary-cta .ui-icon,.ref-cta .ui-icon,.text-link .ui-icon,.ref-text-link .ui-icon,.form-submit .ui-icon,.post-read-more .ui-icon{width:14px;height:14px;transition:transform .25s ease}
+.post-read-more:hover .ui-icon,.ref-text-link:hover .ui-icon,.ref-cta:hover .ui-icon{transform:translateX(4px)}
+.menu-x .ui-icon{width:19px;height:19px;stroke-width:1.35}
+.map-link .ui-icon{width:12px;height:12px;margin-inline-start:7px}
+.about-backtop .ui-icon{width:12px;height:12px}
+.sidebar-search .ui-icon{width:13px;height:13px}
+.video-play .ui-icon{width:18px;height:18px}
+.video-bar .ui-icon{width:9px;height:9px}
+.blog-pagination .ui-icon{width:10px;height:10px}
+.blog-quote>.ui-icon{position:absolute;right:25px;top:23px;width:23px;height:23px;color:#c0dce9;transform:rotate(-12deg)}
+.blog-quote-warm>.ui-icon{color:#d9d0c5;transform:none}
+
+/* About reference icons: orange hairline artwork, sized like the source. */
+.about-feature>.ui-icon{
+  width:31px!important;height:31px!important;
+  color:var(--about-orange)!important;
+  margin-top:-1px!important;
+  stroke-width:1.45!important;
+}
+body.is-ar.about-thorsten .about-feature>.ui-icon{grid-column:2;grid-row:1;text-align:right}
+body.is-ar .primary-cta .ui-icon,
+body.is-ar .ref-cta .ui-icon,
+body.is-ar .text-link .ui-icon,
+body.is-ar .ref-text-link .ui-icon,
+body.is-ar .form-submit .ui-icon,
+body.is-ar .post-read-more .ui-icon{transform:rotate(180deg)}
+body.is-ar .post-read-more:hover .ui-icon,body.is-ar .ref-text-link:hover .ui-icon,body.is-ar .ref-cta:hover .ui-icon{transform:rotate(180deg) translateX(4px)}
+body.is-ar .blog-quote>.ui-icon{right:auto;left:25px}
+
+/* DIN type rhythm — one family system throughout the site. */
+.desktop-nav a,.language-toggle,.rail-social a,.rail-label,
+.menu-links a,.menu-close-text,.menu-address,.menu-social-inline,
+.ref-intro-copy h1,.ref-intro-copy p,.ref-card-copy h2,.ref-card-copy p,
+.blog-title-band h1,.blog-post h2,.blog-post>p,.sidebar-widget>h3,
+.contact-title-wrap h1,.form-intro h2,.location-card h3,
+.footer-lead,.footer-col,.footer-contact{
+  font-family:var(--din-en)!important;
+}
+body.is-ar .desktop-nav a,body.is-ar .language-toggle,body.is-ar .rail-social a,body.is-ar .rail-label,
+body.is-ar .menu-links a,body.is-ar .menu-close-text,body.is-ar .menu-address,
+body.is-ar .ref-intro-copy h1,body.is-ar .ref-intro-copy p,body.is-ar .ref-card-copy h2,body.is-ar .ref-card-copy p,
+body.is-ar .blog-title-band h1,body.is-ar .blog-post h2,body.is-ar .blog-post>p,body.is-ar .sidebar-widget>h3,
+body.is-ar .contact-title-wrap h1,body.is-ar .form-intro h2,body.is-ar .location-card h3,
+body.is-ar .footer-lead,body.is-ar .footer-col,body.is-ar .footer-contact{
+  font-family:var(--din-ar)!important;
+}
+
+@media(max-width:900px){
+  .brand-monogram{height:31px!important;max-width:51px!important}
+  .menu-brand img{max-width:44px!important}
+  .thorsten-footer-logo img,.footer-logo img{width:165px!important}
+}
+@media(max-width:420px){
+  .brand-monogram{height:29px!important;max-width:47px!important}
+}
+
+/* =========================================================
+   V14 — HORIZONTAL HOME: THORSTEN DETAIL PASS
+   Intro CTA / project typography / contact ending / home footer.
+   Motion architecture stays Lenis + GSAP exactly as in V13.
+   ========================================================= */
+:root{--home-footer-h:44px}
+
+/* The reference keeps a slim footer strip visible throughout the horizontal
+   composition. Reserve that height so artwork never hides underneath it. */
+@media(min-width:901px){
+  body.home-page .side-rail{bottom:var(--home-footer-h)!important}
+  .home-v3 .ref-horizontal-viewport,
+  .home-v3 .horizontal-viewport{
+    height:calc(100vh - var(--header-h) - var(--home-footer-h))!important;
+    height:calc(100dvh - var(--header-h) - var(--home-footer-h))!important;
+  }
+}
+.home-footer-bar{
+  position:fixed;
+  z-index:66;
+  left:var(--rail-w);
+  right:0;
+  bottom:0;
+  height:var(--home-footer-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  background:rgba(255,255,255,.97);
+  border-top:1px solid var(--line);
+  color:var(--ink);
+  font-family:var(--din-en);
+  font-size:11px;
+  line-height:1;
+  letter-spacing:.005em;
+}
+body.is-ar .home-footer-bar{font-family:var(--din-ar);direction:ltr}
+body.is-ar .home-footer-bar>.lang-ar,
+body.is-ar .home-footer-right .lang-ar{direction:rtl;unicode-bidi:isolate}
+
+/* Intro: the source CTA sits directly after the paragraph rather than being
+   pushed to the lower edge of the panel. */
+.home-v3 .ref-cta{
+  margin-top:36px!important;
+  min-height:46px!important;
+  padding:0 24px!important;
+  gap:18px!important;
+  background:var(--ink)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+  transform:none!important;
+  font-size:13px!important;
+  font-weight:500!important;
+}
+.home-v3 .ref-cta:hover{background:#213f5d!important;transform:none!important;box-shadow:none!important}
+.home-v3 .ref-cta .ui-icon{width:13px!important;height:13px!important}
+
+/* The active navigation rule on Thorsten reads wider than the word itself. */
+.site-header .desktop-nav a::after{
+  height:1px!important;
+  left:-14px!important;
+  right:calc(100% + 14px)!important;
+}
+.site-header .desktop-nav a:hover::after,
+.site-header .desktop-nav a.active::after{right:-14px!important}
+body.is-ar .site-header .desktop-nav a::after{
+  left:calc(100% + 14px)!important;
+  right:-14px!important;
+}
+body.is-ar .site-header .desktop-nav a:hover::after,
+body.is-ar .site-header .desktop-nav a.active::after{left:-14px!important}
+
+/* Projects: no micro-category line. The project name becomes the dominant
+   secondary element, followed only by the supporting copy. */
+.home-v3 .ref-category{display:none!important}
+.home-v3 .ref-card-copy{
+  padding-top:24px!important;
+  justify-content:flex-start!important;
+  transition:transform .35s ease;
+}
+.home-v3 .ref-card-copy h2{
+  font-size:30px!important;
+  line-height:1.06!important;
+  margin:0 0 13px!important;
+  max-width:100%!important;
+  transition:transform .35s ease,color .35s ease;
+}
+.home-v3 .ref-card-copy p{
+  font-size:13.5px!important;
+  line-height:1.62!important;
+  max-width:100%!important;
+  -webkit-line-clamp:4!important;
+  transition:opacity .35s ease,transform .35s ease;
+}
+.home-v3 .ref-project-card:hover .ref-card-copy h2{transform:translateY(-3px)}
+.home-v3 .ref-project-card:hover .ref-card-copy p{opacity:1;transform:translateY(-2px)}
+.home-v3 .ref-project-card:hover .ref-card-image img{transform:scale(1.035)}
+.home-v3 .ref-card-image img{transition:transform .65s cubic-bezier(.22,.61,.36,1)}
+body.is-ar.home-v3 .ref-card-copy h2{font-size:27px!important;line-height:1.55!important;margin:0 0 10px!important}
+body.is-ar.home-v3 .ref-card-copy p{font-size:13px!important;line-height:1.9!important}
+
+/* Final panel mirrors the clean Contact Us ending of the reference. */
+.home-v3 .ref-contact-panel{background:#fff!important}
+.home-v3 .ref-contact-copy{
+  padding:72px 60px 40px!important;
+  justify-content:flex-start!important;
+}
+.home-v3 .ref-contact-copy h2{
+  font-size:clamp(48px,4.05vw,64px)!important;
+  line-height:1.04!important;
+  margin:0 0 34px!important;
+  max-width:none!important;
+  font-weight:400!important;
+}
+.home-contact-details{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:9px;
+  font-family:var(--din-en);
+  font-size:16px;
+  line-height:1.35;
+  color:var(--ink);
+}
+.home-contact-details a:hover{text-decoration:underline;text-underline-offset:3px}
+.home-directions-link{
+  display:inline-block;
+  margin-top:34px;
+  font-family:var(--din-en);
+  font-size:16px;
+  line-height:1.2;
+  padding-bottom:5px;
+  border-bottom:1px solid transparent;
+  transition:border-color .25s ease;
+}
+.home-directions-link:hover{border-bottom-color:var(--ink)}
+body.is-ar.home-v3 .ref-contact-copy{direction:rtl!important;text-align:right!important;align-items:flex-end!important}
+body.is-ar.home-v3 .ref-contact-copy h2{font-family:var(--din-ar)!important;font-size:clamp(43px,3.7vw,58px)!important;line-height:1.45!important}
+body.is-ar .home-contact-details{font-family:var(--din-ar);direction:rtl;text-align:right;align-items:flex-end;font-size:15px;line-height:1.85}
+body.is-ar .home-directions-link{font-family:var(--din-ar);direction:rtl;font-size:15px}
+
+@media(max-width:1180px) and (min-width:901px){
+  .home-v3 .ref-card-copy h2{font-size:28px!important}
+  .home-v3 .ref-contact-copy{padding-left:42px!important;padding-right:42px!important}
+}
+
+/* On phones the horizontal composition already becomes vertical. The footer
+   becomes a normal final strip so it never covers touch-scroll content. */
+@media(max-width:900px){
+  .home-footer-bar{
+    position:relative!important;
+    left:auto!important;right:auto!important;bottom:auto!important;
+    width:100%!important;height:auto!important;min-height:54px!important;
+    padding:16px 20px!important;
+    gap:18px;
+    font-size:10px!important;
+  }
+  .home-v3 .ref-cta{margin-top:32px!important;margin-bottom:auto!important}
+  .home-v3 .ref-category{display:none!important}
+  .home-v3 .ref-card-copy h2{font-size:31px!important;margin-top:0!important}
+  body.is-ar.home-v3 .ref-card-copy h2{font-size:27px!important}
+  .home-v3 .ref-contact-panel{min-height:66svh!important}
+  .home-v3 .ref-contact-copy{min-height:66svh!important;padding:54px 24px 42px!important}
+  .home-v3 .ref-contact-copy h2{font-size:44px!important;margin-bottom:28px!important}
+  body.is-ar.home-v3 .ref-contact-copy h2{font-size:38px!important}
+  .home-contact-details{font-size:15px;line-height:1.55}
+}
+
+
+/* =========================================================
+   V15 — TOP SOCIALS + NO SIDE RAIL
+   Persistent left rail removed. Social media moves into the
+   top header with Font Awesome icons. The canvas edge is pure white.
+   ========================================================= */
+:root{--rail-w:0px!important}
+html,body,.site-shell,.home-shell{background:#fff!important}
+.side-rail,.menu-rail{display:none!important}
+
+.site-header,
+body.is-ar .site-header{
+  direction:ltr!important;
+  grid-template-columns:82px minmax(0,1fr) auto!important;
+  grid-template-rows:var(--header-h)!important;
+  background:rgba(255,255,255,.985)!important;
+}
+.site-header .brand,
+body.is-ar .site-header .brand{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:82px!important;
+  min-width:82px!important;
+  padding:0 13px!important;
+  border-right:1px solid var(--line)!important;
+  border-left:0!important;
+  background:#fff!important;
+  overflow:visible!important;
+}
+.site-header .brand-monogram,
+body.is-ar .site-header .brand-monogram{
+  display:block!important;
+  width:56px!important;
+  max-width:56px!important;
+  height:auto!important;
+  max-height:44px!important;
+  object-fit:contain!important;
+}
+.site-header .desktop-nav,
+body.is-ar .site-header .desktop-nav{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+}
+body.is-ar .site-header .desktop-nav{direction:rtl!important}
+.site-header .header-actions,
+body.is-ar .site-header .header-actions{
+  grid-column:3!important;
+  grid-row:1!important;
+  height:var(--header-h)!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-self:end!important;
+  direction:ltr!important;
+}
+.header-socials{
+  height:100%;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:5px;
+  border-left:1px solid var(--line);
+  background:#fff;
+}
+.header-socials a{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  color:var(--ink);
+  border-radius:50%;
+  font-size:13px;
+  transition:background-color .25s ease,color .25s ease,transform .25s ease;
+}
+.header-socials a:hover{background:var(--ink);color:#fff;transform:translateY(-1px)}
+.language-toggle,.menu-trigger{background:#fff!important}
+
+/* With the left rail gone, all content starts at the true viewport edge. */
+.horizontal-track,.home-v3 .ref-track{left:0!important}
+.inner-main,.site-footer,.blog-main{margin-left:0!important}
+.about-thorsten .inner-main.about-main{margin-left:0!important;margin-right:0!important}
+.home-footer-bar{left:0!important}
+.menu-body{left:0!important}
+
+/* Social icons in overlay / contact / footer use the same visual language. */
+.menu-social-inline,.contact-social>div,.thorsten-footer-social{align-items:center}
+.menu-social-inline a,.contact-social>div a,.thorsten-footer-social a{
+  display:inline-grid;
+  place-items:center;
+  width:28px;
+  height:28px;
+  font-family:inherit!important;
+  font-size:12px!important;
+  color:currentColor;
+  transition:color .22s ease,transform .22s ease;
+}
+.menu-social-inline a:hover,.contact-social>div a:hover,.thorsten-footer-social a:hover{color:var(--accent);transform:translateY(-1px)}
+
+@media(max-width:1180px){
+  .header-socials{padding:0 9px;gap:2px}
+  .header-socials a{width:26px;height:26px;font-size:12px}
+  .desktop-nav{gap:30px!important;padding-left:32px!important}
+}
+@media(max-width:900px){
+  .site-header,body.is-ar .site-header{grid-template-columns:68px minmax(0,1fr) auto!important}
+  .site-header .brand,body.is-ar .site-header .brand{width:68px!important;min-width:68px!important;padding:0 10px!important}
+  .site-header .brand-monogram,body.is-ar .site-header .brand-monogram{width:47px!important;max-width:47px!important}
+  .header-socials{display:none!important}
+}
+@media(max-width:620px){
+  .site-header,body.is-ar .site-header{grid-template-columns:62px minmax(0,1fr) auto!important}
+  .site-header .brand,body.is-ar .site-header .brand{width:62px!important;min-width:62px!important;padding:0 8px!important}
+  .site-header .brand-monogram,body.is-ar .site-header .brand-monogram{width:44px!important;max-width:44px!important}
+}
+
+/* V16 — supplied real team photography */
+@media(max-width:900px){
+  .about-team-grid.team-grid-seven{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about-team-grid.team-grid-seven>.about-team-card{grid-column:auto}
+}
+@media(max-width:620px){
+  .about-team-grid.team-grid-seven{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* =========================================================
+   V17 — HOME ENDING + THORSTEN LIGHT FOOTER + CONTACT CLEANUP
+   ========================================================= */
+
+/* Home intro in the source begins directly with the headline. */
+.home-v3 .ref-intro-copy .ref-kicker{display:none!important}
+
+/* Final horizontal Contact panel: explicit display types are important in
+   Arabic because generic language rules otherwise revert a flex block to block. */
+.home-v3 .ref-contact-panel{
+  min-width:640px!important;
+  width:min(49vw,720px)!important;
+  background:#fff!important;
+  border-right:1px solid var(--line)!important;
+}
+.home-v3 .ref-contact-copy{
+  height:100%!important;
+  padding:76px 62px 42px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+}
+.home-v3 .ref-contact-copy h2.lang-en,
+.home-v3 .ref-contact-copy h2.lang-ar{
+  display:block!important;
+  margin:0 0 32px!important;
+  font-family:var(--din-en)!important;
+  font-size:clamp(48px,3.9vw,61px)!important;
+  line-height:1.02!important;
+  font-weight:300!important;
+  letter-spacing:-.025em!important;
+  color:var(--ink)!important;
+}
+.home-contact-details.lang-en,
+body.is-ar .home-contact-details.lang-ar{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:7px!important;
+  max-width:470px!important;
+  font-family:var(--din-en)!important;
+  font-size:16px!important;
+  line-height:1.45!important;
+  color:var(--ink)!important;
+}
+.home-contact-details b{font-weight:400;color:#708296}
+.home-directions-link{
+  margin-top:34px!important;
+  font-size:16px!important;
+  font-weight:400!important;
+  color:var(--ink)!important;
+  border:0!important;
+}
+.home-directions-link:hover{color:var(--accent)!important}
+body.is-ar.home-v3 .ref-contact-copy{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:flex-end!important;
+}
+body.is-ar.home-v3 .ref-contact-copy h2.lang-ar{
+  font-family:var(--din-ar)!important;
+  font-size:clamp(43px,3.5vw,55px)!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+}
+body.is-ar .home-contact-details.lang-ar{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:flex-end!important;
+  font-family:var(--din-ar)!important;
+  font-size:15px!important;
+  line-height:1.8!important;
+}
+body.is-ar .home-directions-link{font-family:var(--din-ar)!important;font-size:15px!important}
+
+/* Contact: user requested no large photographic strip. */
+.contact-page .contact-image-strip,
+.contact-page .hero-paper{display:none!important}
+.contact-page .locations-section{border-bottom:0!important}
+
+/* One shared Thorsten-style light footer on every inner page. */
+.site-footer.thorsten-footer.unified-footer{
+  margin:0!important;
+  padding:0!important;
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  background:#f5f2ed!important;
+  color:#1b3855!important;
+  border-top:1px solid #e2ddd6!important;
+  overflow:visible!important;
+  font-family:var(--din-en)!important;
+}
+.unified-footer .thorsten-footer-main{
+  min-height:350px!important;
+  padding:64px clamp(42px,6vw,86px) 55px!important;
+  display:grid!important;
+  grid-template-columns:minmax(350px,1.65fr) .58fr .68fr 1fr!important;
+  gap:clamp(38px,5vw,78px)!important;
+  border-bottom:1px solid #dcd8d1!important;
+  direction:ltr!important;
+}
+.unified-footer .thorsten-footer-lead{max-width:520px!important}
+.unified-footer .thorsten-footer-logo{margin:0 0 18px!important}
+.unified-footer .thorsten-footer-logo img{width:190px!important;max-width:100%!important;height:auto!important;display:block!important}
+.unified-footer .thorsten-footer-lead>p{
+  margin:0!important;
+  max-width:460px!important;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+  font-weight:500!important;
+  color:#193651!important;
+}
+.unified-footer .thorsten-newsletter{margin-top:35px!important;max-width:360px!important}
+.unified-footer .thorsten-newsletter>span{
+  display:block!important;
+  margin-bottom:18px!important;
+  font-size:8px!important;
+  font-weight:500!important;
+  letter-spacing:.36em!important;
+  color:#536d84!important;
+}
+.unified-footer .thorsten-newsletter label{
+  display:flex!important;
+  align-items:center!important;
+  min-height:37px!important;
+  border-bottom:1px solid #bdc8cf!important;
+}
+.unified-footer .footer-email{
+  flex:1!important;
+  width:100%!important;
+  border:0!important;
+  background:transparent!important;
+  outline:0!important;
+  padding:0 0 8px!important;
+  font-family:var(--din-en)!important;
+  font-size:11px!important;
+  color:#6d8395!important;
+}
+.unified-footer .thorsten-newsletter button{
+  width:34px!important;height:32px!important;
+  border:0!important;background:transparent!important;
+  display:grid!important;place-items:center!important;
+  color:#203f5b!important;font-size:11px!important;cursor:pointer!important;
+}
+.unified-footer .thorsten-newsletter button:hover{color:var(--accent)!important}
+.unified-footer .thorsten-footer-col{
+  min-height:0!important;
+  padding:5px 0 0!important;
+  border:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:11px!important;
+  color:#6d8191!important;
+}
+.unified-footer .thorsten-footer-col h4{
+  margin:0 0 16px!important;
+  font-family:var(--din-en)!important;
+  font-size:14px!important;
+  line-height:1.2!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:#1b3855!important;
+}
+.unified-footer .thorsten-footer-col a,
+.unified-footer .thorsten-footer-col p{
+  margin:0!important;
+  font-family:var(--din-en)!important;
+  font-size:11px!important;
+  line-height:1.72!important;
+  color:#647d91!important;
+}
+.unified-footer .thorsten-footer-col a:hover{color:var(--accent)!important}
+.unified-footer .thorsten-footer-contact .footer-directions{
+  margin-top:14px!important;
+  font-size:12px!important;
+  font-weight:500!important;
+  color:#1b3855!important;
+}
+.unified-footer .thorsten-footer-bottom{
+  min-height:66px!important;
+  padding:0 clamp(42px,6vw,86px)!important;
+  display:grid!important;
+  grid-template-columns:1fr auto 42px!important;
+  align-items:center!important;
+  gap:28px!important;
+  background:#f5f2ed!important;
+  font-family:var(--din-en)!important;
+  font-size:9px!important;
+  color:#647d91!important;
+  direction:ltr!important;
+}
+.unified-footer .thorsten-footer-social{
+  display:flex!important;
+  align-items:center!important;
+  gap:13px!important;
+}
+.unified-footer .thorsten-footer-social small{
+  margin-right:11px!important;
+  font-size:7px!important;
+  letter-spacing:.36em!important;
+  color:#38556f!important;
+}
+.unified-footer .thorsten-footer-social a{
+  width:25px!important;height:25px!important;
+  display:grid!important;place-items:center!important;
+  font-size:10px!important;
+  color:#1b3855!important;
+}
+.unified-footer .thorsten-footer-social a:hover{color:var(--accent)!important;transform:translateY(-1px)}
+.site-backtop{
+  width:38px!important;height:38px!important;
+  border:1px solid #ccd5da!important;
+  background:#fff!important;
+  color:#25425e!important;
+  display:grid!important;place-items:center!important;
+  cursor:pointer!important;
+  transition:color .22s ease,border-color .22s ease,transform .22s ease!important;
+}
+.site-backtop:hover{color:var(--accent)!important;border-color:var(--accent)!important;transform:translateY(-2px)!important}
+
+/* Arabic footer: preserve column geometry, flip text inside columns only. */
+body.is-ar .unified-footer .thorsten-footer-main,
+body.is-ar .unified-footer .thorsten-footer-bottom{direction:ltr!important;text-align:left!important}
+body.is-ar .unified-footer .thorsten-footer-lead,
+body.is-ar .unified-footer .thorsten-footer-col{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:flex-end!important;
+}
+body.is-ar .unified-footer .thorsten-footer-lead>p,
+body.is-ar .unified-footer .thorsten-newsletter,
+body.is-ar .unified-footer .thorsten-footer-col h4,
+body.is-ar .unified-footer .thorsten-footer-col a,
+body.is-ar .unified-footer .thorsten-footer-col p{
+  font-family:var(--din-ar)!important;
+  letter-spacing:0!important;
+}
+body.is-ar .unified-footer .thorsten-newsletter label{direction:rtl!important}
+body.is-ar .unified-footer .footer-email.lang-ar{display:block!important;text-align:right!important;direction:rtl!important;font-family:var(--din-ar)!important}
+body.is-ar .unified-footer .thorsten-footer-bottom>span{direction:rtl!important;text-align:right!important;font-family:var(--din-ar)!important}
+body.is-ar .unified-footer .thorsten-footer-social small{font-family:var(--din-ar)!important;letter-spacing:0!important}
+
+@media(max-width:1000px){
+  .unified-footer .thorsten-footer-main{grid-template-columns:1.35fr .7fr .8fr!important;gap:44px!important}
+  .unified-footer .thorsten-footer-contact{grid-column:1/-1!important;padding-top:6px!important}
+}
+@media(max-width:700px){
+  .home-v3 .ref-contact-panel{min-width:100%!important;width:100%!important}
+  .home-v3 .ref-contact-copy{padding:56px 24px 44px!important}
+  .home-v3 .ref-contact-copy h2.lang-en,.home-v3 .ref-contact-copy h2.lang-ar{font-size:42px!important;margin-bottom:26px!important}
+  body.is-ar.home-v3 .ref-contact-copy h2.lang-ar{font-size:36px!important}
+  .unified-footer .thorsten-footer-main{
+    min-height:0!important;
+    grid-template-columns:1fr!important;
+    gap:38px!important;
+    padding:48px 25px 42px!important;
+  }
+  .unified-footer .thorsten-footer-contact{grid-column:auto!important}
+  .unified-footer .thorsten-footer-col{align-items:flex-start!important}
+  body.is-ar .unified-footer .thorsten-footer-col{align-items:flex-end!important}
+  .unified-footer .thorsten-footer-bottom{
+    min-height:0!important;
+    padding:18px 20px!important;
+    grid-template-columns:1fr 38px!important;
+    gap:18px!important;
+  }
+  .unified-footer .thorsten-footer-social{grid-column:1/-1!important;grid-row:1!important;justify-content:flex-start!important}
+  .unified-footer .thorsten-footer-bottom>span{grid-column:1!important;grid-row:2!important}
+  .site-backtop{grid-column:2!important;grid-row:2!important;justify-self:end!important}
+}
+
+/* =========================================================
+   V18 — MOBILE TEAM INTERACTION
+   Desktop keeps true hover. Touch/mobile keeps the same
+   centered Thorsten overlay, revealed on tap instead of
+   forcing the card permanently open.
+   ========================================================= */
+.about-team-card.is-active .about-team-overlay{
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(-50%,-50%);
+}
+.about-team-card.is-active>img{transform:scale(1.04)}
+
+@media(max-width:900px){
+  /* Undo the old always-visible mobile treatment. */
+  .about-team-overlay{
+    left:50%;
+    top:50%;
+    bottom:auto;
+    width:74%;
+    min-height:63%;
+    padding:26px 20px;
+    opacity:0;
+    pointer-events:none;
+    background:rgba(255,255,255,.975);
+    transform:translate(-50%,-44%);
+  }
+  .about-team-card:hover .about-team-overlay,
+  .about-team-card:focus-within .about-team-overlay,
+  .about-team-card.is-active .about-team-overlay{
+    opacity:1;
+    pointer-events:auto;
+    transform:translate(-50%,-50%);
+  }
+  .about-team-card:hover>img,
+  .about-team-card:focus-within>img,
+  .about-team-card.is-active>img{transform:scale(1.04)}
+  .about-team-overlay p{margin:14px 0 18px}
+}
+
+/* Touch devices should not get a permanently latched synthetic :hover.
+   The .is-active class below is controlled by JS on tap. */
+@media(max-width:900px) and (hover:none){
+  .about-team-card:hover .about-team-overlay{
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-44%);
+  }
+  .about-team-card:hover>img{transform:scale(1.002)}
+  .about-team-card.is-active .about-team-overlay,
+  .about-team-card:focus-within .about-team-overlay{
+    opacity:1;
+    pointer-events:auto;
+    transform:translate(-50%,-50%);
+  }
+  .about-team-card.is-active>img,
+  .about-team-card:focus-within>img{transform:scale(1.04)}
+}
+
+@media(max-width:620px){
+  .about-team-overlay{
+    width:78%;
+    min-height:68%;
+    padding:18px 12px;
+  }
+  .about-team-overlay h3{font-size:18px;line-height:1.25}
+  body.is-ar.about-thorsten .about-team-overlay h3{font-size:18px;line-height:1.55!important}
+  .about-team-overlay p{font-size:10px;margin:9px 0 12px}
+  .about-team-overlay a{font-size:10px}
+}
+
+/* =========================================================
+   V19 — HOME CONTACT + CTA HOVER + BLOG TYPOGRAPHY POLISH
+   Keeps the existing V18 motion/RTL architecture intact.
+   ========================================================= */
+
+/* Home CTA: Thorsten navy at rest, Cross Sector orange on hover. */
+.home-v3 .ref-cta{
+  background:var(--ink)!important;
+  color:#fff!important;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  font-weight:500!important;
+  letter-spacing:0!important;
+  transition:background-color .28s ease,color .28s ease!important;
+}
+.home-v3 .ref-cta:hover,
+.home-v3 .ref-cta:focus-visible{
+  background:var(--accent)!important;
+  color:#fff!important;
+}
+.home-v3 .ref-cta:hover .ui-icon,
+.home-v3 .ref-cta:focus-visible .ui-icon{transform:translateX(4px)!important}
+body.is-ar.home-v3 .ref-cta{font-family:var(--din-ar)!important;font-weight:500!important}
+body.is-ar.home-v3 .ref-cta:hover .ui-icon,
+body.is-ar.home-v3 .ref-cta:focus-visible .ui-icon{transform:rotate(180deg) translateX(4px)!important}
+
+/* Home final Contact panel: every datum is its own row, matching the source. */
+.home-v3 .home-contact-details.lang-en,
+body.is-ar.home-v3 .home-contact-details.lang-ar{
+  display:flex!important;
+  flex-direction:column!important;
+  flex-wrap:nowrap!important;
+  gap:7px!important;
+  width:100%!important;
+}
+.home-v3 .home-contact-details.lang-en > *,
+body.is-ar.home-v3 .home-contact-details.lang-ar > *{
+  display:block!important;
+  width:max-content!important;
+  max-width:100%!important;
+  margin:0!important;
+  white-space:normal!important;
+}
+.home-v3 .home-contact-details span b{font-weight:400!important}
+
+/* ---------------- BLOG / RIGHT SIDEBAR LIST ----------------
+   Geometry, rhythm and type hierarchy tuned to Thorsten's list page.
+   ---------------------------------------------------------- */
+.blog-page,
+.blog-main{background:#fff!important}
+
+.blog-page .blog-title-band{
+  min-height:184px!important;
+  padding:54px clamp(48px,7vw,96px) 42px!important;
+  background:#fff!important;
+  border-bottom:0!important;
+  align-items:flex-end!important;
+}
+.blog-page .blog-title-band h1{
+  margin:0 0 10px!important;
+  font-family:var(--din-en)!important;
+  font-size:clamp(34px,3vw,44px)!important;
+  line-height:1.05!important;
+  font-weight:300!important;
+  letter-spacing:-.018em!important;
+  color:var(--ink)!important;
+}
+.blog-page .blog-breadcrumb{
+  font-family:var(--din-en)!important;
+  font-size:8px!important;
+  line-height:1.4!important;
+  font-weight:500!important;
+  letter-spacing:.24em!important;
+  color:#8795a3!important;
+}
+
+.blog-page .blog-shell{
+  width:min(1180px,calc(100% - 96px))!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,2.7fr) minmax(235px,.82fr)!important;
+  gap:48px!important;
+  padding:56px 0 104px!important;
+  align-items:start!important;
+}
+.blog-page .blog-list{display:block!important;min-width:0!important}
+.blog-page .blog-post{
+  display:block!important;
+  width:100%!important;
+  margin:0 0 74px!important;
+}
+.blog-page .blog-media{
+  display:block!important;
+  width:100%!important;
+  aspect-ratio:1.56 / 1!important;
+  overflow:hidden!important;
+  background:#eeeae4!important;
+}
+.blog-page .blog-media img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  transform:scale(1)!important;
+  transition:transform .65s cubic-bezier(.22,.61,.36,1)!important;
+}
+.blog-page .blog-media:hover img{transform:scale(1.022)!important}
+
+.blog-page .post-meta{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:7px!important;
+  margin:18px 0 8px!important;
+  font-family:var(--din-en)!important;
+  font-size:7px!important;
+  line-height:1.2!important;
+  font-weight:500!important;
+  letter-spacing:.20em!important;
+  text-transform:uppercase!important;
+  color:#6f8294!important;
+}
+.blog-page .post-meta i{
+  display:inline-block!important;
+  width:10px!important;
+  height:1px!important;
+  background:#9eaab4!important;
+}
+.blog-page .blog-post h2{
+  margin:0 0 11px!important;
+  font-family:var(--din-en)!important;
+  font-size:clamp(25px,2.05vw,30px)!important;
+  line-height:1.13!important;
+  font-weight:300!important;
+  letter-spacing:-.012em!important;
+  color:var(--ink)!important;
+}
+.blog-page .blog-post h2 a{transition:color .24s ease!important}
+.blog-page .blog-post h2 a:hover{color:var(--accent)!important}
+.blog-page .blog-post>p{
+  margin:0 0 16px!important;
+  max-width:98%!important;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  line-height:1.72!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  color:#667b8f!important;
+}
+.blog-page .post-read-more{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin-top:1px!important;
+  font-family:var(--din-en)!important;
+  font-size:10px!important;
+  line-height:1!important;
+  font-weight:500!important;
+  color:var(--ink)!important;
+  transition:color .22s ease!important;
+}
+.blog-page .post-read-more:hover{color:var(--accent)!important}
+.blog-page .post-read-more .ui-icon{width:12px!important;height:12px!important}
+
+.blog-page .blog-quote{
+  width:100%!important;
+  min-height:142px!important;
+  margin:2px 0 74px!important;
+  padding:38px 48px!important;
+  display:flex!important;
+  align-items:center!important;
+}
+.blog-page .blog-quote p{
+  margin:0!important;
+  font-family:var(--din-en)!important;
+  font-size:24px!important;
+  line-height:1.28!important;
+  font-weight:300!important;
+  letter-spacing:-.008em!important;
+}
+.blog-page .blog-quote cite{
+  font-family:var(--din-en)!important;
+  font-size:7px!important;
+  font-weight:500!important;
+  letter-spacing:.18em!important;
+}
+
+.blog-page .blog-sidebar{
+  display:block!important;
+  min-width:0!important;
+  padding-top:0!important;
+}
+.blog-page .sidebar-widget{margin:0 0 46px!important}
+.blog-page .sidebar-widget>h3{
+  margin:0 0 16px!important;
+  font-family:var(--din-en)!important;
+  font-size:17px!important;
+  line-height:1.15!important;
+  font-weight:300!important;
+  letter-spacing:-.008em!important;
+  color:var(--ink)!important;
+}
+.blog-page .about-widget>img{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:1.35 / 1!important;
+  object-fit:cover!important;
+  margin:0 0 15px!important;
+}
+.blog-page .about-widget p{
+  margin:0!important;
+  font-family:var(--din-en)!important;
+  font-size:12px!important;
+  line-height:1.65!important;
+  font-weight:400!important;
+  color:#667a8e!important;
+}
+.blog-page .popular-post{
+  grid-template-columns:72px minmax(0,1fr)!important;
+  gap:11px!important;
+  margin:0 0 14px!important;
+}
+.blog-page .popular-post img{width:72px!important;height:58px!important;object-fit:cover!important}
+.blog-page .popular-post small{
+  font-family:var(--din-en)!important;
+  font-size:6.5px!important;
+  font-weight:500!important;
+  letter-spacing:.16em!important;
+  color:#8a98a5!important;
+}
+.blog-page .popular-post b{
+  font-family:var(--din-en)!important;
+  font-size:11.5px!important;
+  line-height:1.22!important;
+  font-weight:400!important;
+  color:var(--ink)!important;
+  transition:color .22s ease!important;
+}
+.blog-page .popular-post:hover b{color:var(--accent)!important}
+.blog-page .sidebar-list li{margin:0 0 8px!important}
+.blog-page .sidebar-list a,
+.blog-page .tag-cloud a{
+  font-family:var(--din-en)!important;
+  font-weight:400!important;
+  color:#64798d!important;
+}
+.blog-page .sidebar-list a{font-size:12px!important}
+.blog-page .tag-cloud{gap:7px 11px!important}
+.blog-page .tag-cloud a{font-size:10.5px!important}
+.blog-page .sidebar-list a:hover,
+.blog-page .tag-cloud a:hover{color:var(--accent)!important}
+.blog-page .sidebar-search label{height:39px!important;background:#fff!important}
+.blog-page .sidebar-search input{
+  font-family:var(--din-en)!important;
+  font-size:10px!important;
+  font-weight:400!important;
+}
+
+.blog-page .blog-pagination{
+  margin-top:-7px!important;
+  padding-top:28px!important;
+  gap:17px!important;
+}
+.blog-page .blog-pagination a{
+  font-family:var(--din-en)!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  transition:color .22s ease,border-color .22s ease!important;
+}
+.blog-page .blog-pagination a:hover{color:var(--accent)!important}
+.blog-page .blog-pagination a.active{color:var(--accent)!important;border-color:#d9dfe4!important}
+
+/* Arabic keeps the same page geometry; only the copy runs RTL. */
+body.is-ar.blog-page .blog-title-band,
+body.is-ar.blog-page .blog-list,
+body.is-ar.blog-page .blog-sidebar{direction:rtl!important;text-align:right!important}
+body.is-ar.blog-page .blog-shell{direction:ltr!important}
+body.is-ar.blog-page .blog-title-band h1,
+body.is-ar.blog-page .blog-breadcrumb,
+body.is-ar.blog-page .post-meta,
+body.is-ar.blog-page .blog-post h2,
+body.is-ar.blog-page .blog-post>p,
+body.is-ar.blog-page .post-read-more,
+body.is-ar.blog-page .blog-quote p,
+body.is-ar.blog-page .blog-quote cite,
+body.is-ar.blog-page .sidebar-widget>h3,
+body.is-ar.blog-page .about-widget p,
+body.is-ar.blog-page .popular-post small,
+body.is-ar.blog-page .popular-post b,
+body.is-ar.blog-page .sidebar-list a,
+body.is-ar.blog-page .tag-cloud a,
+body.is-ar.blog-page .sidebar-search input,
+body.is-ar.blog-page .blog-pagination a{
+  font-family:var(--din-ar)!important;
+  letter-spacing:0!important;
+}
+body.is-ar.blog-page .post-meta{justify-content:flex-start!important;line-height:1.7!important}
+body.is-ar.blog-page .blog-post h2{font-size:26px!important;line-height:1.55!important;font-weight:400!important}
+body.is-ar.blog-page .blog-post>p{font-size:13px!important;line-height:1.9!important;font-weight:400!important}
+body.is-ar.blog-page .blog-quote p{font-size:22px!important;line-height:1.7!important;font-weight:400!important}
+body.is-ar.blog-page .sidebar-widget>h3{font-weight:400!important}
+body.is-ar.blog-page .popular-post{direction:rtl!important;grid-template-columns:minmax(0,1fr) 72px!important}
+body.is-ar.blog-page .popular-post img{grid-column:2!important}
+body.is-ar.blog-page .popular-post span{grid-column:1!important;grid-row:1!important}
+
+@media(max-width:1100px){
+  .blog-page .blog-shell{
+    width:min(100% - 58px,960px)!important;
+    grid-template-columns:minmax(0,2.25fr) minmax(220px,.78fr)!important;
+    gap:36px!important;
+  }
+  .blog-page .blog-title-band{padding-left:34px!important;padding-right:34px!important}
+}
+
+/* Tablet/phone: one clean vertical reading flow — posts then every sidebar widget. */
+@media(max-width:900px){
+  .blog-page .blog-title-band{min-height:164px!important;padding:42px 26px 30px!important}
+  .blog-page .blog-title-band h1{font-size:36px!important}
+  .blog-page .blog-shell{
+    width:min(100% - 42px,760px)!important;
+    display:block!important;
+    padding:48px 0 72px!important;
+  }
+  .blog-page .blog-post{margin-bottom:58px!important}
+  .blog-page .blog-media{aspect-ratio:1.48 / 1!important}
+  .blog-page .blog-sidebar{
+    display:block!important;
+    margin-top:58px!important;
+    padding-top:46px!important;
+    border-top:1px solid var(--line)!important;
+  }
+  .blog-page .sidebar-widget{margin:0 0 38px!important}
+  .blog-page .about-widget>img{max-height:none!important;aspect-ratio:1.6 / 1!important}
+}
+
+@media(max-width:620px){
+  .blog-page .blog-title-band{min-height:148px!important;padding:34px 20px 26px!important}
+  .blog-page .blog-title-band h1{font-size:32px!important}
+  .blog-page .blog-shell{width:calc(100% - 32px)!important;padding:38px 0 60px!important}
+  .blog-page .blog-media{aspect-ratio:1.32 / 1!important}
+  .blog-page .post-meta{font-size:6.5px!important;gap:6px!important;letter-spacing:.13em!important;margin-top:15px!important}
+  .blog-page .blog-post h2{font-size:25px!important;line-height:1.18!important}
+  .blog-page .blog-post>p{font-size:12.5px!important;line-height:1.75!important;max-width:none!important}
+  .blog-page .blog-quote{min-height:124px!important;padding:30px 26px!important;margin-bottom:58px!important}
+  .blog-page .blog-quote p{font-size:20px!important}
+  .blog-page .post-read-more{font-size:10px!important}
+  body.is-ar.blog-page .blog-post h2{font-size:23px!important;line-height:1.55!important}
+  body.is-ar.blog-page .blog-post>p{font-size:12.5px!important;line-height:1.9!important}
+}
+
+/* =========================================================
+   V20 — Thorsten back-to-top behaviour
+   Inner pages only: appears after the very first scroll.
+   Home never shows a back-to-top control.
+========================================================= */
+body.home-page .site-backtop,
+body.home-page .about-backtop{
+  display:none!important;
+}
+
+body:not(.home-page) .site-backtop,
+body:not(.home-page) .about-backtop{
+  position:fixed!important;
+  right:18px!important;
+  bottom:18px!important;
+  z-index:950!important;
+  width:40px!important;
+  height:40px!important;
+  margin:0!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid #d6dde0!important;
+  background:#fff!important;
+  color:var(--about-blue,#173957)!important;
+  font-size:12px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  transform:translateY(10px)!important;
+  transition:opacity .24s ease, transform .28s cubic-bezier(.2,.75,.2,1), background-color .22s ease, color .22s ease, border-color .22s ease!important;
+  box-shadow:none!important;
+}
+
+body:not(.home-page) .site-backtop.is-visible,
+body:not(.home-page) .about-backtop.is-visible{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transform:translateY(0)!important;
+}
+
+body:not(.home-page) .site-backtop:hover,
+body:not(.home-page) .about-backtop:hover{
+  background:var(--about-orange,#ff825f)!important;
+  border-color:var(--about-orange,#ff825f)!important;
+  color:#fff!important;
+}
+
+body:not(.home-page) .site-backtop i,
+body:not(.home-page) .about-backtop i{
+  transition:transform .22s ease!important;
+}
+body:not(.home-page) .site-backtop:hover i,
+body:not(.home-page) .about-backtop:hover i{
+  transform:translateY(-2px)!important;
+}
+
+/* The button is now fixed, so the footer no longer needs a dedicated grid column. */
+.thorsten-footer-bottom{
+  grid-template-columns:1fr auto!important;
+}
+
+@media (max-width:700px){
+  body:not(.home-page) .site-backtop,
+  body:not(.home-page) .about-backtop{
+    right:12px!important;
+    bottom:12px!important;
+    width:38px!important;
+    height:38px!important;
+  }
+}
+
+/* =========================================================
+   V21 — Contact EN/AR final alignment
+   One language at a time, mirrored editorial composition,
+   and stable LTR handling for email / telephone numbers.
+   ========================================================= */
+body.is-en .lang-ar{display:none!important}
+body.is-en .lang-en{display:revert!important}
+body.is-ar .lang-en{display:none!important}
+body.is-ar .lang-ar{display:revert!important}
+body.is-ar span.lang-ar,body.is-ar a.lang-ar,body.is-ar strong.lang-ar{display:inline!important}
+
+.contact-page .contact-hero-v21{
+  min-height:520px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.35fr) minmax(350px,.65fr)!important;
+  align-items:stretch!important;
+  background:#fffdf9!important;
+  border-bottom:1px solid var(--line)!important;
+  direction:ltr!important;
+}
+.contact-page .contact-hero-v21 .contact-title-wrap{
+  min-width:0;
+  padding:clamp(110px,12vh,150px) clamp(55px,7vw,110px) 72px!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-start;
+  text-align:left!important;
+  direction:ltr!important;
+}
+.contact-page .contact-hero-v21 .breadcrumb{
+  margin-bottom:34px;
+  font-family:var(--din-en)!important;
+  font-size:10px!important;
+  font-weight:500!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase;
+}
+.contact-page .contact-hero-v21 .contact-title-wrap h1{
+  margin:0!important;
+  max-width:720px;
+  font-family:var(--din-en)!important;
+  font-size:clamp(68px,7.3vw,112px)!important;
+  line-height:.92!important;
+  letter-spacing:-.045em!important;
+  font-weight:300!important;
+  color:var(--ink)!important;
+}
+.contact-page .contact-hero-info{
+  min-width:0;
+  border-left:1px solid var(--line);
+  padding:clamp(110px,12vh,150px) clamp(42px,4.5vw,72px) 70px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:flex-start;
+  text-align:left;
+  direction:ltr;
+  background:#f8f6f2;
+}
+.contact-page .contact-hero-kicker{
+  margin-bottom:27px;
+  font-family:var(--din-en)!important;
+  font-size:9px;
+  line-height:1.4;
+  font-weight:600;
+  letter-spacing:.22em;
+  color:var(--accent);
+}
+.contact-page .contact-hero-info address{
+  margin:0 0 23px;
+  font-style:normal;
+  font-family:var(--din-en)!important;
+  font-size:15px;
+  line-height:1.72;
+  font-weight:400;
+  color:#38536d;
+}
+.contact-page .contact-hero-links{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:7px;
+  margin-bottom:28px;
+  font-family:var(--din-en)!important;
+  font-size:14px;
+  line-height:1.45;
+}
+.contact-page .contact-hero-links a{transition:color .25s ease}
+.contact-page .contact-hero-links a:hover{color:var(--accent)}
+.contact-page .contact-phone bdi,.contact-page .contact-mail{direction:ltr;unicode-bidi:isolate}
+.contact-page .contact-hero-directions{
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  width:max-content;
+  padding-bottom:5px;
+  border-bottom:1px solid currentColor;
+  font-family:var(--din-en)!important;
+  font-size:13px;
+  font-weight:500;
+  transition:color .25s ease,border-color .25s ease;
+}
+.contact-page .contact-hero-directions:hover{color:var(--accent)}
+.contact-page .contact-hero-directions i{font-size:10px}
+.contact-page .contact-hero-socials{display:flex;align-items:center;gap:18px;margin-top:35px}
+.contact-page .contact-hero-socials a{
+  width:30px;height:30px;border:1px solid #cfd7df;border-radius:50%;
+  display:grid;place-items:center;font-size:11px;transition:.25s ease;
+}
+.contact-page .contact-hero-socials a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* Arabic: mirror the hero only; Latin data stays readable and never reverses. */
+body.is-ar.contact-page .contact-hero-v21{
+  grid-template-columns:minmax(350px,.65fr) minmax(0,1.35fr)!important;
+}
+body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap{
+  grid-column:2;
+  grid-row:1;
+  align-items:flex-end!important;
+  text-align:right!important;
+  direction:rtl!important;
+  padding-left:clamp(55px,7vw,110px)!important;
+  padding-right:clamp(55px,7vw,110px)!important;
+}
+body.is-ar.contact-page .contact-hero-v21 .breadcrumb{
+  font-family:var(--din-ar)!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  direction:rtl!important;
+}
+body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap h1.lang-ar{
+  font-family:var(--din-ar)!important;
+  font-size:clamp(62px,6.6vw,102px)!important;
+  line-height:1.18!important;
+  letter-spacing:0!important;
+  font-weight:300!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.contact-page .contact-hero-info{
+  grid-column:1;
+  grid-row:1;
+  border-left:0;
+  border-right:1px solid var(--line);
+  align-items:flex-end!important;
+  text-align:right!important;
+  direction:rtl!important;
+}
+body.is-ar.contact-page .contact-hero-kicker,
+body.is-ar.contact-page .contact-hero-info address,
+body.is-ar.contact-page .contact-hero-directions{
+  font-family:var(--din-ar)!important;
+  letter-spacing:0!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.contact-page .contact-hero-info address{font-size:15px;line-height:2!important}
+body.is-ar.contact-page .contact-hero-links{align-items:flex-end!important;font-family:var(--din-ar)!important;direction:rtl!important}
+body.is-ar.contact-page .contact-mail{direction:ltr!important;unicode-bidi:isolate!important}
+body.is-ar.contact-page .contact-phone{direction:rtl!important}
+body.is-ar.contact-page .contact-phone bdi{direction:ltr!important;unicode-bidi:isolate!important}
+body.is-ar.contact-page .contact-hero-directions{flex-direction:row-reverse}
+body.is-ar.contact-page .contact-hero-socials{direction:ltr!important}
+
+/* Keep the form and office cards editorial, but make Arabic truly right aligned. */
+body.is-ar.contact-page .form-intro,
+body.is-ar.contact-page .contact-form,
+body.is-ar.contact-page .location-card{direction:rtl!important;text-align:right!important}
+body.is-ar.contact-page .location-card{align-items:flex-end!important}
+body.is-ar.contact-page .location-card>a:not(.map-link){direction:ltr!important;unicode-bidi:isolate!important;align-self:flex-end}
+body.is-ar.contact-page .map-link{direction:rtl!important}
+
+@media(max-width:900px){
+  .contact-page .contact-hero-v21,
+  body.is-ar.contact-page .contact-hero-v21{
+    min-height:0!important;
+    grid-template-columns:1fr!important;
+  }
+  .contact-page .contact-hero-v21 .contact-title-wrap,
+  body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap{
+    grid-column:1!important;grid-row:1!important;
+    padding:105px 30px 54px!important;
+    border-bottom:1px solid var(--line);
+  }
+  .contact-page .contact-hero-v21 .contact-title-wrap h1,
+  body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap h1.lang-ar{
+    font-size:clamp(54px,13vw,82px)!important;
+  }
+  .contact-page .contact-hero-info,
+  body.is-ar.contact-page .contact-hero-info{
+    grid-column:1!important;grid-row:2!important;
+    border-left:0!important;border-right:0!important;
+    padding:46px 30px 50px!important;
+    min-height:330px;
+  }
+}
+@media(max-width:620px){
+  .contact-page .contact-hero-v21 .contact-title-wrap,
+  body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap{padding:92px 22px 42px!important}
+  .contact-page .contact-hero-info,
+  body.is-ar.contact-page .contact-hero-info{padding:40px 22px 44px!important}
+  .contact-page .contact-hero-v21 .contact-title-wrap h1,
+  body.is-ar.contact-page .contact-hero-v21 .contact-title-wrap h1.lang-ar{font-size:clamp(48px,15vw,68px)!important}
+}
+
+/* =========================================================
+   V22 — Contact page: Thorsten contact-us structure
+   Heading / map / form + two offices / mirrored RTL footer
+   ========================================================= */
+.contact-thorsten-exact{
+  background:#fff!important;
+  color:var(--ink)!important;
+  overflow:visible!important;
+}
+.contact-thorsten-exact .contact-ref-container{
+  width:min(1160px,calc(100% - 96px));
+  margin-inline:auto;
+}
+.contact-ref-heading{
+  background:#fff;
+  padding:84px 0 70px;
+}
+.contact-ref-title h1{
+  margin:0 0 8px!important;
+  font-family:var(--din-en)!important;
+  font-size:30px!important;
+  line-height:1.18!important;
+  font-weight:300!important;
+  letter-spacing:-.025em!important;
+  color:#23435f!important;
+}
+.contact-ref-breadcrumb{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:var(--din-en)!important;
+  font-size:8px!important;
+  line-height:1.4;
+  font-weight:500;
+  letter-spacing:.27em;
+  text-transform:uppercase;
+  color:#7f94a5;
+}
+.contact-ref-breadcrumb a{color:#647e92;transition:color .2s ease}
+.contact-ref-breadcrumb a:hover{color:var(--accent)}
+.contact-ref-map-section{background:#fff;padding:0 0 96px}
+.contact-ref-map{
+  height:520px;
+  width:100%;
+  overflow:hidden;
+  background:#eef1f2;
+}
+.contact-ref-map iframe{
+  width:100%;height:100%;border:0;display:block;
+  filter:saturate(.72) contrast(.94) brightness(1.04);
+}
+.contact-ref-content{background:#fff;padding:0 0 120px}
+.contact-ref-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.18fr) minmax(410px,.82fr);
+  gap:72px;
+  align-items:start;
+}
+.contact-ref-form-block h2{
+  margin:0 0 34px!important;
+  max-width:570px;
+  font-family:var(--din-en)!important;
+  font-size:31px!important;
+  line-height:1.13!important;
+  font-weight:300!important;
+  letter-spacing:-.025em!important;
+  color:#23435f!important;
+}
+.contact-ref-form{display:block}
+.contact-ref-message{display:block;margin:0 0 30px}
+.contact-ref-message textarea{
+  width:100%;height:178px;resize:none;
+  border:1px solid #d9e0e5!important;
+  border-radius:0!important;
+  outline:0;
+  background:#fff!important;
+  padding:16px 16px!important;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  line-height:1.6!important;
+  font-weight:400!important;
+  color:#304e67!important;
+  transition:border-color .2s ease;
+}
+.contact-ref-message textarea:focus{border-color:#8196a8!important}
+.contact-ref-message textarea::placeholder,
+.contact-ref-fields input::placeholder{color:#8ba0b1;opacity:1}
+.contact-ref-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:42px;
+  margin-bottom:19px;
+}
+.contact-ref-fields label{display:block}
+.contact-ref-fields input{
+  width:100%;
+  border:0!important;
+  border-bottom:1px solid #c8d3dc!important;
+  border-radius:0!important;
+  outline:0;
+  background:transparent!important;
+  padding:0 5px 10px!important;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  line-height:1.3!important;
+  font-weight:400!important;
+  color:#304e67!important;
+}
+.contact-ref-fields input:focus{border-bottom-color:#23435f!important}
+.contact-ref-submit{
+  border:0!important;
+  background:transparent!important;
+  color:#111!important;
+  padding:6px 5px 6px!important;
+  display:inline-flex!important;
+  align-items:center;
+  gap:15px;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  font-weight:500!important;
+  cursor:pointer;
+  transition:color .22s ease;
+}
+.contact-ref-submit i{font-size:10px;transition:transform .22s ease}
+.contact-ref-submit:hover{color:var(--accent)!important}
+.contact-ref-submit:hover i{transform:translateX(4px)}
+.contact-ref-offices{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:44px;
+  padding-top:25px;
+}
+.contact-ref-office h3,
+.contact-ref-office h4{
+  margin:0!important;
+  font-family:var(--din-en)!important;
+  color:#23435f!important;
+  font-weight:300!important;
+  letter-spacing:-.02em!important;
+}
+.contact-ref-office h3{font-size:27px!important;line-height:1.2!important;margin-bottom:21px!important}
+.contact-ref-office h4{font-size:22px!important;line-height:1.25!important;margin:34px 0 15px!important}
+.contact-ref-office p,
+.contact-ref-office a{
+  margin:0!important;
+  display:block;
+  font-family:var(--din-en)!important;
+  font-size:13px!important;
+  line-height:1.72!important;
+  font-weight:400!important;
+  color:#6d8294!important;
+}
+.contact-ref-office a{transition:color .2s ease;width:max-content;max-width:100%}
+.contact-ref-office a:hover{color:var(--accent)!important}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Arabic contact: same Thorsten geometry mirrored only where it should be. */
+body.is-ar.contact-page .contact-ref-title,
+body.is-ar.contact-page .contact-ref-form-block,
+body.is-ar.contact-page .contact-ref-office{
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.contact-page .contact-ref-title h1,
+body.is-ar.contact-page .contact-ref-form-block h2,
+body.is-ar.contact-page .contact-ref-office h3,
+body.is-ar.contact-page .contact-ref-office h4,
+body.is-ar.contact-page .contact-ref-office p,
+body.is-ar.contact-page .contact-ref-breadcrumb,
+body.is-ar.contact-page .contact-ref-submit{
+  font-family:var(--din-ar)!important;
+  letter-spacing:0!important;
+}
+body.is-ar.contact-page .contact-ref-title h1{font-size:34px!important;line-height:1.45!important}
+body.is-ar.contact-page .contact-ref-breadcrumb{direction:rtl!important;text-transform:none!important;font-size:10px!important;gap:7px!important}
+body.is-ar.contact-page .contact-ref-grid{direction:rtl!important}
+body.is-ar.contact-page .contact-ref-form-block{grid-column:2}
+body.is-ar.contact-page .contact-ref-offices{grid-column:1;direction:rtl!important}
+body.is-ar.contact-page .contact-ref-form-block h2{font-size:30px!important;line-height:1.55!important}
+body.is-ar.contact-page .contact-ref-message textarea,
+body.is-ar.contact-page .contact-ref-fields input{
+  direction:rtl!important;text-align:right!important;font-family:var(--din-ar)!important;
+}
+body.is-ar.contact-page .contact-ref-submit{flex-direction:row-reverse!important}
+body.is-ar.contact-page .contact-ref-submit:hover i{transform:translateX(-4px)!important}
+body.is-ar.contact-page .contact-ref-office a{direction:ltr!important;unicode-bidi:isolate!important;margin-left:auto!important}
+body.is-ar.contact-page .contact-ref-office h3{font-size:27px!important;line-height:1.5!important}
+body.is-ar.contact-page .contact-ref-office h4{font-size:21px!important;line-height:1.5!important}
+body.is-ar.contact-page .contact-ref-office p{font-size:13px!important;line-height:2!important}
+
+/* Footer: English follows Thorsten left-to-right. Arabic mirrors the 4 columns. */
+.unified-footer .thorsten-footer-lead{grid-area:lead}
+.unified-footer .thorsten-footer-col:nth-of-type(2){grid-area:pages}
+.unified-footer .thorsten-footer-col:nth-of-type(3){grid-area:useful}
+.unified-footer .thorsten-footer-contact{grid-area:contact}
+.unified-footer .thorsten-footer-main{
+  grid-template-areas:"lead pages useful contact"!important;
+}
+body.is-ar .unified-footer .thorsten-footer-main{
+  grid-template-areas:"contact useful pages lead"!important;
+  direction:ltr!important;
+}
+body.is-ar .unified-footer .thorsten-footer-lead{grid-area:lead!important}
+body.is-ar .unified-footer .thorsten-footer-col:nth-of-type(2){grid-area:pages!important}
+body.is-ar .unified-footer .thorsten-footer-col:nth-of-type(3){grid-area:useful!important}
+body.is-ar .unified-footer .thorsten-footer-contact{grid-area:contact!important}
+body.is-ar .unified-footer .thorsten-footer-lead,
+body.is-ar .unified-footer .thorsten-footer-col{align-items:flex-start!important;text-align:right!important;direction:rtl!important}
+body.is-ar .unified-footer .thorsten-footer-lead{justify-self:stretch!important}
+body.is-ar .unified-footer .thorsten-footer-logo{align-self:flex-end!important}
+body.is-ar .unified-footer .thorsten-footer-logo img{margin-left:auto!important}
+body.is-ar .unified-footer .thorsten-newsletter{width:100%!important;margin-left:auto!important}
+body.is-ar .unified-footer .thorsten-newsletter label{width:100%!important}
+body.is-ar .unified-footer .thorsten-footer-bottom{
+  grid-template-columns:42px auto 1fr!important;
+  direction:ltr!important;
+}
+body.is-ar .unified-footer .site-backtop{grid-column:1!important}
+body.is-ar .unified-footer .thorsten-footer-social{grid-column:2!important;direction:ltr!important}
+body.is-ar .unified-footer .thorsten-footer-bottom>span{grid-column:3!important;justify-self:end!important;text-align:right!important}
+
+@media(max-width:1000px){
+  .contact-thorsten-exact .contact-ref-container{width:min(100% - 56px,920px)}
+  .contact-ref-heading{padding:72px 0 56px}
+  .contact-ref-map-section{padding-bottom:70px}
+  .contact-ref-map{height:460px}
+  .contact-ref-grid{grid-template-columns:1fr;gap:58px}
+  .contact-ref-offices{padding-top:0}
+  body.is-ar.contact-page .contact-ref-form-block,
+  body.is-ar.contact-page .contact-ref-offices{grid-column:auto!important}
+  .unified-footer .thorsten-footer-main,
+  body.is-ar .unified-footer .thorsten-footer-main{
+    grid-template-areas:"lead pages useful" "contact contact contact"!important;
+  }
+}
+@media(max-width:700px){
+  .contact-thorsten-exact .contact-ref-container{width:calc(100% - 36px)}
+  .contact-ref-heading{padding:54px 0 44px}
+  .contact-ref-title h1{font-size:28px!important}
+  body.is-ar.contact-page .contact-ref-title h1{font-size:31px!important}
+  .contact-ref-map-section{padding-bottom:58px}
+  .contact-ref-map{height:390px}
+  .contact-ref-content{padding-bottom:78px}
+  .contact-ref-grid{gap:48px}
+  .contact-ref-form-block h2{font-size:27px!important}
+  body.is-ar.contact-page .contact-ref-form-block h2{font-size:26px!important}
+  .contact-ref-fields{grid-template-columns:1fr;gap:22px}
+  .contact-ref-offices{grid-template-columns:1fr;gap:38px}
+  .contact-ref-office h3{font-size:25px!important}
+  .unified-footer .thorsten-footer-main,
+  body.is-ar .unified-footer .thorsten-footer-main{
+    grid-template-areas:"lead" "pages" "useful" "contact"!important;
+  }
+  body.is-ar .unified-footer .thorsten-footer-lead,
+  body.is-ar .unified-footer .thorsten-footer-col{align-items:flex-end!important}
+  body.is-ar .unified-footer .thorsten-footer-bottom{
+    grid-template-columns:1fr 38px!important;
+  }
+  body.is-ar .unified-footer .thorsten-footer-social{grid-column:1/-1!important;grid-row:1!important;justify-content:flex-start!important}
+  body.is-ar .unified-footer .thorsten-footer-bottom>span{grid-column:1!important;grid-row:2!important;justify-self:start!important;text-align:right!important}
+  body.is-ar .unified-footer .site-backtop{grid-column:2!important;grid-row:2!important}
+}
+
+/* =========================================================
+   V23 — final Arabic contact fixes
+   1) Never let the inactive language leak into Home's last
+      Contact panel (older component display rules were more
+      specific than the global language switch).
+   2) Keep the Contact form and the two office cards on the
+      same top row, including Arabic, like the Thorsten source.
+   ========================================================= */
+
+/* Home closing Contact panel — one language only, always. */
+body.is-en.home-v3 .ref-contact-copy > h2.lang-ar,
+body.is-en.home-v3 .ref-contact-copy > .home-contact-details.lang-ar{
+  display:none!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > h2.lang-en,
+body.is-ar.home-v3 .ref-contact-copy > .home-contact-details.lang-en{
+  display:none!important;
+}
+body.is-en.home-v3 .ref-contact-copy > h2.lang-en{
+  display:block!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > h2.lang-ar{
+  display:block!important;
+}
+body.is-en.home-v3 .ref-contact-copy > .home-contact-details.lang-en,
+body.is-ar.home-v3 .ref-contact-copy > .home-contact-details.lang-ar{
+  display:flex!important;
+}
+
+/* Arabic closing panel: Arabic-only hierarchy and clean phone/email direction. */
+body.is-ar.home-v3 .ref-contact-copy{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:flex-end!important;
+}
+body.is-ar.home-v3 .home-contact-details.lang-ar{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:flex-end!important;
+}
+body.is-ar.home-v3 .home-contact-details.lang-ar a[href^="mailto:"],
+body.is-ar.home-v3 .home-contact-details.lang-ar a[href^="tel:"]{
+  direction:ltr!important;
+  unicode-bidi:isolate!important;
+}
+
+/* Contact page — form and offices start together, not one row below. */
+.contact-page .contact-ref-form-block,
+.contact-page .contact-ref-offices{
+  grid-row:1!important;
+  align-self:start!important;
+}
+body.is-ar.contact-page .contact-ref-form-block{
+  grid-column:2!important;
+  grid-row:1!important;
+}
+body.is-ar.contact-page .contact-ref-offices{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:start!important;
+  padding-top:0!important;
+}
+
+/* Keep Arabic office cards visually aligned from the top. */
+body.is-ar.contact-page .contact-ref-offices{
+  align-items:start!important;
+}
+body.is-ar.contact-page .contact-ref-office{
+  margin:0!important;
+}
+
+@media (max-width:1000px){
+  .contact-page .contact-ref-form-block,
+  .contact-page .contact-ref-offices,
+  body.is-ar.contact-page .contact-ref-form-block,
+  body.is-ar.contact-page .contact-ref-offices{
+    grid-column:auto!important;
+    grid-row:auto!important;
+  }
+}
+
+/* V23 geometry lock: Arabic keeps Thorsten's page geometry
+   (form left, offices right); only the text direction flips. */
+body.is-ar.contact-page .contact-ref-grid{
+  direction:ltr!important;
+}
+body.is-ar.contact-page .contact-ref-form-block{
+  grid-column:1!important;
+  grid-row:1!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.contact-page .contact-ref-offices{
+  grid-column:2!important;
+  grid-row:1!important;
+  direction:rtl!important;
+  text-align:right!important;
+  padding-top:0!important;
+}
+@media (max-width:1000px){
+  body.is-ar.contact-page .contact-ref-form-block,
+  body.is-ar.contact-page .contact-ref-offices{
+    grid-column:auto!important;
+    grid-row:auto!important;
+  }
+}
+
+/* =========================================================
+   V24 — FINAL DIRECTION + ARABIC HOME CONTACT ALIGNMENT
+   English actions always point forward/right.
+   Arabic actions always point forward/left.
+   The Arabic closing contact block sits on the visual right
+   edge of its panel instead of floating on the left.
+   ========================================================= */
+
+/* One source of truth for horizontal action arrows. */
+body.is-en .icon-arrow-right,
+body.is-en .fa-arrow-right-long{
+  transform:none!important;
+}
+body.is-ar .icon-arrow-right,
+body.is-ar .fa-arrow-right-long{
+  transform:rotate(180deg)!important;
+}
+
+/* Keep label + arrow order natural in each language. */
+body.is-en .ref-cta,
+body.is-en .ref-text-link,
+body.is-en .post-read-more,
+body.is-en .contact-ref-submit{
+  direction:ltr!important;
+  flex-direction:row!important;
+}
+body.is-ar .ref-cta,
+body.is-ar .ref-text-link,
+body.is-ar .post-read-more,
+body.is-ar .contact-ref-submit{
+  direction:ltr!important;
+  flex-direction:row-reverse!important;
+}
+
+/* Hover motion follows the actual reading direction. */
+body.is-en .ref-cta:hover .icon-arrow-right,
+body.is-en .ref-text-link:hover .icon-arrow-right,
+body.is-en .post-read-more:hover .icon-arrow-right,
+body.is-en .contact-ref-submit:hover .fa-arrow-right-long{
+  transform:translateX(4px)!important;
+}
+body.is-ar .ref-cta:hover .icon-arrow-right,
+body.is-ar .ref-text-link:hover .icon-arrow-right,
+body.is-ar .post-read-more:hover .icon-arrow-right,
+body.is-ar .contact-ref-submit:hover .fa-arrow-right-long{
+  transform:rotate(180deg) translateX(4px)!important;
+}
+
+/* Arabic Home ending: lock the content to the physical right side. */
+body.is-ar.home-v3 .ref-contact-copy{
+  width:100%!important;
+  align-items:stretch!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > h2.lang-ar{
+  width:max-content!important;
+  max-width:100%!important;
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  text-align:right!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > .home-contact-details.lang-ar{
+  width:auto!important;
+  max-width:470px!important;
+  align-self:flex-end!important;
+  align-items:flex-end!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > .home-contact-details.lang-ar > *{
+  width:max-content!important;
+  max-width:100%!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  text-align:right!important;
+}
+body.is-ar.home-v3 .ref-contact-copy > .home-directions-link{
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  direction:rtl!important;
+  text-align:right!important;
+}
+
+/* Do not let the phone/email bidi rules move the Arabic rows. */
+body.is-ar.home-v3 .home-contact-details.lang-ar a[href^="mailto:"],
+body.is-ar.home-v3 .home-contact-details.lang-ar a[href^="tel:"]{
+  display:inline-block!important;
+  direction:ltr!important;
+  unicode-bidi:isolate!important;
+  text-align:left!important;
+}
