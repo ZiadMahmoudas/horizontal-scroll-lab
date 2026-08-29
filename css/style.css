@@ -4522,3 +4522,1064 @@ body.blog-page .blog-title-band{
   body.is-ar.home-v3 .ref-intro-copy p{font-size:9.4px!important;line-height:1.7!important}
   .home-v3 .ref-project-panel{width:90vw!important;min-width:90vw!important}
 }
+
+
+/* =========================================================
+   V32 — PHONE: VERTICAL GESTURE -> HORIZONTAL HOME
+   ---------------------------------------------------------
+   The phone never needs a sideways finger drag. A normal up/down
+   scroll gesture advances the horizontal story. The opening image
+   is intentionally smaller than V31.
+   ========================================================= */
+@media (max-width:900px){
+  body.home-page.home-mobile-native{
+    overflow:hidden!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    touch-action:none!important;
+  }
+
+  body.home-page.home-mobile-native .horizontal-viewport,
+  body.home-page.home-mobile-native .ref-horizontal-viewport{
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    touch-action:none!important;
+    overscroll-behavior:none!important;
+    scroll-snap-type:x proximity!important;
+    scrollbar-width:none!important;
+  }
+
+  /* Give copy more breathing room and reduce the opening image on phone. */
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:54vw!important;
+    min-width:54vw!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:46vw!important;
+    min-width:46vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-intro-copy{
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy h1{
+    font-size:clamp(23px,7.5vw,32px)!important;
+  }
+
+  body.home-page.home-mobile-native .ref-hero-image img{
+    object-fit:cover!important;
+    object-position:48% center!important;
+  }
+}
+
+@media (max-width:420px){
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:58vw!important;
+    min-width:58vw!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:42vw!important;
+    min-width:42vw!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy h1{
+    font-size:21px!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy p{
+    font-size:9.6px!important;
+  }
+}
+
+/* =========================================================
+   V33 — MOBILE HOME COMPOSITION POLISH
+   ---------------------------------------------------------
+   Keep the V32 vertical-gesture -> horizontal interaction,
+   but give every mobile slide enough visual breathing room.
+   ========================================================= */
+
+/* Final language guard: mobile card layout rules must never reveal both languages. */
+body.is-ar .lang-en{display:none!important}
+body:not(.is-ar) .lang-ar{display:none!important}
+body.is-ar .lang-ar{display:revert!important}
+body.is-ar span.lang-ar,
+body.is-ar strong.lang-ar,
+body.is-ar a.lang-ar{display:inline!important}
+
+@media (max-width:900px){
+  /* Let the opening breathe. The intro + hero intentionally exceed one viewport
+     slightly, so the phone starts with copy plus part of the image instead of
+     squeezing both into narrow columns. */
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:60vw!important;
+    min-width:60vw!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:58vw!important;
+    min-width:58vw!important;
+  }
+
+  body.home-page.home-mobile-native .ref-intro-copy{
+    padding:24px 18px 22px!important;
+    justify-content:center!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy h1{
+    font-size:clamp(24px,7.1vw,32px)!important;
+    line-height:1.08!important;
+    max-width:100%!important;
+    text-wrap:balance!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy p{
+    margin-top:17px!important;
+    font-size:10.8px!important;
+    line-height:1.65!important;
+    max-width:95%!important;
+  }
+  body.home-page.home-mobile-native .ref-cta{
+    margin-top:22px!important;
+    min-height:40px!important;
+    padding:0 15px!important;
+    font-size:10.5px!important;
+  }
+
+  body.is-ar.home-v3.home-mobile-native .ref-intro-copy h1{
+    font-size:clamp(22px,6.5vw,29px)!important;
+    line-height:1.5!important;
+    text-wrap:pretty!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-intro-copy p{
+    font-size:10.5px!important;
+    line-height:1.9!important;
+    max-width:100%!important;
+  }
+
+  /* Hero stays substantial instead of becoming a thin vertical strip. */
+  body.home-page.home-mobile-native .ref-hero-image,
+  body.home-page.home-mobile-native .ref-hero-image img{
+    width:100%!important;
+    height:100%!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-image img{
+    object-fit:cover!important;
+    object-position:46% center!important;
+  }
+  body.home-page.home-mobile-native .ref-over-caption{
+    left:14px!important;
+    right:14px!important;
+    bottom:18px!important;
+    max-width:calc(100% - 28px)!important;
+    padding:0!important;
+    background:transparent!important;
+  }
+  body.home-page.home-mobile-native .ref-over-caption strong{
+    font-size:clamp(18px,5.6vw,23px)!important;
+    line-height:1.2!important;
+  }
+
+  /* Each service gets a near-full mobile frame with balanced image/copy. */
+  body.home-page.home-mobile-native .ref-project-panel{
+    width:94vw!important;
+    min-width:94vw!important;
+    padding:14px!important;
+  }
+  body.home-page.home-mobile-native .ref-project-card{
+    height:100%!important;
+    min-height:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+    overflow:hidden!important;
+  }
+  body.home-page.home-mobile-native .ref-card-image{
+    height:49%!important;
+    flex:0 0 49%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  body.home-page.home-mobile-native .ref-card-image img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    padding:18px 7px 8px!important;
+    overflow:hidden!important;
+    justify-content:flex-start!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy h2{
+    margin:0 0 10px!important;
+    font-size:clamp(23px,6.5vw,28px)!important;
+    line-height:1.16!important;
+    max-width:100%!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy p{
+    margin:0!important;
+    font-size:12.5px!important;
+    line-height:1.65!important;
+    display:-webkit-box!important;
+    -webkit-box-orient:vertical!important;
+    -webkit-line-clamp:5!important;
+    overflow:hidden!important;
+  }
+
+  body.is-ar.home-v3.home-mobile-native .ref-card-copy{
+    text-align:right!important;
+    direction:rtl!important;
+    align-items:stretch!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-card-copy h2{
+    font-size:clamp(22px,6.1vw,26px)!important;
+    line-height:1.55!important;
+    margin-bottom:7px!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-card-copy p{
+    font-size:12.2px!important;
+    line-height:1.82!important;
+    -webkit-line-clamp:4!important;
+  }
+
+  /* Contact finish also gets a full readable frame. */
+  body.home-page.home-mobile-native .ref-contact-panel,
+  body.home-page.home-mobile-native .ref-closing-panel{
+    width:96vw!important;
+    min-width:96vw!important;
+  }
+  body.home-page.home-mobile-native .ref-contact-copy,
+  body.home-page.home-mobile-native .ref-closing-copy{
+    padding:36px 24px 30px!important;
+  }
+}
+
+@media (max-width:420px){
+  body.home-page.home-mobile-native .ref-intro-panel{
+    width:62vw!important;
+    min-width:62vw!important;
+  }
+  body.home-page.home-mobile-native .ref-hero-panel{
+    width:60vw!important;
+    min-width:60vw!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy{
+    padding-left:15px!important;
+    padding-right:15px!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy h1{
+    font-size:22px!important;
+  }
+  body.home-page.home-mobile-native .ref-intro-copy p{
+    font-size:10px!important;
+    line-height:1.62!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-intro-copy h1{
+    font-size:21px!important;
+    line-height:1.48!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-intro-copy p{
+    font-size:9.9px!important;
+    line-height:1.82!important;
+  }
+  body.home-page.home-mobile-native .ref-project-panel{
+    width:96vw!important;
+    min-width:96vw!important;
+    padding:12px!important;
+  }
+  body.home-page.home-mobile-native .ref-card-image{
+    height:47%!important;
+    flex-basis:47%!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy{
+    padding:15px 5px 6px!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy h2{
+    font-size:22px!important;
+  }
+  body.home-page.home-mobile-native .ref-card-copy p{
+    font-size:11.8px!important;
+    line-height:1.58!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-card-copy h2{
+    font-size:21px!important;
+  }
+  body.is-ar.home-v3.home-mobile-native .ref-card-copy p{
+    font-size:11.6px!important;
+    line-height:1.78!important;
+  }
+}
+
+/* =========================================================
+   V34 — RESPONSIVE HORIZONTAL HOME (PHONE + TABLET)
+   ---------------------------------------------------------
+   Vertical finger/wheel input moves the story horizontally.
+   No vertical fall-through on the Home page. Arabic uses the
+   same logical story order but travels in the opposite X direction.
+   ========================================================= */
+@media (max-width:1180px){
+  html:has(body.home-direct-horizontal),
+  body.home-page.home-direct-horizontal{
+    width:100%!important;
+    height:100%!important;
+    min-height:100%!important;
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+
+  body.home-page.home-direct-horizontal{
+    position:relative!important;
+    background:var(--stone)!important;
+    touch-action:none!important;
+  }
+
+  body.home-page.home-direct-horizontal .site-shell.home-shell{
+    width:100%!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    overflow:hidden!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-direct-horizontal #horizontal-stage,
+  body.home-page.home-direct-horizontal .ref-horizontal-stage{
+    position:fixed!important;
+    top:var(--header-h)!important;
+    left:0!important;
+    right:0!important;
+    bottom:var(--home-footer-h)!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-direct-horizontal .horizontal-viewport,
+  body.home-page.home-direct-horizontal .ref-horizontal-viewport{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    touch-action:none!important;
+    overscroll-behavior:none!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-direct-horizontal .horizontal-track,
+  body.home-page.home-direct-horizontal .ref-track{
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    height:100%!important;
+    min-height:100%!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:stretch!important;
+    will-change:transform!important;
+    transform:translate3d(0,0,0);
+  }
+
+  body.home-page.home-direct-horizontal .h-panel{
+    height:100%!important;
+    min-height:100%!important;
+    flex:none!important;
+    overflow:hidden!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+    background:var(--stone)!important;
+  }
+
+  /* Tablet keeps the premium desktop rhythm: opening copy + hero in one view. */
+  body.home-page.home-direct-horizontal .ref-intro-panel{
+    width:42vw!important;
+    min-width:42vw!important;
+  }
+  body.home-page.home-direct-horizontal .ref-hero-panel{
+    width:58vw!important;
+    min-width:58vw!important;
+    background:var(--ground-soft)!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-intro-copy{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    padding:clamp(34px,5.2vw,64px) clamp(24px,4vw,54px)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+    overflow:hidden!important;
+  }
+  body.home-page.home-direct-horizontal .ref-intro-copy h1{
+    margin:0!important;
+    max-width:100%!important;
+    font-size:clamp(34px,4.3vw,54px)!important;
+    line-height:1.03!important;
+  }
+  body.home-page.home-direct-horizontal .ref-intro-copy p{
+    max-width:94%!important;
+    margin:clamp(20px,2.4vw,30px) 0 0!important;
+    font-size:clamp(13px,1.45vw,16px)!important;
+    line-height:1.72!important;
+  }
+  body.home-page.home-direct-horizontal .ref-cta{
+    margin-top:clamp(24px,3vw,36px)!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-hero-image,
+  body.home-page.home-direct-horizontal .ref-hero-image img{
+    width:100%!important;
+    height:100%!important;
+  }
+  body.home-page.home-direct-horizontal .ref-hero-image img{
+    object-fit:cover!important;
+    object-position:52% center!important;
+  }
+
+  /* Tablet cards: two strong editorial cards can breathe inside one screen. */
+  body.home-page.home-direct-horizontal .ref-project-panel{
+    width:46vw!important;
+    min-width:46vw!important;
+    padding:clamp(18px,2.2vw,30px)!important;
+  }
+  body.home-page.home-direct-horizontal .ref-project-card{
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-image{
+    width:100%!important;
+    height:57%!important;
+    min-height:0!important;
+    flex:0 0 57%!important;
+    overflow:hidden!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-image img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy{
+    min-height:0!important;
+    flex:1 1 auto!important;
+    padding:clamp(18px,2vw,28px) 2px 0!important;
+    overflow:hidden!important;
+  }
+  body.home-page.home-direct-horizontal .ref-category{
+    margin-bottom:9px!important;
+    font-size:clamp(7px,.78vw,10px)!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy h2{
+    margin:0 0 10px!important;
+    font-size:clamp(24px,2.6vw,34px)!important;
+    line-height:1.08!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy p{
+    margin:0!important;
+    max-width:96%!important;
+    font-size:clamp(12px,1.15vw,14px)!important;
+    line-height:1.65!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-contact-panel,
+  body.home-page.home-direct-horizontal .ref-closing-panel{
+    width:52vw!important;
+    min-width:52vw!important;
+  }
+  body.home-page.home-direct-horizontal .ref-contact-copy,
+  body.home-page.home-direct-horizontal .ref-closing-copy{
+    width:100%!important;
+    height:100%!important;
+    padding:clamp(36px,5vw,70px)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:flex-start!important;
+  }
+
+  body.is-ar.home-page.home-direct-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-direct-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-direct-horizontal .ref-contact-copy{
+    direction:rtl!important;
+    text-align:right!important;
+    align-items:flex-end!important;
+  }
+  body.is-ar.home-page.home-direct-horizontal .ref-intro-copy h1{
+    font-size:clamp(29px,3.8vw,46px)!important;
+    line-height:1.48!important;
+  }
+  body.is-ar.home-page.home-direct-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-direct-horizontal .ref-card-copy p{
+    line-height:1.9!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-scroll-progress{display:none!important}
+  body.home-page.home-direct-horizontal .home-footer-bar{
+    position:fixed!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    z-index:80!important;
+  }
+}
+
+@media (max-width:900px){
+  body.home-page.home-direct-horizontal .desktop-nav{display:none!important}
+  body.home-page.home-direct-horizontal .header-socials{display:none!important}
+  body.home-page.home-direct-horizontal .site-header{
+    grid-template-columns:68px 1fr auto!important;
+  }
+}
+
+@media (max-width:620px){
+  :root{--header-h:66px;--home-footer-h:40px}
+
+  /* Phone opening view: text is comfortable, hero is still substantial. */
+  body.home-page.home-direct-horizontal .ref-intro-panel{
+    width:58vw!important;
+    min-width:58vw!important;
+  }
+  body.home-page.home-direct-horizontal .ref-hero-panel{
+    width:64vw!important;
+    min-width:64vw!important;
+  }
+  body.home-page.home-direct-horizontal .ref-intro-copy{
+    padding:28px 18px 24px!important;
+  }
+  body.home-page.home-direct-horizontal .ref-intro-copy h1{
+    font-size:clamp(27px,8vw,36px)!important;
+    line-height:1.04!important;
+  }
+  body.home-page.home-direct-horizontal .ref-intro-copy p{
+    max-width:100%!important;
+    margin-top:17px!important;
+    font-size:11.4px!important;
+    line-height:1.68!important;
+  }
+  body.home-page.home-direct-horizontal .ref-cta{
+    margin-top:20px!important;
+    min-height:40px!important;
+    padding:0 15px!important;
+    font-size:10.5px!important;
+  }
+  body.home-page.home-direct-horizontal .ref-hero-image img{
+    object-position:49% center!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-over-caption{
+    left:16px!important;
+    right:16px!important;
+    bottom:18px!important;
+    max-width:calc(100% - 32px)!important;
+    padding:0!important;
+  }
+  body.home-page.home-direct-horizontal .ref-over-caption strong{
+    font-size:clamp(19px,6.3vw,25px)!important;
+    line-height:1.2!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-project-panel{
+    width:86vw!important;
+    min-width:86vw!important;
+    padding:14px!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-image{
+    height:54%!important;
+    flex-basis:54%!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy{
+    padding:15px 3px 0!important;
+  }
+  body.home-page.home-direct-horizontal .ref-category{
+    margin-bottom:7px!important;
+    font-size:7px!important;
+    letter-spacing:.14em!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy h2{
+    margin-bottom:7px!important;
+    font-size:23px!important;
+    line-height:1.08!important;
+  }
+  body.home-page.home-direct-horizontal .ref-card-copy p{
+    max-width:100%!important;
+    font-size:11.4px!important;
+    line-height:1.62!important;
+    display:-webkit-box!important;
+    -webkit-box-orient:vertical!important;
+    -webkit-line-clamp:5!important;
+    overflow:hidden!important;
+  }
+
+  body.home-page.home-direct-horizontal .ref-contact-panel,
+  body.home-page.home-direct-horizontal .ref-closing-panel{
+    width:92vw!important;
+    min-width:92vw!important;
+  }
+  body.home-page.home-direct-horizontal .ref-contact-copy,
+  body.home-page.home-direct-horizontal .ref-closing-copy{
+    padding:32px 24px!important;
+  }
+  body.home-page.home-direct-horizontal .ref-contact-copy h2{
+    font-size:42px!important;
+    line-height:1!important;
+  }
+
+  body.is-ar.home-page.home-direct-horizontal .ref-intro-copy h1{
+    font-size:clamp(24px,7.1vw,31px)!important;
+    line-height:1.5!important;
+  }
+  body.is-ar.home-page.home-direct-horizontal .ref-intro-copy p{
+    font-size:10.8px!important;
+    line-height:1.92!important;
+  }
+  body.is-ar.home-page.home-direct-horizontal .ref-card-copy h2{
+    font-size:21px!important;
+    line-height:1.48!important;
+  }
+  body.is-ar.home-page.home-direct-horizontal .ref-card-copy p{
+    font-size:10.9px!important;
+    line-height:1.82!important;
+  }
+}
+
+
+/* =========================================================
+   V36 — PHONE/TABLET: VERTICAL GESTURE -> HORIZONTAL STORY
+   ---------------------------------------------------------
+   The document scrolls vertically normally. The Home viewport
+   stays sticky and the rail translates horizontally from scrollY.
+   This is intentionally independent of GSAP on responsive screens.
+   ========================================================= */
+@media (max-width:1180px){
+  html.home-scroll-horizontal,
+  body.home-page.home-scroll-horizontal{
+    width:100%!important;
+    min-height:100%!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-x:none!important;
+    overscroll-behavior-y:auto!important;
+    touch-action:pan-y pinch-zoom!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-scroll-horizontal .site-shell.home-shell{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-scroll-horizontal #horizontal-stage,
+  body.home-page.home-scroll-horizontal .ref-horizontal-stage{
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:var(--home-stage-h)!important;
+    min-height:100dvh!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-scroll-horizontal .horizontal-viewport,
+  body.home-page.home-scroll-horizontal .ref-horizontal-viewport{
+    position:sticky!important;
+    top:var(--header-h)!important;
+    left:0!important;
+    width:100%!important;
+    height:var(--home-mobile-visible-h)!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    touch-action:pan-y pinch-zoom!important;
+    overscroll-behavior:none!important;
+    background:var(--stone)!important;
+  }
+
+  body.home-page.home-scroll-horizontal .horizontal-track,
+  body.home-page.home-scroll-horizontal .ref-track{
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:max-content!important;
+    min-width:max-content!important;
+    height:100%!important;
+    min-height:100%!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:stretch!important;
+    will-change:transform!important;
+  }
+
+  body.home-page.home-scroll-horizontal .h-panel{
+    height:100%!important;
+    min-height:100%!important;
+    flex:none!important;
+    overflow:hidden!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+    background:var(--stone)!important;
+  }
+
+  /* Tablet: same opening rhythm as desktop. */
+  body.home-page.home-scroll-horizontal .ref-intro-panel{width:44vw!important;min-width:44vw!important}
+  body.home-page.home-scroll-horizontal .ref-hero-panel{width:56vw!important;min-width:56vw!important;background:var(--ground-soft)!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy{width:100%!important;height:100%!important;padding:clamp(32px,4.7vw,58px) clamp(24px,3.7vw,48px)!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;overflow:hidden!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy h1{margin:0!important;max-width:100%!important;font-size:clamp(32px,4.1vw,51px)!important;line-height:1.04!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy p{max-width:95%!important;margin:20px 0 0!important;font-size:clamp(12px,1.25vw,15px)!important;line-height:1.7!important}
+  body.home-page.home-scroll-horizontal .ref-cta{margin-top:24px!important}
+
+  body.home-page.home-scroll-horizontal .ref-hero-image,
+  body.home-page.home-scroll-horizontal .ref-hero-image img{width:100%!important;height:100%!important}
+  body.home-page.home-scroll-horizontal .ref-hero-image img{object-fit:cover!important;object-position:52% center!important}
+
+  body.home-page.home-scroll-horizontal .ref-project-panel{width:47vw!important;min-width:47vw!important;padding:clamp(16px,2vw,26px)!important}
+  body.home-page.home-scroll-horizontal .ref-project-card{width:100%!important;height:100%!important;display:flex!important;flex-direction:column!important}
+  body.home-page.home-scroll-horizontal .ref-card-image{width:100%!important;height:57%!important;flex:0 0 57%!important;overflow:hidden!important}
+  body.home-page.home-scroll-horizontal .ref-card-image img{width:100%!important;height:100%!important;object-fit:cover!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy{flex:1 1 auto!important;min-height:0!important;padding:16px 2px 0!important;overflow:hidden!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy h2{font-size:clamp(23px,2.45vw,32px)!important;line-height:1.08!important;margin:0 0 8px!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy p{font-size:clamp(11.5px,1.08vw,13.5px)!important;line-height:1.64!important;margin:0!important;max-width:98%!important}
+
+  body.home-page.home-scroll-horizontal .ref-contact-panel,
+  body.home-page.home-scroll-horizontal .ref-closing-panel{width:55vw!important;min-width:55vw!important}
+  body.home-page.home-scroll-horizontal .ref-contact-copy,
+  body.home-page.home-scroll-horizontal .ref-closing-copy{height:100%!important;padding:clamp(34px,5vw,64px)!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-scroll-horizontal .ref-contact-copy{direction:rtl!important;text-align:right!important;align-items:flex-end!important}
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy h1{font-size:clamp(28px,3.55vw,44px)!important;line-height:1.46!important}
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy p{line-height:1.88!important}
+
+  body.home-page.home-scroll-horizontal .ref-scroll-progress{display:none!important}
+  body.home-page.home-scroll-horizontal .home-footer-bar{position:fixed!important;left:0!important;right:0!important;bottom:0!important;z-index:90!important}
+}
+
+@media (max-width:900px){
+  body.home-page.home-scroll-horizontal .desktop-nav,
+  body.home-page.home-scroll-horizontal .header-socials{display:none!important}
+  body.home-page.home-scroll-horizontal .site-header{grid-template-columns:68px 1fr auto!important}
+}
+
+@media (max-width:620px){
+  :root{--header-h:66px;--home-footer-h:40px}
+
+  /* Phone: copy gets 60%, hero 40%, so neither becomes a thin strip. */
+  body.home-page.home-scroll-horizontal .ref-intro-panel{width:60vw!important;min-width:60vw!important}
+  body.home-page.home-scroll-horizontal .ref-hero-panel{width:40vw!important;min-width:40vw!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy{padding:22px 16px 18px!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy h1{font-size:clamp(23px,6.8vw,30px)!important;line-height:1.06!important}
+  body.home-page.home-scroll-horizontal .ref-intro-copy p{font-size:10.2px!important;line-height:1.62!important;margin-top:13px!important;max-width:100%!important}
+  body.home-page.home-scroll-horizontal .ref-cta{margin-top:16px!important;min-height:38px!important;padding:0 14px!important;font-size:10px!important}
+  body.home-page.home-scroll-horizontal .ref-hero-image img{object-position:47% center!important}
+  body.home-page.home-scroll-horizontal .ref-over-caption{left:10px!important;right:10px!important;bottom:14px!important;max-width:calc(100% - 20px)!important}
+  body.home-page.home-scroll-horizontal .ref-over-caption strong{font-size:clamp(16px,5.2vw,21px)!important;line-height:1.18!important}
+
+  body.home-page.home-scroll-horizontal .ref-project-panel{width:88vw!important;min-width:88vw!important;padding:12px!important}
+  body.home-page.home-scroll-horizontal .ref-card-image{height:51%!important;flex-basis:51%!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy{padding:13px 3px 0!important}
+  body.home-page.home-scroll-horizontal .ref-category{font-size:6.6px!important;margin-bottom:5px!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy h2{font-size:20.5px!important;line-height:1.1!important;margin-bottom:6px!important}
+  body.home-page.home-scroll-horizontal .ref-card-copy p{font-size:10.5px!important;line-height:1.57!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:5!important;overflow:hidden!important}
+
+  body.home-page.home-scroll-horizontal .ref-contact-panel,
+  body.home-page.home-scroll-horizontal .ref-closing-panel{width:92vw!important;min-width:92vw!important}
+  body.home-page.home-scroll-horizontal .ref-contact-copy,
+  body.home-page.home-scroll-horizontal .ref-closing-copy{padding:28px 22px!important}
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy h1{font-size:21.5px!important;line-height:1.5!important}
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy p{font-size:9.8px!important;line-height:1.84!important}
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy h2{font-size:19.5px!important;line-height:1.48!important}
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy p{font-size:10.2px!important;line-height:1.76!important}
+}
+
+
+/* =========================================================
+   V37 — mobile/tablet horizontal cleanup
+   Phone keeps horizontal home, but removes the oversized hero slide.
+   Tablet keeps the desktop-like intro + hero composition.
+========================================================= */
+@media (max-width: 1180px){
+  body.home-page.home-scroll-horizontal .horizontal-viewport,
+  body.home-page.home-scroll-horizontal .ref-horizontal-viewport{
+    min-height: calc(100svh - var(--header-h) - var(--home-footer-h)) !important;
+    height: calc(100svh - var(--header-h) - var(--home-footer-h)) !important;
+    align-items: stretch !important;
+  }
+
+  body.home-page.home-scroll-horizontal .h-panel{
+    height: calc(100svh - var(--header-h) - var(--home-footer-h)) !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-project-panel{
+    width: 52vw !important;
+    min-width: 52vw !important;
+    padding: 20px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-image{
+    height: 58% !important;
+    flex: 0 0 58% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy{
+    padding: 18px 2px 0 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy h2{
+    font-size: clamp(26px, 2.7vw, 34px) !important;
+    line-height: 1.08 !important;
+    margin: 0 0 10px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy p{
+    font-size: clamp(12.5px, 1.1vw, 14px) !important;
+    line-height: 1.68 !important;
+    max-width: 100% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-contact-panel,
+  body.home-page.home-scroll-horizontal .ref-closing-panel{
+    width: 58vw !important;
+    min-width: 58vw !important;
+  }
+}
+
+@media (max-width: 620px){
+  body.home-page.home-scroll-horizontal .ref-intro-panel{
+    width: 84vw !important;
+    min-width: 84vw !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-hero-panel{
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy{
+    padding: 28px 22px 24px !important;
+    justify-content: center !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy h1{
+    font-size: clamp(34px, 10vw, 46px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy p{
+    margin-top: 18px !important;
+    max-width: 100% !important;
+    font-size: 13.5px !important;
+    line-height: 1.68 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-cta{
+    margin-top: 20px !important;
+    min-height: 44px !important;
+    padding: 0 18px !important;
+    font-size: 12px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-project-panel{
+    width: 84vw !important;
+    min-width: 84vw !important;
+    padding: 16px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-project-card{
+    gap: 0 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-image{
+    height: 54% !important;
+    flex: 0 0 54% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy{
+    padding: 14px 0 0 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-category{
+    font-size: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy h2{
+    font-size: 27px !important;
+    line-height: 1.08 !important;
+    margin-bottom: 8px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy p{
+    font-size: 13px !important;
+    line-height: 1.66 !important;
+    -webkit-line-clamp: 6 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-contact-panel,
+  body.home-page.home-scroll-horizontal .ref-closing-panel{
+    width: 84vw !important;
+    min-width: 84vw !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-contact-copy,
+  body.home-page.home-scroll-horizontal .ref-closing-copy{
+    padding: 28px 20px !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy h1{
+    font-size: clamp(27px, 8.6vw, 38px) !important;
+    line-height: 1.42 !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-contact-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-closing-copy p{
+    font-size: 13px !important;
+    line-height: 1.9 !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy h2{
+    font-size: 24px !important;
+    line-height: 1.4 !important;
+  }
+}
+
+
+/* =========================================================
+   V38 — phone full-width horizontal panels
+   Clean mobile layout: one readable panel at a time.
+========================================================= */
+@media (max-width: 620px){
+  body.home-page.home-scroll-horizontal .horizontal-viewport,
+  body.home-page.home-scroll-horizontal .ref-horizontal-viewport{
+    width:100vw !important;
+  }
+
+  body.home-page.home-scroll-horizontal .h-panel{
+    border-right:1px solid var(--line) !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-panel,
+  body.home-page.home-scroll-horizontal .ref-project-panel,
+  body.home-page.home-scroll-horizontal .ref-contact-panel,
+  body.home-page.home-scroll-horizontal .ref-closing-panel{
+    width:100vw !important;
+    min-width:100vw !important;
+    max-width:100vw !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy{
+    padding:30px 24px 26px !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy h1{
+    max-width:92% !important;
+    font-size:clamp(34px,10.5vw,46px) !important;
+    line-height:1.02 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-intro-copy p{
+    max-width:88% !important;
+    font-size:14px !important;
+    line-height:1.72 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-project-panel{
+    padding:18px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-project-card{
+    display:flex !important;
+    flex-direction:column !important;
+    height:100% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-image{
+    height:58% !important;
+    flex:0 0 58% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy{
+    padding:16px 2px 0 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-category{
+    font-size:8px !important;
+    letter-spacing:.24em !important;
+    margin-bottom:8px !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy h2{
+    font-size:30px !important;
+    line-height:1.08 !important;
+    margin-bottom:8px !important;
+    max-width:100% !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-card-copy p{
+    font-size:13.5px !important;
+    line-height:1.7 !important;
+    max-width:100% !important;
+    -webkit-line-clamp:6 !important;
+  }
+
+  body.home-page.home-scroll-horizontal .ref-contact-copy,
+  body.home-page.home-scroll-horizontal .ref-closing-copy{
+    padding:30px 24px !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-scroll-horizontal .ref-contact-copy,
+  body.is-ar.home-page.home-scroll-horizontal .ref-closing-copy{
+    align-items:flex-end !important;
+    text-align:right !important;
+    direction:rtl !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy h1{
+    max-width:100% !important;
+    font-size:clamp(29px,8.8vw,40px) !important;
+    line-height:1.42 !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-contact-copy p,
+  body.is-ar.home-page.home-scroll-horizontal .ref-closing-copy p{
+    max-width:100% !important;
+    font-size:13.5px !important;
+    line-height:1.9 !important;
+  }
+
+  body.is-ar.home-page.home-scroll-horizontal .ref-card-copy h2{
+    font-size:27px !important;
+    line-height:1.38 !important;
+  }
+}

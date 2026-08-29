@@ -1,12 +1,15 @@
-# Cross Sector — V30
+# Cross Sector — V36
 
-This version fixes the Home mobile behavior by removing the separate mobile scrolling architecture.
-
-- Mobile now starts **exactly like desktop**: intro copy + hero image share the first viewport.
-- The phone Home uses the same **Lenis vertical scroll -> GSAP horizontal movement** as desktop.
-- Swipe up/down on touch drives the same horizontal story naturally through Lenis.
-- Arabic uses the same mirrored GSAP logic as desktop.
-- V29/V27 brand, RTL, blog, team, footer, and icon refinements are preserved.
+Responsive Home is rebuilt around the actual requested concept: on phone/tablet the user scrolls vertically normally, while a sticky viewport converts that vertical scroll progress into horizontal movement. No manual horizontal swipe and no touch-preventDefault engine. English travels in the desktop direction; Arabic travels in the opposite direction. Desktop keeps its existing Lenis + GSAP horizontal behavior.
 
 
-V31 fixes the phone home so it scrolls horizontally again using the same opening composition as desktop, with mobile-native horizontal ownership and vertical/touch gesture bridging.
+V37 notes:
+- Phone home removes the standalone hero image panel.
+- Phone and tablet keep the pinned horizontal home driven by vertical scroll progress.
+- Mobile intro, project cards, and closing panels use wider readable widths and larger typography.
+
+
+V38 notes:
+- Phone home panels are now full-width (100vw) for cleaner horizontal storytelling.
+- The oversized hero slide remains removed on phone.
+- Intro/project/contact/closing panels each occupy one full phone frame.

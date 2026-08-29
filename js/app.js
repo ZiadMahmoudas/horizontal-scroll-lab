@@ -70,7 +70,8 @@
      It keeps wheel/trackpad input smooth and predictable.
   ========================================================= */
   let lenis = null;
-  if (typeof window.Lenis !== 'undefined') {
+  const directHorizontalHome = isHome && matchMedia('(max-width: 1180px)').matches;
+  if (typeof window.Lenis !== 'undefined' && !directHorizontalHome) {
     lenis = new Lenis(isHome ? {
       orientation: 'vertical',
       gestureOrientation: matchMedia('(max-width: 900px)').matches ? 'vertical' : 'both',
@@ -241,50 +242,64 @@
     const progressFill = document.querySelector('#progress-fill');
     const progressCurrent = document.querySelector('.progress-current');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mobileMQ = matchMedia('(max-width: 900px)');
-    let horizontalTween = null;
-    let horizontalST = null;
-    let resizeTimer = 0;
+    const responsiveMQ = matchMedia('(max-width: 1180px)');
+    const phoneMQ = matchMedia('(max-width: 620px)');
+
+    let desktopTween = null;
     let currentProgress = 0;
+    let resizeTimer = 0;
+    let mobileTravel = 0;
+    let mobileRAF = 0;
+    let mode = '';
 
-    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
     const headerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 74;
-    const railWidth = () => {
-      if (mobileMQ.matches) return 0;
-      const raw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w'));
-      return Number.isFinite(raw) ? raw : 0;
-    };
-    const homeFooterHeight = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0);
+    const footerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0;
+    const railWidth = () => responsiveMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w')) || 0);
     const viewportWidth = () => Math.max(1, innerWidth - railWidth());
-    const maxTravel = () => Math.max(0, track.scrollWidth - viewportWidth());
 
-    function setOpeningViewSize() {
-      const intro = panels[0];
-      const hero = panels[1];
-      if (!intro) return;
+    function setOpeningSizes() {
+      if (!panels[0]) return;
+      const vw = viewportWidth();
+      let introWidth;
+      let heroWidth;
 
-      const width = viewportWidth();
+      if (phoneMQ.matches) {
+        // Phone follows the desktop storytelling, but without the giant standalone
+        // hero slide. The opening frame is the copy panel only, then the project
+        // cards continue horizontally with generous readable widths.
+        introWidth = vw;
+        heroWidth = 0;
+      } else if (responsiveMQ.matches) {
+        // Tablet keeps the desktop rhythm: intro + hero, just scaled down.
+        introWidth = Math.round(vw * 0.46);
+        heroWidth = vw - introWidth;
+      } else {
+        introWidth = Math.round(vw * 0.44);
+        heroWidth = vw - introWidth;
+      }
 
-      // V30: mobile starts exactly like desktop — intro copy + hero image
-      // share the first viewport instead of becoming two full-screen slides.
-      const introWidth = Math.round(width * 0.44);
-      const heroWidth = width - introWidth;
-      intro.style.width = `${introWidth}px`;
-      intro.style.minWidth = `${introWidth}px`;
-      if (hero) {
-        hero.style.width = `${heroWidth}px`;
-        hero.style.minWidth = `${heroWidth}px`;
+      panels[0].style.width = `${introWidth}px`;
+      panels[0].style.minWidth = `${introWidth}px`;
+      if (panels[1]) {
+        if (phoneMQ.matches) {
+          panels[1].style.width = `0px`;
+          panels[1].style.minWidth = `0px`;
+          panels[1].style.display = 'none';
+        } else {
+          panels[1].style.display = '';
+          panels[1].style.width = `${heroWidth}px`;
+          panels[1].style.minWidth = `${heroWidth}px`;
+        }
       }
     }
 
-    function setStageHeight() {
-      const travel = maxTravel();
-      // The sticky horizontal viewport ends above the fixed Thorsten-style
-      // footer strip, so the parent height must reserve that exact space too.
-      // This keeps the sticky release point aligned with ScrollTrigger.end.
-      const visibleStageHeight = Math.max(1, innerHeight - homeFooterHeight());
-      stage.style.setProperty('--home-stage-h', `${Math.ceil(visibleStageHeight + travel)}px`);
-      return travel;
+    function setDirection() {
+      track.style.flexDirection = body.classList.contains('is-ar') ? 'row-reverse' : 'row';
+    }
+
+    function getTravel() {
+      return Math.max(0, track.scrollWidth - viewport.clientWidth);
     }
 
     function panelLogicalStart(target) {
@@ -296,197 +311,184 @@
       return distance;
     }
 
-    function panelProgress(target) {
-      const travel = maxTravel();
-      if (!travel || !target) return 0;
-      return clamp(panelLogicalStart(target) / travel, 0, 1);
-    }
-
     function revealPanel(panel) {
-      if (!hasGSAP || !panel || panel.dataset.revealed === '1') return;
+      if (!panel || panel.dataset.revealed === '1') return;
       panel.dataset.revealed = '1';
+      if (!hasGSAP) return;
       const wrap = panel.querySelector('.image-wrap');
       const curtain = panel.querySelector('.image-curtain');
       const image = panel.querySelector('img');
       const copy = panel.querySelector('.reveal-copy,.ref-over-caption');
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
       if (wrap && !panel.classList.contains('ref-hero-panel')) {
-        tl.fromTo(wrap,
-          { y: -42, rotationX: -8, transformPerspective: 1200, transformOrigin: '50% 0%' },
-          { y: 0, rotationX: 0, duration: 0.82 }, 0);
+        tl.fromTo(wrap, { y: -22, rotationX: -4, transformPerspective: 1200, transformOrigin: '50% 0%' }, { y: 0, rotationX: 0, duration: .58 }, 0);
       }
-      if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: 0.9, ease: 'power4.inOut' }, 0.02);
-      if (image) tl.fromTo(image, { scale: 1.07 }, { scale: 1.01, duration: 1.15 }, 0);
-      if (copy && !panel.classList.contains('ref-intro-panel')) {
-        tl.fromTo(copy, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.58 }, 0.2);
-      }
+      if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: .7, ease: 'power4.inOut' }, 0);
+      if (image) tl.fromTo(image, { scale: 1.035 }, { scale: 1, duration: .86 }, 0);
+      if (copy && !panel.classList.contains('ref-intro-panel')) tl.fromTo(copy, { y: 9, opacity: 0 }, { y: 0, opacity: 1, duration: .42 }, .12);
     }
 
     function updateVisiblePanels() {
-      const left = viewport.getBoundingClientRect().left;
-      const right = viewport.getBoundingClientRect().right;
+      const vr = viewport.getBoundingClientRect();
       panels.forEach(panel => {
-        const rect = panel.getBoundingClientRect();
-        if (rect.right > left + 30 && rect.left < right - 30) revealPanel(panel);
+        const r = panel.getBoundingClientRect();
+        if (r.right > vr.left + 8 && r.left < vr.right - 8) revealPanel(panel);
       });
     }
 
-    function updateParallax() {
-      // Parallax is intentionally disabled on touch-sized viewports to keep
-      // 60fps while the rail itself still uses GSAP transforms.
-      if (!hasGSAP || mobileMQ.matches) return;
-      const viewportRect = viewport.getBoundingClientRect();
-      const vw = viewportRect.width || 1;
-      panels.forEach(panel => {
-        const image = panel.querySelector('.image-wrap img');
-        if (!image) return;
-        const rect = panel.getBoundingClientRect();
-        if (rect.right < viewportRect.left - 150 || rect.left > viewportRect.right + 150) return;
-        const center = rect.left - viewportRect.left + rect.width * 0.5;
-        const normalized = (center - vw * 0.5) / vw;
-        gsap.set(image, { x: clamp(normalized * -18, -20, 20) });
-      });
-    }
-
-    function updateProgress(progress = currentProgress) {
+    function updateProgress(progress) {
       currentProgress = clamp(progress, 0, 1);
       if (progressFill) progressFill.style.transform = `scaleX(${currentProgress})`;
       if (progressCurrent && panels.length) {
-        const logicalCenter = currentProgress * maxTravel() + viewportWidth() * 0.5;
+        const logical = currentProgress * Math.max(1, getTravel()) + viewport.clientWidth * .5;
         let cursor = 0;
         let active = panels.length - 1;
         for (let i = 0; i < panels.length; i++) {
           cursor += panels[i].getBoundingClientRect().width;
-          if (logicalCenter <= cursor) { active = i; break; }
+          if (logical <= cursor) { active = i; break; }
         }
         progressCurrent.textContent = String(active + 1).padStart(2, '0');
       }
       updateVisiblePanels();
-      updateParallax();
     }
 
-    function killHorizontal() {
-      if (horizontalTween) { horizontalTween.kill(); horizontalTween = null; }
-      if (horizontalST) { horizontalST.kill(); horizontalST = null; }
+    function killDesktop() {
+      if (desktopTween) {
+        desktopTween.scrollTrigger?.kill();
+        desktopTween.kill();
+        desktopTween = null;
+      }
+      if (hasScrollTrigger) {
+        ScrollTrigger.getAll().forEach(st => {
+          if (st.vars?.id === 'cross-sector-home-horizontal') st.kill();
+        });
+      }
       if (hasGSAP) gsap.set(track, { clearProps: 'x,transform' });
+      else track.style.transform = 'none';
+    }
+
+    function mobileStageStart() {
+      return stage.getBoundingClientRect().top + window.scrollY;
+    }
+
+    function applyMobileScroll() {
+      mobileRAF = 0;
+      if (mode !== 'mobile') return;
+      const start = mobileStageStart();
+      const raw = clamp(window.scrollY - start, 0, mobileTravel);
+      const progress = mobileTravel ? raw / mobileTravel : 0;
+      const ar = body.classList.contains('is-ar');
+      const x = ar ? (-mobileTravel + raw) : -raw;
+      if (hasGSAP) gsap.set(track, { x, force3D: true });
+      else track.style.transform = `translate3d(${x}px,0,0)`;
+      updateProgress(progress);
+    }
+
+    function requestMobileScroll() {
+      if (mode !== 'mobile' || mobileRAF) return;
+      mobileRAF = requestAnimationFrame(applyMobileScroll);
+    }
+
+    function buildMobile({ keepProgress = true } = {}) {
+      const progress = keepProgress ? currentProgress : 0;
+      mode = 'mobile';
+      killDesktop();
+      body.classList.remove('home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
+      document.documentElement.classList.remove('home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
+      body.classList.add('home-scroll-horizontal');
+      document.documentElement.classList.add('home-scroll-horizontal');
+
+      lenis?.start();
+      setDirection();
+      setOpeningSizes();
+      void track.offsetWidth;
+
+      mobileTravel = getTravel();
+      const visible = Math.max(1, innerHeight - headerHeight() - footerHeight());
+      stage.style.setProperty('--home-mobile-visible-h', `${visible}px`);
+      stage.style.setProperty('--home-stage-h', `${Math.ceil(visible + mobileTravel)}px`);
+
+      const start = mobileStageStart();
+      const targetY = start + progress * mobileTravel;
+      if (Math.abs(window.scrollY - targetY) > 2) {
+        if (lenis) lenis.scrollTo(targetY, { immediate: true, force: true });
+        else window.scrollTo(0, targetY);
+      }
+      requestAnimationFrame(() => {
+        mobileTravel = getTravel();
+        applyMobileScroll();
+      });
     }
 
     function buildDesktop({ keepProgress = true } = {}) {
-      const previousProgress = keepProgress ? currentProgress : 0;
-      killHorizontal();
-      setOpeningViewSize();
-
-      const ar = body.classList.contains('is-ar');
-      track.style.flexDirection = ar ? 'row-reverse' : 'row';
+      const progress = keepProgress ? currentProgress : 0;
+      mode = 'desktop';
+      body.classList.remove('home-scroll-horizontal','home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
+      document.documentElement.classList.remove('home-scroll-horizontal','home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
+      killDesktop();
+      lenis?.start();
+      setDirection();
+      setOpeningSizes();
       void track.offsetWidth;
-      const travel = setStageHeight();
+      const travel = getTravel();
+      const visibleHeight = Math.max(1, innerHeight - footerHeight());
+      stage.style.setProperty('--home-stage-h', `${Math.ceil(visibleHeight + travel)}px`);
 
-      if (!hasGSAP || !hasScrollTrigger || travel <= 0) {
-        track.style.transform = ar ? `translate3d(${-travel}px,0,0)` : 'translate3d(0,0,0)';
+      if (!hasGSAP || !hasScrollTrigger || !travel) {
         updateProgress(0);
         return;
       }
 
+      const ar = body.classList.contains('is-ar');
       const fromX = ar ? -travel : 0;
       const toX = ar ? 0 : -travel;
       gsap.set(track, { x: fromX, force3D: true });
-
-      horizontalTween = gsap.to(track, {
+      desktopTween = gsap.to(track, {
         x: toX,
         ease: 'none',
         overwrite: true,
         scrollTrigger: {
+          id: 'cross-sector-home-horizontal',
           trigger: stage,
           start: 'top top',
-          end: () => `+=${maxTravel()}`,
-          scrub: reducedMotion ? true : 0.22,
+          end: () => `+=${getTravel()}`,
+          scrub: reducedMotion ? true : .22,
           invalidateOnRefresh: true,
-          onRefresh(self) {
-            horizontalST = self;
-            currentProgress = self.progress;
-            updateProgress(self.progress);
-          },
-          onUpdate(self) {
-            horizontalST = self;
-            updateProgress(self.progress);
-          }
+          onUpdate(self) { updateProgress(self.progress); },
+          onRefresh(self) { updateProgress(self.progress); }
         }
       });
-      horizontalST = horizontalTween.scrollTrigger;
-
       requestAnimationFrame(() => {
         ScrollTrigger.refresh(true);
-        const st = horizontalTween?.scrollTrigger;
+        const st = desktopTween?.scrollTrigger;
         if (!st) return;
-        const y = st.start + previousProgress * (st.end - st.start);
+        const y = st.start + progress * (st.end - st.start);
         if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
-        else scrollTo(0, y);
-        ScrollTrigger.update();
-        updateProgress(previousProgress);
+        else window.scrollTo(0, y);
+        updateProgress(progress);
       });
     }
 
-    function buildMobile({ keepProgress = true } = {}) {
-      const previousProgress = keepProgress ? currentProgress : 0;
-      killHorizontal();
-      body.classList.add('home-mobile-native');
-      const ar = body.classList.contains('is-ar');
-      track.style.flexDirection = ar ? 'row-reverse' : 'row';
-      setOpeningViewSize();
-      stage.style.setProperty('--home-stage-h', `${Math.max(1, innerHeight - headerHeight())}px`);
-
-      const syncMobilePosition = () => {
-        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-        const left = ar
-          ? clamp((1 - previousProgress) * max, 0, max)
-          : clamp(previousProgress * max, 0, max);
-        viewport.scrollLeft = left;
-        updateProgress(previousProgress);
-      };
-
-      requestAnimationFrame(() => {
-        syncMobilePosition();
-        requestAnimationFrame(syncMobilePosition);
-      });
-
-      // Keep Lenis alive; the viewport itself owns scrolling on phone.
-      lenis?.start();
+    function build({ keepProgress = true } = {}) {
+      if (responsiveMQ.matches) buildMobile({ keepProgress });
+      else buildDesktop({ keepProgress });
     }
 
-    function buildHome({ keepProgress = true } = {}) {
-      // V31: phones must behave horizontally as well. We keep the same
-      // opening composition as desktop, but on touch-sized viewports we
-      // use the proven native horizontal owner so vertical finger/wheel
-      // gestures are bridged into sideways movement with no vertical fall-through.
-      if (mobileMQ.matches) {
-        buildMobile({ keepProgress });
-        return;
-      }
-      body.classList.remove('home-mobile-native');
-      lenis?.start();
-      buildDesktop({ keepProgress });
-    }
-
-    function scrollToPanel(target, immediate = false) {
+    function goToPanel(target, immediate = false) {
       if (!target) return;
-
-      if (mobileMQ.matches && body.classList.contains('home-mobile-native')) {
-        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-        const ar = body.classList.contains('is-ar');
-        const left = clamp(target.offsetLeft, 0, max);
-        viewport.scrollTo({ left, behavior: immediate ? 'auto' : 'smooth' });
-        const logical = max ? (ar ? 1 - left / max : left / max) : 0;
-        updateProgress(logical);
+      const travel = mode === 'mobile' ? mobileTravel : getTravel();
+      const progress = travel ? clamp(panelLogicalStart(target) / travel, 0, 1) : 0;
+      if (mode === 'mobile') {
+        const y = mobileStageStart() + progress * mobileTravel;
+        if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.0, force: true });
+        else window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
         return;
       }
-
-      const st = horizontalTween?.scrollTrigger;
+      const st = desktopTween?.scrollTrigger;
       if (!st) return;
-      const progress = panelProgress(target);
       const y = st.start + progress * (st.end - st.start);
-      if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.1, force: true });
-      else scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
+      if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.05, force: true });
+      else window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -496,197 +498,50 @@
         const target = document.querySelector(id);
         if (!target) return;
         event.preventDefault();
-        const action = () => scrollToPanel(target, false);
-        if (menuOpen) closeMenu(() => setTimeout(action, 40));
-        else action();
+        const action = () => goToPanel(target, false);
+        if (menuOpen) closeMenu(() => setTimeout(action, 30)); else action();
       });
     });
 
+    // Critical behavior: normal vertical page scroll/touch is never hijacked.
+    // The sticky viewport simply maps that vertical progress to horizontal X.
+    window.addEventListener('scroll', requestMobileScroll, { passive: true });
+    if (lenis) lenis.on('scroll', requestMobileScroll);
+
     viewport.addEventListener('keydown', event => {
-      const step = Math.max(260, viewportWidth() * 0.72);
-      if (mobileMQ.matches && body.classList.contains('home-mobile-native')) {
-        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-        const ar = body.classList.contains('is-ar');
-        const forward = ar ? -step : step;
-        if (event.key === 'ArrowRight') {
+      const step = Math.max(260, viewport.clientWidth * .72);
+      if (mode === 'mobile') {
+        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
           event.preventDefault();
-          viewport.scrollBy({ left: forward, behavior: 'smooth' });
-        } else if (event.key === 'ArrowLeft') {
+          const dir = body.classList.contains('is-ar') ? -1 : 1;
+          lenis?.scrollTo(clamp(window.scrollY + step * dir, mobileStageStart(), mobileStageStart() + mobileTravel), { duration: .72, force: true });
+        } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
           event.preventDefault();
-          viewport.scrollBy({ left: -forward, behavior: 'smooth' });
-        } else if (event.key === 'Home') {
-          event.preventDefault();
-          viewport.scrollTo({ left: ar ? max : 0, behavior: 'smooth' });
-        } else if (event.key === 'End') {
-          event.preventDefault();
-          viewport.scrollTo({ left: ar ? 0 : max, behavior: 'smooth' });
+          const dir = body.classList.contains('is-ar') ? -1 : 1;
+          lenis?.scrollTo(clamp(window.scrollY - step * dir, mobileStageStart(), mobileStageStart() + mobileTravel), { duration: .72, force: true });
         }
         return;
       }
-      const ar = body.classList.contains('is-ar');
-      const sign = ar ? -1 : 1;
-      const y = scrollY + step * sign;
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        lenis?.scrollTo(y, { duration: 0.85, force: true });
-      } else if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        lenis?.scrollTo(scrollY - step * sign, { duration: 0.85, force: true });
-      } else if (event.key === 'Home') {
-        event.preventDefault();
-        lenis?.scrollTo(0, { duration: 0.9, force: true });
-      } else if (event.key === 'End') {
-        event.preventDefault();
-        lenis?.scrollTo(horizontalTween?.scrollTrigger?.end || maxTravel(), { duration: 0.9, force: true });
-      }
     });
-
-    viewport.addEventListener('scroll', () => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
-      const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const ar = body.classList.contains('is-ar');
-      const logical = max ? (ar ? 1 - viewport.scrollLeft / max : viewport.scrollLeft / max) : 0;
-      updateProgress(logical);
-    }, { passive: true });
 
     panels[0] && (panels[0].dataset.revealed = '1');
-    buildHome({ keepProgress: false });
-
-    window.__crossSectorHomeRefresh = () => buildHome({ keepProgress: true });
+    build({ keepProgress: false });
+    window.__crossSectorHomeRefresh = () => build({ keepProgress: true });
 
     const ready = () => {
-      buildHome({ keepProgress: false });
+      build({ keepProgress: false });
       if (location.hash) {
         const target = document.querySelector(location.hash);
-        if (target) setTimeout(() => scrollToPanel(target, true), 130);
+        if (target) setTimeout(() => goToPanel(target, true), 100);
       }
     };
-
-    if (document.fonts?.ready) document.fonts.ready.then(() => {
-      ready();
-      addEventListener('load', () => buildHome({ keepProgress: true }), { once: true });
-    });
+    if (document.fonts?.ready) document.fonts.ready.then(ready);
     else addEventListener('load', ready, { once: true });
 
-    mobileMQ.addEventListener?.('change', () => {
-      setTimeout(() => buildHome({ keepProgress: true }), 60);
-    });
-
-    // Mobile address bars emit many height-only resize events. Rebuild the
-    // horizontal geometry only when width/orientation meaningfully changes.
-    let lastViewportWidth = innerWidth;
+    responsiveMQ.addEventListener?.('change', () => setTimeout(() => build({ keepProgress: true }), 70));
     addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const widthChanged = Math.abs(innerWidth - lastViewportWidth) > 8;
-        if (!mobileMQ.matches || widthChanged) {
-          lastViewportWidth = innerWidth;
-          buildHome({ keepProgress: true });
-        }
-      }, 180);
-    });
-
-    // V29 mobile bridge: responsive browser wheel/trackpad and vertical finger
-    // gestures advance the exact same native horizontal viewport. Horizontal
-    // swipes remain native. Arabic intentionally travels in the opposite direction.
-    let mobileWheelTimer = 0;
-    const nearestMobileSnap = () => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
-      const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-      const current = viewport.scrollLeft;
-      let nearest = current;
-      let best = Infinity;
-      panels.forEach(panel => {
-        const candidate = clamp(panel.offsetLeft, 0, max);
-        const d = Math.abs(candidate - current);
-        if (d < best) { best = d; nearest = candidate; }
-      });
-      viewport.scrollTo({ left: nearest, behavior: 'smooth' });
-    };
-
-    viewport.addEventListener('wheel', event => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native')) return;
-      if (Math.abs(event.deltaX) < 0.01 && Math.abs(event.deltaY) < 0.01) return;
-      event.preventDefault();
-      const ar = body.classList.contains('is-ar');
-      const dominant = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-      viewport.scrollLeft += dominant * (ar ? -1 : 1);
-      clearTimeout(mobileWheelTimer);
-      mobileWheelTimer = setTimeout(nearestMobileSnap, 125);
-    }, { passive: false });
-
-    let nativeTouchStartX = 0;
-    let nativeTouchStartY = 0;
-    let nativeTouchStartLeft = 0;
-    let nativeVerticalBridge = false;
-    viewport.addEventListener('touchstart', event => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
-      const t = event.touches[0];
-      nativeTouchStartX = t.clientX;
-      nativeTouchStartY = t.clientY;
-      nativeTouchStartLeft = viewport.scrollLeft;
-      nativeVerticalBridge = false;
-    }, { passive: true });
-
-    viewport.addEventListener('touchmove', event => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
-      const t = event.touches[0];
-      const dx = t.clientX - nativeTouchStartX;
-      const dy = t.clientY - nativeTouchStartY;
-      if (!nativeVerticalBridge && Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx) * 1.08) nativeVerticalBridge = true;
-      if (!nativeVerticalBridge) return; // horizontal gesture remains native
-      event.preventDefault();
-      const ar = body.classList.contains('is-ar');
-      const forward = -dy; // swipe up advances in English
-      viewport.scrollLeft = nativeTouchStartLeft + forward * (ar ? -1 : 1);
-    }, { passive: false });
-
-    viewport.addEventListener('touchend', () => {
-      if (!mobileMQ.matches || !body.classList.contains('home-mobile-native') || !nativeVerticalBridge) return;
-      nativeVerticalBridge = false;
-      nearestMobileSnap();
-    }, { passive: true });
-
-    // Native-feeling sideways swipe bridge for phones/tablets. Vertical swipe
-    // still works through Lenis, while a clear horizontal gesture advances the
-    // same timeline. One scroll owner means no jump or double movement.
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchStartScroll = 0;
-    let touchHorizontal = false;
-    let touchLastTarget = 0;
-    viewport.addEventListener('touchstart', event => {
-      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
-      const t = event.touches[0];
-      touchStartX = t.clientX;
-      touchStartY = t.clientY;
-      touchStartScroll = window.scrollY || document.documentElement.scrollTop || 0;
-      touchLastTarget = touchStartScroll;
-      touchHorizontal = false;
-    }, { passive: true });
-
-    viewport.addEventListener('touchmove', event => {
-      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || event.touches.length !== 1) return;
-      const t = event.touches[0];
-      const dx = t.clientX - touchStartX;
-      const dy = t.clientY - touchStartY;
-      if (!touchHorizontal && Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.12) touchHorizontal = true;
-      if (!touchHorizontal) return;
-      event.preventDefault();
-      const ar = body.classList.contains('is-ar');
-      const signedDelta = ar ? dx : -dx;
-      const st = horizontalTween?.scrollTrigger;
-      const min = st?.start || 0;
-      const max = st?.end || maxTravel();
-      touchLastTarget = clamp(touchStartScroll + signedDelta * 1.18, min, max);
-      if (lenis) lenis.scrollTo(touchLastTarget, { immediate: true, force: true });
-      else window.scrollTo(0, touchLastTarget);
-    }, { passive: false });
-
-    viewport.addEventListener('touchend', () => {
-      if (!mobileMQ.matches || body.classList.contains('home-mobile-native') || !touchHorizontal) return;
-      if (lenis) lenis.scrollTo(touchLastTarget, { duration: .42, force: true });
-      touchHorizontal = false;
+      resizeTimer = setTimeout(() => build({ keepProgress: true }), 180);
     }, { passive: true });
   }
 
