@@ -1108,3 +1108,197 @@ body.is-ar{direction:rtl!important}
   .home-v3 .ref-hero-panel{min-height:460px!important;height:68svh!important}
   .team-section{padding-left:16px!important;padding-right:16px!important}
 }
+
+/* =========================================================
+   V9 — HEADER GRID + ARABIC LOCATION ALIGNMENT HOTFIX
+   Keep header geometry identical in EN/AR. RTL applies to
+   Arabic text/navigation flow only, never to CSS grid tracks.
+   ========================================================= */
+
+/* One explicit row prevents Arabic grid auto-placement from
+   dropping the navigation into a second row. */
+.site-header,
+body.is-ar .site-header{
+  direction:ltr!important;
+  grid-template-columns:var(--rail-w) minmax(0,1fr) auto!important;
+  grid-template-rows:var(--header-h)!important;
+  align-items:stretch!important;
+  height:var(--header-h)!important;
+}
+.site-header .brand,
+body.is-ar .site-header .brand{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:stretch!important;
+  border-right:1px solid var(--line)!important;
+  border-left:0!important;
+}
+.site-header .desktop-nav,
+body.is-ar .site-header .desktop-nav{
+  grid-column:2!important;
+  grid-row:1!important;
+  min-width:0!important;
+  height:var(--header-h)!important;
+  align-self:stretch!important;
+  flex-wrap:nowrap!important;
+  overflow:hidden!important;
+}
+.site-header .header-actions,
+body.is-ar .site-header .header-actions{
+  grid-column:3!important;
+  grid-row:1!important;
+  justify-self:end!important;
+  align-self:stretch!important;
+  height:var(--header-h)!important;
+  direction:ltr!important;
+  flex-direction:row!important;
+}
+
+/* Arabic menu reads RTL inside the stable center column. */
+body.is-ar .site-header .desktop-nav{
+  direction:rtl!important;
+  justify-content:flex-start!important;
+  padding:0 42px!important;
+}
+body.is-ar .site-header .desktop-nav a{
+  direction:rtl!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+body.is-ar .site-header .language-toggle,
+body.is-ar .site-header .menu-trigger{
+  border-right:0!important;
+  border-left:1px solid var(--line)!important;
+}
+
+/* Arabic location cards: use the full card width and anchor text
+   to the actual right edge instead of flex-end's RTL ambiguity. */
+body.is-ar .location-card,
+body.is-ar.inner-page .location-card{
+  direction:rtl!important;
+  text-align:right!important;
+  align-items:stretch!important;
+}
+body.is-ar .location-card h3,
+body.is-ar .location-card strong,
+body.is-ar .location-card p,
+body.is-ar .location-card > a:not(.map-link){
+  width:100%!important;
+  text-align:right!important;
+  direction:rtl!important;
+}
+body.is-ar .location-card .location-no{
+  align-self:flex-end!important;
+}
+body.is-ar .location-card .map-link{
+  align-self:flex-end!important;
+  width:auto!important;
+  direction:rtl!important;
+}
+
+@media(max-width:900px){
+  .site-header,
+  body.is-ar .site-header{
+    grid-template-columns:68px minmax(0,1fr) auto!important;
+    grid-template-rows:var(--header-h)!important;
+    direction:ltr!important;
+  }
+  .site-header .brand,
+  body.is-ar .site-header .brand{
+    grid-column:1!important;
+    grid-row:1!important;
+    border-right:1px solid var(--line)!important;
+    border-left:0!important;
+  }
+  .site-header .header-actions,
+  body.is-ar .site-header .header-actions{
+    grid-column:3!important;
+    grid-row:1!important;
+    justify-self:end!important;
+    flex-direction:row!important;
+    direction:ltr!important;
+  }
+}
+
+@media(max-width:420px){
+  .site-header,
+  body.is-ar .site-header{
+    grid-template-columns:60px minmax(0,1fr) auto!important;
+  }
+}
+
+/* =========================================================
+   V10 — HERO FOCUS + NAV ACTIVE-LINE DETAIL
+   Targeted visual pass only; no scroll architecture changes.
+   ========================================================= */
+
+/* Keep the hero photo framed on the subject even on shorter desktop
+   viewports / browser zoom levels. The original asset places the model
+   low in the frame, so bottom bias makes her visible earlier without
+   changing the image or horizontal geometry. */
+.home-v3 .ref-hero-image img{
+  object-fit:cover!important;
+  object-position:center 78%!important;
+  transform-origin:center 78%!important;
+}
+
+/* On the normal desktop composition, preserve a reference-like crop. */
+@media (min-width:901px) and (min-height:620px){
+  .home-v3 .ref-hero-image img{
+    object-position:center 68%!important;
+    transform-origin:center 68%!important;
+  }
+}
+
+/* Short desktop windows need a stronger downward focus so the model does
+   not disappear below the fold while the horizontal rail is pinned. */
+@media (min-width:901px) and (max-height:619px){
+  .home-v3 .ref-hero-image img{
+    object-position:center 90%!important;
+    transform-origin:center 90%!important;
+  }
+}
+
+/* Phone/tablet: show the lower photographic subject rather than a large
+   empty wall area at the top of the source image. */
+@media (max-width:900px){
+  .home-v3 .ref-hero-image img{
+    object-position:center 82%!important;
+    transform-origin:center 82%!important;
+  }
+}
+
+/* Robust Thorsten-style current-page underline. Previous right/left based
+   animation could disappear with RTL + overflow clipping. */
+.site-header .desktop-nav a::after,
+body.is-ar .site-header .desktop-nav a::after{
+  left:0!important;
+  right:auto!important;
+  bottom:0!important;
+  width:100%!important;
+  height:1px!important;
+  background:var(--ink)!important;
+  transform:scaleX(0)!important;
+  transform-origin:left center!important;
+  transition:transform .32s ease!important;
+}
+.site-header .desktop-nav a:hover::after,
+.site-header .desktop-nav a.active::after,
+body.is-ar .site-header .desktop-nav a:hover::after,
+body.is-ar .site-header .desktop-nav a.active::after{
+  transform:scaleX(1)!important;
+}
+body.is-ar .site-header .desktop-nav a::after{
+  transform-origin:right center!important;
+}
+
+/* Make the Arabic navigation typeface explicit and readable instead of
+   inheriting the Latin display face in any cascade edge case. */
+body.is-ar .site-header .desktop-nav a,
+body.is-ar .site-header .desktop-nav a .lang-ar{
+  font-family:var(--arabic-ui)!important;
+  font-weight:500!important;
+  letter-spacing:0!important;
+  font-size:12.5px!important;
+  line-height:1.9!important;
+}

@@ -1,1 +1,8 @@
-Cross Sector Thorsten V8 — Mobile Vertical + Desktop RTL
+Cross Sector Thorsten V10 — Hero + Navigation Detail Fix
+Base: V9 Header/Arabic Contact Fix
+
+Changes:
+- Hero image focal point adjusted so the model stays visible on short desktops and mobile.
+- Active navigation underline rebuilt with transform scale so RTL cannot hide it.
+- Arabic navbar font is explicitly Noto Kufi Arabic / Noto Sans Arabic fallback.
+- No changes to Lenis/GSAP horizontal scrolling architecture.
