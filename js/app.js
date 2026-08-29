@@ -241,56 +241,68 @@
     const panels = [...track.querySelectorAll('.h-panel')];
     const progressFill = document.querySelector('#progress-fill');
     const progressCurrent = document.querySelector('.progress-current');
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const responsiveMQ = matchMedia('(max-width: 1180px)');
     const phoneMQ = matchMedia('(max-width: 620px)');
+    const tabletMQ = matchMedia('(max-width: 1180px)');
 
-    let desktopTween = null;
+    let travel = 0;
     let currentProgress = 0;
+    let raf = 0;
     let resizeTimer = 0;
-    let mobileTravel = 0;
-    let mobileRAF = 0;
-    let mode = '';
 
     const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-    const headerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 74;
-    const footerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--home-footer-h')) || 0;
-    const railWidth = () => responsiveMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w')) || 0);
-    const viewportWidth = () => Math.max(1, innerWidth - railWidth());
+    const cssVar = name => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
+    const headerHeight = () => cssVar('--header-h') || 74;
+    const footerHeight = () => cssVar('--home-footer-h') || 0;
 
-    function setOpeningSizes() {
-      if (!panels[0]) return;
-      const vw = viewportWidth();
-      let introWidth;
-      let heroWidth;
+    function stageStart() {
+      // Home stage is the scroll ruler. The visual viewport is fixed, so its
+      // progress starts exactly where the stage begins in the document.
+      return stage.offsetTop || 0;
+    }
+
+    function setPanelSize(panel, width) {
+      if (!panel) return;
+      panel.style.width = `${Math.round(width)}px`;
+      panel.style.minWidth = `${Math.round(width)}px`;
+      panel.style.maxWidth = 'none';
+    }
+
+    function configurePanelGeometry() {
+      const vw = Math.max(320, window.innerWidth);
+      const intro = panels[0];
+      const hero = panels[1];
+      const projects = panels.filter(p => p.classList.contains('ref-project-panel'));
+      const closing = panels.find(p => p.classList.contains('ref-contact-panel'));
 
       if (phoneMQ.matches) {
-        // Phone follows the desktop storytelling, but without the giant standalone
-        // hero slide. The opening frame is the copy panel only, then the project
-        // cards continue horizontally with generous readable widths.
-        introWidth = vw;
-        heroWidth = 0;
-      } else if (responsiveMQ.matches) {
-        // Tablet keeps the desktop rhythm: intro + hero, just scaled down.
-        introWidth = Math.round(vw * 0.46);
-        heroWidth = vw - introWidth;
-      } else {
-        introWidth = Math.round(vw * 0.44);
-        heroWidth = vw - introWidth;
-      }
+        // Thorsten's mobile behavior keeps desktop-like fixed columns.
+        // The viewport gets narrower; the horizontal canvas does not collapse.
+        setPanelSize(intro, Math.max(520, vw * 1.35));
 
-      panels[0].style.width = `${introWidth}px`;
-      panels[0].style.minWidth = `${introWidth}px`;
-      if (panels[1]) {
-        if (phoneMQ.matches) {
-          panels[1].style.width = `0px`;
-          panels[1].style.minWidth = `0px`;
-          panels[1].style.display = 'none';
-        } else {
-          panels[1].style.display = '';
-          panels[1].style.width = `${heroWidth}px`;
-          panels[1].style.minWidth = `${heroWidth}px`;
+        if (hero) {
+          hero.style.display = 'none';
+          hero.style.width = '0px';
+          hero.style.minWidth = '0px';
         }
+
+        projects.forEach(panel => setPanelSize(panel, Math.max(335, vw * 0.88)));
+        setPanelSize(closing, Math.max(520, vw * 1.28));
+      } else if (tabletMQ.matches) {
+        setPanelSize(intro, Math.max(500, vw * 0.44));
+        if (hero) {
+          hero.style.display = '';
+          setPanelSize(hero, Math.max(560, vw * 0.56));
+        }
+        projects.forEach(panel => setPanelSize(panel, Math.max(350, vw * 0.36)));
+        setPanelSize(closing, Math.max(580, vw * 0.58));
+      } else {
+        setPanelSize(intro, vw * 0.44);
+        if (hero) {
+          hero.style.display = '';
+          setPanelSize(hero, vw * 0.56);
+        }
+        projects.forEach(panel => setPanelSize(panel, Math.max(365, vw * 0.29)));
+        setPanelSize(closing, Math.max(650, vw * 0.51));
       }
     }
 
@@ -298,250 +310,249 @@
       track.style.flexDirection = body.classList.contains('is-ar') ? 'row-reverse' : 'row';
     }
 
-    function getTravel() {
-      return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    function measure() {
+      body.classList.add('home-clean-horizontal');
+      document.documentElement.classList.add('home-clean-horizontal');
+
+      setDirection();
+      configurePanelGeometry();
+
+      // Force a real layout pass after widths / display changes.
+      void track.offsetWidth;
+
+      const visible = Math.max(1, window.innerHeight - headerHeight() - footerHeight());
+
+      travel = Math.max(0, track.scrollWidth - window.innerWidth);
+      stage.style.setProperty('--home-stage-h', `${Math.ceil(visible + travel)}px`);
+
+      return { visible, travel };
+    }
+
+    function updateVisiblePanels() {
+      const vr = viewport.getBoundingClientRect();
+      panels.forEach(panel => {
+        if (panel.style.display === 'none') return;
+        const r = panel.getBoundingClientRect();
+        if (r.right > vr.left - 60 && r.left < vr.right + 60) {
+          if (panel.dataset.revealed !== '1') {
+            panel.dataset.revealed = '1';
+            if (hasGSAP) {
+              const wrap = panel.querySelector('.image-wrap');
+              const curtain = panel.querySelector('.image-curtain');
+              const image = panel.querySelector('img');
+              const copy = panel.querySelector('.reveal-copy,.ref-over-caption');
+              const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+              if (wrap && !panel.classList.contains('ref-hero-panel')) {
+                tl.fromTo(wrap, { y: -18, rotationX: -3, transformPerspective: 1000 }, { y: 0, rotationX: 0, duration: .55 }, 0);
+              }
+              if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: .66, ease: 'power4.inOut' }, 0);
+              if (image) tl.fromTo(image, { scale: 1.035 }, { scale: 1, duration: .82 }, 0);
+              if (copy && !panel.classList.contains('ref-intro-panel')) {
+                tl.fromTo(copy, { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: .38 }, .1);
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function updateProgress(progress) {
+      currentProgress = clamp(progress, 0, 1);
+
+      if (progressFill) {
+        progressFill.style.transform = `scaleX(${currentProgress})`;
+      }
+
+      if (progressCurrent && panels.length) {
+        const logicalCenter = currentProgress * travel + viewport.clientWidth * .5;
+        let cursor = 0;
+        let active = 0;
+
+        for (let i = 0; i < panels.length; i++) {
+          if (panels[i].style.display === 'none') continue;
+          cursor += panels[i].getBoundingClientRect().width;
+          if (logicalCenter <= cursor) {
+            active = i;
+            break;
+          }
+        }
+
+        progressCurrent.textContent = String(active + 1).padStart(2, '0');
+      }
+
+      updateVisiblePanels();
+    }
+
+    function applyScroll() {
+      raf = 0;
+
+      const start = stageStart();
+      const raw = clamp(window.scrollY - start, 0, travel);
+      const progress = travel ? raw / travel : 0;
+      const ar = body.classList.contains('is-ar');
+
+      // English: 0 -> -travel. Arabic: -travel -> 0.
+      const x = ar ? (-travel + raw) : -raw;
+
+      if (hasGSAP) {
+        gsap.set(track, { x, force3D: true });
+      } else {
+        track.style.transform = `translate3d(${x}px,0,0)`;
+      }
+
+      updateProgress(progress);
+    }
+
+    function requestScrollUpdate() {
+      if (raf) return;
+      raf = requestAnimationFrame(applyScroll);
+    }
+
+    function rebuild({ keepProgress = true } = {}) {
+      const progress = keepProgress ? currentProgress : 0;
+
+      // Remove every old responsive-engine class. V43 has one owner only.
+      [
+        'home-scroll-horizontal',
+        'home-direct-horizontal',
+        'home-mobile-native',
+        'home-pinned-horizontal',
+        'home-responsive-pinned',
+        'home-unified-horizontal',
+        'home-compact-horizontal',
+        'home-native-map-horizontal'
+      ].forEach(cls => {
+        body.classList.remove(cls);
+        document.documentElement.classList.remove(cls);
+      });
+
+      // Kill old home ScrollTriggers if a previous rebuild left one behind.
+      if (hasScrollTrigger) {
+        ScrollTrigger.getAll().forEach(st => {
+          if (
+            st.vars?.id === 'cross-sector-home-horizontal' ||
+            st.vars?.id === 'cross-sector-responsive-horizontal'
+          ) st.kill();
+        });
+      }
+
+      if (hasGSAP) gsap.set(track, { clearProps: 'transform,x' });
+      else track.style.transform = 'none';
+
+      measure();
+
+      const start = stageStart();
+      const y = start + progress * travel;
+
+      if (Math.abs(window.scrollY - y) > 2) {
+        if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+        else window.scrollTo(0, y);
+      }
+
+      requestAnimationFrame(() => {
+        measure();
+        applyScroll();
+      });
     }
 
     function panelLogicalStart(target) {
       let distance = 0;
       for (const panel of panels) {
         if (panel === target) break;
+        if (panel.style.display === 'none') continue;
         distance += panel.getBoundingClientRect().width;
       }
       return distance;
     }
 
-    function revealPanel(panel) {
-      if (!panel || panel.dataset.revealed === '1') return;
-      panel.dataset.revealed = '1';
-      if (!hasGSAP) return;
-      const wrap = panel.querySelector('.image-wrap');
-      const curtain = panel.querySelector('.image-curtain');
-      const image = panel.querySelector('img');
-      const copy = panel.querySelector('.reveal-copy,.ref-over-caption');
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      if (wrap && !panel.classList.contains('ref-hero-panel')) {
-        tl.fromTo(wrap, { y: -22, rotationX: -4, transformPerspective: 1200, transformOrigin: '50% 0%' }, { y: 0, rotationX: 0, duration: .58 }, 0);
-      }
-      if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: .7, ease: 'power4.inOut' }, 0);
-      if (image) tl.fromTo(image, { scale: 1.035 }, { scale: 1, duration: .86 }, 0);
-      if (copy && !panel.classList.contains('ref-intro-panel')) tl.fromTo(copy, { y: 9, opacity: 0 }, { y: 0, opacity: 1, duration: .42 }, .12);
-    }
+    function goToPanel(target, immediate = false) {
+      if (!target || !travel) return;
 
-    function updateVisiblePanels() {
-      const vr = viewport.getBoundingClientRect();
-      panels.forEach(panel => {
-        const r = panel.getBoundingClientRect();
-        if (r.right > vr.left + 8 && r.left < vr.right - 8) revealPanel(panel);
-      });
-    }
+      const progress = clamp(panelLogicalStart(target) / travel, 0, 1);
+      const y = stageStart() + progress * travel;
 
-    function updateProgress(progress) {
-      currentProgress = clamp(progress, 0, 1);
-      if (progressFill) progressFill.style.transform = `scaleX(${currentProgress})`;
-      if (progressCurrent && panels.length) {
-        const logical = currentProgress * Math.max(1, getTravel()) + viewport.clientWidth * .5;
-        let cursor = 0;
-        let active = panels.length - 1;
-        for (let i = 0; i < panels.length; i++) {
-          cursor += panels[i].getBoundingClientRect().width;
-          if (logical <= cursor) { active = i; break; }
-        }
-        progressCurrent.textContent = String(active + 1).padStart(2, '0');
-      }
-      updateVisiblePanels();
-    }
-
-    function killDesktop() {
-      if (desktopTween) {
-        desktopTween.scrollTrigger?.kill();
-        desktopTween.kill();
-        desktopTween = null;
-      }
-      if (hasScrollTrigger) {
-        ScrollTrigger.getAll().forEach(st => {
-          if (st.vars?.id === 'cross-sector-home-horizontal') st.kill();
+      if (lenis) {
+        lenis.scrollTo(y, immediate
+          ? { immediate: true, force: true }
+          : { duration: 1.0, force: true });
+      } else {
+        window.scrollTo({
+          top: y,
+          behavior: immediate ? 'auto' : 'smooth'
         });
       }
-      if (hasGSAP) gsap.set(track, { clearProps: 'x,transform' });
-      else track.style.transform = 'none';
-    }
-
-    function mobileStageStart() {
-      return stage.getBoundingClientRect().top + window.scrollY;
-    }
-
-    function applyMobileScroll() {
-      mobileRAF = 0;
-      if (mode !== 'mobile') return;
-      const start = mobileStageStart();
-      const raw = clamp(window.scrollY - start, 0, mobileTravel);
-      const progress = mobileTravel ? raw / mobileTravel : 0;
-      const ar = body.classList.contains('is-ar');
-      const x = ar ? (-mobileTravel + raw) : -raw;
-      if (hasGSAP) gsap.set(track, { x, force3D: true });
-      else track.style.transform = `translate3d(${x}px,0,0)`;
-      updateProgress(progress);
-    }
-
-    function requestMobileScroll() {
-      if (mode !== 'mobile' || mobileRAF) return;
-      mobileRAF = requestAnimationFrame(applyMobileScroll);
-    }
-
-    function buildMobile({ keepProgress = true } = {}) {
-      const progress = keepProgress ? currentProgress : 0;
-      mode = 'mobile';
-      killDesktop();
-      body.classList.remove('home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
-      document.documentElement.classList.remove('home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
-      body.classList.add('home-scroll-horizontal');
-      document.documentElement.classList.add('home-scroll-horizontal');
-
-      lenis?.start();
-      setDirection();
-      setOpeningSizes();
-      void track.offsetWidth;
-
-      mobileTravel = getTravel();
-      const visible = Math.max(1, innerHeight - headerHeight() - footerHeight());
-      stage.style.setProperty('--home-mobile-visible-h', `${visible}px`);
-      stage.style.setProperty('--home-stage-h', `${Math.ceil(visible + mobileTravel)}px`);
-
-      const start = mobileStageStart();
-      const targetY = start + progress * mobileTravel;
-      if (Math.abs(window.scrollY - targetY) > 2) {
-        if (lenis) lenis.scrollTo(targetY, { immediate: true, force: true });
-        else window.scrollTo(0, targetY);
-      }
-      requestAnimationFrame(() => {
-        mobileTravel = getTravel();
-        applyMobileScroll();
-      });
-    }
-
-    function buildDesktop({ keepProgress = true } = {}) {
-      const progress = keepProgress ? currentProgress : 0;
-      mode = 'desktop';
-      body.classList.remove('home-scroll-horizontal','home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
-      document.documentElement.classList.remove('home-scroll-horizontal','home-direct-horizontal','home-mobile-native','home-pinned-horizontal');
-      killDesktop();
-      lenis?.start();
-      setDirection();
-      setOpeningSizes();
-      void track.offsetWidth;
-      const travel = getTravel();
-      const visibleHeight = Math.max(1, innerHeight - footerHeight());
-      stage.style.setProperty('--home-stage-h', `${Math.ceil(visibleHeight + travel)}px`);
-
-      if (!hasGSAP || !hasScrollTrigger || !travel) {
-        updateProgress(0);
-        return;
-      }
-
-      const ar = body.classList.contains('is-ar');
-      const fromX = ar ? -travel : 0;
-      const toX = ar ? 0 : -travel;
-      gsap.set(track, { x: fromX, force3D: true });
-      desktopTween = gsap.to(track, {
-        x: toX,
-        ease: 'none',
-        overwrite: true,
-        scrollTrigger: {
-          id: 'cross-sector-home-horizontal',
-          trigger: stage,
-          start: 'top top',
-          end: () => `+=${getTravel()}`,
-          scrub: reducedMotion ? true : .22,
-          invalidateOnRefresh: true,
-          onUpdate(self) { updateProgress(self.progress); },
-          onRefresh(self) { updateProgress(self.progress); }
-        }
-      });
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh(true);
-        const st = desktopTween?.scrollTrigger;
-        if (!st) return;
-        const y = st.start + progress * (st.end - st.start);
-        if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
-        else window.scrollTo(0, y);
-        updateProgress(progress);
-      });
-    }
-
-    function build({ keepProgress = true } = {}) {
-      if (responsiveMQ.matches) buildMobile({ keepProgress });
-      else buildDesktop({ keepProgress });
-    }
-
-    function goToPanel(target, immediate = false) {
-      if (!target) return;
-      const travel = mode === 'mobile' ? mobileTravel : getTravel();
-      const progress = travel ? clamp(panelLogicalStart(target) / travel, 0, 1) : 0;
-      if (mode === 'mobile') {
-        const y = mobileStageStart() + progress * mobileTravel;
-        if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.0, force: true });
-        else window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
-        return;
-      }
-      const st = desktopTween?.scrollTrigger;
-      if (!st) return;
-      const y = st.start + progress * (st.end - st.start);
-      if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.05, force: true });
-      else window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', event => {
         const id = anchor.getAttribute('href');
         if (!id || id === '#') return;
+
         const target = document.querySelector(id);
         if (!target) return;
+
         event.preventDefault();
+
         const action = () => goToPanel(target, false);
-        if (menuOpen) closeMenu(() => setTimeout(action, 30)); else action();
+        if (menuOpen) closeMenu(() => setTimeout(action, 30));
+        else action();
       });
     });
 
-    // Critical behavior: normal vertical page scroll/touch is never hijacked.
-    // The sticky viewport simply maps that vertical progress to horizontal X.
-    window.addEventListener('scroll', requestMobileScroll, { passive: true });
-    if (lenis) lenis.on('scroll', requestMobileScroll);
+    // This is the whole interaction model:
+    // browser / Lenis scroll stays vertical; only the canvas moves sideways.
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+    if (lenis) lenis.on('scroll', requestScrollUpdate);
 
     viewport.addEventListener('keydown', event => {
-      const step = Math.max(260, viewport.clientWidth * .72);
-      if (mode === 'mobile') {
-        if (event.key === 'ArrowRight' || event.key === 'PageDown') {
-          event.preventDefault();
-          const dir = body.classList.contains('is-ar') ? -1 : 1;
-          lenis?.scrollTo(clamp(window.scrollY + step * dir, mobileStageStart(), mobileStageStart() + mobileTravel), { duration: .72, force: true });
-        } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
-          event.preventDefault();
-          const dir = body.classList.contains('is-ar') ? -1 : 1;
-          lenis?.scrollTo(clamp(window.scrollY - step * dir, mobileStageStart(), mobileStageStart() + mobileTravel), { duration: .72, force: true });
-        }
-        return;
+      const step = Math.max(240, viewport.clientWidth * .7);
+
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') {
+        event.preventDefault();
+        const y = clamp(window.scrollY + step, stageStart(), stageStart() + travel);
+        if (lenis) lenis.scrollTo(y, { duration: .72, force: true });
+        else window.scrollTo({ top: y, behavior: 'smooth' });
+      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        event.preventDefault();
+        const y = clamp(window.scrollY - step, stageStart(), stageStart() + travel);
+        if (lenis) lenis.scrollTo(y, { duration: .72, force: true });
+        else window.scrollTo({ top: y, behavior: 'smooth' });
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        goToPanel(panels[0], false);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        const y = stageStart() + travel;
+        if (lenis) lenis.scrollTo(y, { duration: .85, force: true });
+        else window.scrollTo({ top: y, behavior: 'smooth' });
       }
     });
 
     panels[0] && (panels[0].dataset.revealed = '1');
-    build({ keepProgress: false });
-    window.__crossSectorHomeRefresh = () => build({ keepProgress: true });
+
+    rebuild({ keepProgress: false });
+    window.__crossSectorHomeRefresh = () => rebuild({ keepProgress: true });
 
     const ready = () => {
-      build({ keepProgress: false });
+      rebuild({ keepProgress: false });
+
       if (location.hash) {
         const target = document.querySelector(location.hash);
-        if (target) setTimeout(() => goToPanel(target, true), 100);
+        if (target) setTimeout(() => goToPanel(target, true), 120);
       }
     };
-    if (document.fonts?.ready) document.fonts.ready.then(ready);
-    else addEventListener('load', ready, { once: true });
 
-    responsiveMQ.addEventListener?.('change', () => setTimeout(() => build({ keepProgress: true }), 70));
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(ready);
+    } else {
+      addEventListener('load', ready, { once: true });
+    }
+
+    addEventListener('load', () => rebuild({ keepProgress: true }), { once: true });
+
     addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => build({ keepProgress: true }), 180);
+      resizeTimer = setTimeout(() => rebuild({ keepProgress: true }), 140);
     }, { passive: true });
   }
 

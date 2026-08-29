@@ -980,15 +980,8 @@ body.is-ar{direction:rtl!important}
   body.is-ar.home-v3 .horizontal-track{
     position:relative!important;
     inset:auto!important;
-    width:100%!important;
-    min-width:0!important;
-    height:auto!important;
     min-height:0!important;
-    display:block!important;
-    transform:none!important;
-    flex-direction:column!important;
     direction:ltr!important;
-    will-change:auto!important;
   }
   .home-v3 .h-panel{
     width:100%!important;
@@ -5581,5 +5574,1297 @@ body.is-ar a.lang-ar{display:inline!important}
   body.is-ar.home-page.home-scroll-horizontal .ref-card-copy h2{
     font-size:27px !important;
     line-height:1.38 !important;
+  }
+}
+
+
+/* =========================================================
+   V39 — UNIFIED HORIZONTAL ENGINE
+   Tablet + phone now use the SAME pinned GSAP horizontal model
+   as desktop. Only proportions change responsively.
+   ========================================================= */
+@media (max-width:1180px){
+  html.home-unified-horizontal,
+  body.home-page.home-unified-horizontal{
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior-x:none !important;
+  }
+
+  body.home-page.home-unified-horizontal #horizontal-stage,
+  body.home-page.home-unified-horizontal .ref-horizontal-stage{
+    position:relative !important;
+    width:100% !important;
+    margin:0 !important;
+    height:var(--home-stage-h) !important;
+    min-height:100dvh !important;
+    overflow:visible !important;
+  }
+
+  body.home-page.home-unified-horizontal .horizontal-viewport,
+  body.home-page.home-unified-horizontal .ref-horizontal-viewport{
+    position:sticky !important;
+    top:var(--header-h) !important;
+    left:0 !important;
+    width:100% !important;
+    height:calc(100dvh - var(--header-h) - var(--home-footer-h)) !important;
+    overflow:hidden !important;
+    touch-action:pan-y pinch-zoom !important;
+  }
+
+  body.home-page.home-unified-horizontal .horizontal-track,
+  body.home-page.home-unified-horizontal .ref-track{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    width:max-content !important;
+    min-width:max-content !important;
+    height:100% !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    will-change:transform !important;
+  }
+
+  body.home-page.home-unified-horizontal .h-panel{
+    height:100% !important;
+    min-height:100% !important;
+    flex:none !important;
+    overflow:hidden !important;
+    border-right:1px solid var(--line) !important;
+    border-bottom:0 !important;
+  }
+
+  /* Tablet keeps the same visual rhythm as desktop. */
+  body.home-page.home-unified-horizontal .ref-intro-panel{
+    width:44vw !important;
+    min-width:44vw !important;
+  }
+  body.home-page.home-unified-horizontal .ref-hero-panel{
+    width:56vw !important;
+    min-width:56vw !important;
+  }
+  body.home-page.home-unified-horizontal .ref-project-panel{
+    width:34vw !important;
+    min-width:34vw !important;
+    padding:clamp(18px,2vw,28px) !important;
+  }
+  body.home-page.home-unified-horizontal .ref-contact-panel,
+  body.home-page.home-unified-horizontal .ref-closing-panel{
+    width:48vw !important;
+    min-width:48vw !important;
+  }
+  body.home-page.home-unified-horizontal .ref-card-image{
+    height:55% !important;
+    flex:0 0 55% !important;
+  }
+  body.home-page.home-unified-horizontal .ref-card-copy{
+    padding:15px 0 0 !important;
+  }
+}
+
+@media (max-width:620px){
+  /* Thorsten-like phone composition:
+     intro column + compact project columns visible in one horizontal story. */
+  body.home-page.home-unified-horizontal .ref-intro-panel{
+    width:47vw !important;
+    min-width:47vw !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-intro-copy{
+    height:100% !important;
+    padding:24px 16px 20px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:100% !important;
+    font-size:clamp(25px,7.2vw,32px) !important;
+    line-height:1.03 !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-intro-copy p{
+    margin:14px 0 0 !important;
+    max-width:100% !important;
+    font-size:10.5px !important;
+    line-height:1.58 !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-cta{
+    margin-top:18px !important;
+    min-height:39px !important;
+    padding:0 13px !important;
+    font-size:10px !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-project-panel{
+    width:36vw !important;
+    min-width:36vw !important;
+    padding:12px !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-card-image{
+    width:100% !important;
+    height:38% !important;
+    flex:0 0 38% !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-card-copy{
+    flex:1 1 auto !important;
+    padding:12px 0 0 !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-category{
+    display:block !important;
+    margin:0 0 8px !important;
+    font-size:7px !important;
+    letter-spacing:.22em !important;
+    white-space:nowrap !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-card-copy h2{
+    margin:0 !important;
+    font-size:clamp(19px,5.6vw,24px) !important;
+    line-height:1.14 !important;
+    font-weight:400 !important;
+  }
+
+  /* Match the clean phone reference: image + category + title. */
+  body.home-page.home-unified-horizontal .ref-card-copy p{
+    display:none !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-contact-panel,
+  body.home-page.home-unified-horizontal .ref-closing-panel{
+    width:60vw !important;
+    min-width:60vw !important;
+  }
+
+  body.home-page.home-unified-horizontal .ref-contact-copy,
+  body.home-page.home-unified-horizontal .ref-closing-copy{
+    padding:24px 18px !important;
+  }
+
+  body.is-ar.home-page.home-unified-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-unified-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-unified-horizontal .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+
+  body.is-ar.home-page.home-unified-horizontal .ref-intro-copy h1{
+    font-size:clamp(22px,6.2vw,28px) !important;
+    line-height:1.48 !important;
+  }
+
+  body.is-ar.home-page.home-unified-horizontal .ref-intro-copy p{
+    font-size:10px !important;
+    line-height:1.82 !important;
+  }
+
+  body.is-ar.home-page.home-unified-horizontal .ref-card-copy h2{
+    font-size:clamp(18px,5.2vw,22px) !important;
+    line-height:1.45 !important;
+  }
+}
+
+
+/* =========================================================
+   V40 — RESPONSIVE PINNED HORIZONTAL HOME
+   ---------------------------------------------------------
+   On tablet/phone the page scroll remains vertical INPUT only.
+   The Home viewport is actually pinned, and that progress moves
+   the horizontal rail. No sticky fall-through and no native x-scroll.
+========================================================= */
+@media (max-width:1180px){
+  html.home-responsive-pinned,
+  body.home-page.home-responsive-pinned{
+    width:100% !important;
+    height:auto !important;
+    min-height:100% !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior-x:none !important;
+    overscroll-behavior-y:auto !important;
+  }
+
+  body.home-page.home-responsive-pinned .site-shell.home-shell{
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+  }
+
+  body.home-page.home-responsive-pinned #horizontal-stage,
+  body.home-page.home-responsive-pinned .ref-horizontal-stage{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:100% !important;
+    height:var(--home-stage-h) !important;
+    min-height:var(--home-stage-h) !important;
+    margin:var(--header-h) 0 0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page.home-responsive-pinned .horizontal-viewport,
+  body.home-page.home-responsive-pinned .ref-horizontal-viewport{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    overflow:hidden !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior:none !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page.home-responsive-pinned .horizontal-track,
+  body.home-page.home-responsive-pinned .ref-track{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:max-content !important;
+    min-width:max-content !important;
+    height:100% !important;
+    min-height:100% !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    will-change:transform !important;
+  }
+
+  body.home-page.home-responsive-pinned .h-panel{
+    height:100% !important;
+    min-height:100% !important;
+    flex:none !important;
+    overflow:hidden !important;
+    border-right:1px solid var(--line) !important;
+    border-bottom:0 !important;
+  }
+
+  /* Tablet proportions stay close to the desktop composition. */
+  body.home-page.home-responsive-pinned .ref-intro-panel{
+    width:44vw !important;
+    min-width:44vw !important;
+  }
+  body.home-page.home-responsive-pinned .ref-hero-panel{
+    display:block !important;
+    width:56vw !important;
+    min-width:56vw !important;
+  }
+  body.home-page.home-responsive-pinned .ref-project-panel{
+    width:43vw !important;
+    min-width:43vw !important;
+    padding:18px !important;
+  }
+  body.home-page.home-responsive-pinned .ref-contact-panel,
+  body.home-page.home-responsive-pinned .ref-closing-panel{
+    width:58vw !important;
+    min-width:58vw !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-image{
+    height:56% !important;
+    flex:0 0 56% !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-copy{
+    padding:16px 2px 0 !important;
+  }
+}
+
+@media (max-width:620px){
+  /* Phone: no oversized standalone hero. Keep the rail readable and horizontal. */
+  body.home-page.home-responsive-pinned .ref-intro-panel{
+    width:72vw !important;
+    min-width:72vw !important;
+  }
+  body.home-page.home-responsive-pinned .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+  body.home-page.home-responsive-pinned .ref-project-panel{
+    width:72vw !important;
+    min-width:72vw !important;
+    padding:14px !important;
+  }
+  body.home-page.home-responsive-pinned .ref-contact-panel,
+  body.home-page.home-responsive-pinned .ref-closing-panel{
+    width:78vw !important;
+    min-width:78vw !important;
+  }
+
+  body.home-page.home-responsive-pinned .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:26px 22px 22px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+  body.home-page.home-responsive-pinned .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:100% !important;
+    font-size:clamp(32px,9.2vw,42px) !important;
+    line-height:1.03 !important;
+  }
+  body.home-page.home-responsive-pinned .ref-intro-copy p{
+    margin:18px 0 0 !important;
+    max-width:95% !important;
+    font-size:13px !important;
+    line-height:1.68 !important;
+  }
+  body.home-page.home-responsive-pinned .ref-cta{
+    margin-top:20px !important;
+    min-height:43px !important;
+    padding:0 17px !important;
+    font-size:11px !important;
+  }
+
+  body.home-page.home-responsive-pinned .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-image{
+    width:100% !important;
+    height:54% !important;
+    flex:0 0 54% !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-copy{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    padding:14px 0 0 !important;
+    overflow:hidden !important;
+  }
+  body.home-page.home-responsive-pinned .ref-category{
+    margin-bottom:7px !important;
+    font-size:7.5px !important;
+    letter-spacing:.22em !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-copy h2{
+    margin:0 0 7px !important;
+    font-size:26px !important;
+    line-height:1.1 !important;
+  }
+  body.home-page.home-responsive-pinned .ref-card-copy p{
+    margin:0 !important;
+    font-size:12.5px !important;
+    line-height:1.65 !important;
+    -webkit-line-clamp:5 !important;
+  }
+
+  body.home-page.home-responsive-pinned .ref-contact-copy,
+  body.home-page.home-responsive-pinned .ref-closing-copy{
+    padding:28px 22px !important;
+  }
+
+  body.is-ar.home-page.home-responsive-pinned .ref-intro-copy,
+  body.is-ar.home-page.home-responsive-pinned .ref-card-copy,
+  body.is-ar.home-page.home-responsive-pinned .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+  body.is-ar.home-page.home-responsive-pinned .ref-intro-copy h1{
+    font-size:clamp(28px,8.2vw,37px) !important;
+    line-height:1.44 !important;
+  }
+  body.is-ar.home-page.home-responsive-pinned .ref-intro-copy p,
+  body.is-ar.home-page.home-responsive-pinned .ref-card-copy p{
+    line-height:1.86 !important;
+  }
+  body.is-ar.home-page.home-responsive-pinned .ref-card-copy h2{
+    font-size:24px !important;
+    line-height:1.42 !important;
+  }
+}
+
+
+/* =========================================================
+   V41 — 0–850px DIRECT HORIZONTAL CONTROLLER
+   No browser vertical fall-through. Vertical finger/wheel input is
+   converted directly to horizontal rail movement by app.js.
+   ========================================================= */
+@media (max-width:850px){
+  html.home-compact-horizontal,
+  body.home-page.home-compact-horizontal{
+    width:100% !important;
+    height:100dvh !important;
+    min-height:100dvh !important;
+    overflow:hidden !important;
+    overscroll-behavior:none !important;
+  }
+
+  body.home-page.home-compact-horizontal .site-shell.home-shell{
+    width:100% !important;
+    height:100dvh !important;
+    min-height:100dvh !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-compact-horizontal #horizontal-stage,
+  body.home-page.home-compact-horizontal .ref-horizontal-stage{
+    position:fixed !important;
+    top:var(--header-h) !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:var(--home-footer-h) !important;
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:var(--stone) !important;
+    z-index:10 !important;
+  }
+
+  body.home-page.home-compact-horizontal .horizontal-viewport,
+  body.home-page.home-compact-horizontal .ref-horizontal-viewport{
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:0 !important;
+    overflow:hidden !important;
+    touch-action:none !important;
+    overscroll-behavior:none !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page.home-compact-horizontal .horizontal-track,
+  body.home-page.home-compact-horizontal .ref-track{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:max-content !important;
+    min-width:max-content !important;
+    height:100% !important;
+    min-height:100% !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    will-change:transform !important;
+  }
+
+  body.home-page.home-compact-horizontal .h-panel{
+    height:100% !important;
+    min-height:100% !important;
+    flex:none !important;
+    overflow:hidden !important;
+    border-right:1px solid var(--line) !important;
+    border-bottom:0 !important;
+    background:var(--stone) !important;
+  }
+
+  /* 621–850: tablet / large phone proportions */
+  body.home-page.home-compact-horizontal .ref-intro-panel{
+    width:46vw !important;
+    min-width:46vw !important;
+  }
+  body.home-page.home-compact-horizontal .ref-hero-panel{
+    display:block !important;
+    width:54vw !important;
+    min-width:54vw !important;
+  }
+  body.home-page.home-compact-horizontal .ref-project-panel{
+    width:48vw !important;
+    min-width:48vw !important;
+    padding:16px !important;
+  }
+  body.home-page.home-compact-horizontal .ref-contact-panel,
+  body.home-page.home-compact-horizontal .ref-closing-panel{
+    width:62vw !important;
+    min-width:62vw !important;
+  }
+}
+
+@media (max-width:620px){
+  body.home-page.home-compact-horizontal .ref-intro-panel{
+    width:72vw !important;
+    min-width:72vw !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-project-panel{
+    width:76vw !important;
+    min-width:76vw !important;
+    padding:14px !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-contact-panel,
+  body.home-page.home-compact-horizontal .ref-closing-panel{
+    width:82vw !important;
+    min-width:82vw !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:26px 22px 22px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:100% !important;
+    font-size:clamp(31px,9vw,40px) !important;
+    line-height:1.04 !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-intro-copy p{
+    margin:18px 0 0 !important;
+    max-width:96% !important;
+    font-size:13px !important;
+    line-height:1.68 !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-cta{
+    margin-top:20px !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-card-image{
+    width:100% !important;
+    height:53% !important;
+    flex:0 0 53% !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-card-copy{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    padding:14px 0 0 !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-card-copy h2{
+    margin:0 0 7px !important;
+    font-size:25px !important;
+    line-height:1.1 !important;
+  }
+
+  body.home-page.home-compact-horizontal .ref-card-copy p{
+    font-size:12.5px !important;
+    line-height:1.64 !important;
+    -webkit-line-clamp:5 !important;
+  }
+
+  body.is-ar.home-page.home-compact-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-compact-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-compact-horizontal .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+
+  body.is-ar.home-page.home-compact-horizontal .ref-intro-copy h1{
+    font-size:clamp(27px,8vw,36px) !important;
+    line-height:1.44 !important;
+  }
+
+  body.is-ar.home-page.home-compact-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-compact-horizontal .ref-card-copy p{
+    line-height:1.86 !important;
+  }
+}
+
+
+/* =========================================================
+   V42 — THORSTEN-LIKE 0–850px HORIZONTAL
+   Native vertical scrollbar/touch remains active.
+   The horizontal canvas itself is fixed under the header and translateX
+   follows vertical scroll progress. No wheel/touch hijacking.
+   ========================================================= */
+@media (max-width:850px){
+  html.home-native-map-horizontal,
+  body.home-page.home-native-map-horizontal{
+    width:100% !important;
+    min-height:100% !important;
+    height:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior-x:none !important;
+    overscroll-behavior-y:auto !important;
+  }
+
+  body.home-page.home-native-map-horizontal .site-shell.home-shell{
+    width:100% !important;
+    min-height:0 !important;
+    height:auto !important;
+    overflow:visible !important;
+  }
+
+  body.home-page.home-native-map-horizontal #horizontal-stage,
+  body.home-page.home-native-map-horizontal .ref-horizontal-stage{
+    position:relative !important;
+    width:100% !important;
+    height:var(--home-stage-h) !important;
+    min-height:var(--home-stage-h) !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:visible !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page.home-native-map-horizontal .horizontal-viewport,
+  body.home-page.home-native-map-horizontal .ref-horizontal-viewport{
+    position:fixed !important;
+    top:var(--header-h) !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:var(--home-footer-h) !important;
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:hidden !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior:none !important;
+    background:var(--stone) !important;
+    z-index:20 !important;
+  }
+
+  body.home-page.home-native-map-horizontal .horizontal-track,
+  body.home-page.home-native-map-horizontal .ref-track{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    width:max-content !important;
+    min-width:max-content !important;
+    height:100% !important;
+    min-height:100% !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    will-change:transform !important;
+  }
+
+  body.home-page.home-native-map-horizontal .h-panel{
+    height:100% !important;
+    min-height:100% !important;
+    flex:none !important;
+    overflow:hidden !important;
+    border-right:1px solid var(--line) !important;
+    border-bottom:0 !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-intro-panel{
+    width:48vw !important;
+    min-width:48vw !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+
+  /* Like the actual Thorsten mobile screenshot: several narrow columns
+     remain visible at once instead of stacking or becoming full-screen cards. */
+  body.home-page.home-native-map-horizontal .ref-project-panel{
+    width:34vw !important;
+    min-width:34vw !important;
+    padding:12px !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-card-image{
+    width:100% !important;
+    height:36% !important;
+    flex:0 0 36% !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-card-image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-card-copy{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    padding:12px 0 0 !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-category{
+    display:block !important;
+    margin:0 0 8px !important;
+    font-size:7px !important;
+    letter-spacing:.2em !important;
+    white-space:nowrap !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-card-copy h2{
+    margin:0 !important;
+    font-size:clamp(18px,5vw,23px) !important;
+    line-height:1.15 !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-card-copy p{
+    display:none !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-contact-panel,
+  body.home-page.home-native-map-horizontal .ref-closing-panel{
+    width:58vw !important;
+    min-width:58vw !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:24px 16px 20px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:100% !important;
+    font-size:clamp(25px,7vw,32px) !important;
+    line-height:1.04 !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-intro-copy p{
+    margin:14px 0 0 !important;
+    max-width:100% !important;
+    font-size:10.5px !important;
+    line-height:1.58 !important;
+  }
+
+  body.home-page.home-native-map-horizontal .ref-cta{
+    margin-top:18px !important;
+    min-height:39px !important;
+    padding:0 13px !important;
+    font-size:10px !important;
+  }
+
+  body.is-ar.home-page.home-native-map-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-native-map-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-native-map-horizontal .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+
+  body.is-ar.home-page.home-native-map-horizontal .ref-intro-copy h1{
+    font-size:clamp(22px,6vw,28px) !important;
+    line-height:1.48 !important;
+  }
+
+  body.is-ar.home-page.home-native-map-horizontal .ref-intro-copy p{
+    font-size:10px !important;
+    line-height:1.82 !important;
+  }
+
+  body.is-ar.home-page.home-native-map-horizontal .ref-card-copy h2{
+    font-size:clamp(18px,4.8vw,22px) !important;
+    line-height:1.45 !important;
+  }
+}
+
+
+/* =========================================================
+   V43 — CLEAN HORIZONTAL ENGINE
+   One geometry / motion model on desktop, tablet and phone.
+   Vertical browser scroll -> translateX only.
+   ========================================================= */
+html.home-clean-horizontal,
+body.home-page.home-clean-horizontal{
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  max-width:100% !important;
+}
+
+body.home-page.home-clean-horizontal .site-shell.home-shell{
+  min-height:0 !important;
+  height:auto !important;
+  overflow:visible !important;
+}
+
+body.home-page.home-clean-horizontal #horizontal-stage,
+body.home-page.home-clean-horizontal .ref-horizontal-stage{
+  position:relative !important;
+  width:100% !important;
+  height:var(--home-stage-h) !important;
+  min-height:var(--home-stage-h) !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:visible !important;
+  background:var(--stone) !important;
+}
+
+body.home-page.home-clean-horizontal .horizontal-viewport,
+body.home-page.home-clean-horizontal .ref-horizontal-viewport{
+  position:sticky !important;
+  top:var(--header-h) !important;
+  left:0 !important;
+  width:100% !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  touch-action:pan-y pinch-zoom !important;
+  overscroll-behavior-x:none !important;
+  overscroll-behavior-y:auto !important;
+  background:var(--stone) !important;
+}
+
+body.home-page.home-clean-horizontal .horizontal-track,
+body.home-page.home-clean-horizontal .ref-track{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:max-content !important;
+  min-width:max-content !important;
+  height:100% !important;
+  min-height:100% !important;
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:stretch !important;
+  will-change:transform !important;
+}
+
+body.home-page.home-clean-horizontal .h-panel{
+  height:100% !important;
+  min-height:100% !important;
+  flex:0 0 auto !important;
+  overflow:hidden !important;
+  border-right:1px solid var(--line) !important;
+  border-bottom:0 !important;
+}
+
+/* Desktop keeps the current established visual system. */
+@media (min-width:1181px){
+  body.home-page.home-clean-horizontal .ref-intro-copy{
+    height:100% !important;
+  }
+}
+
+/* Tablet: preserve desktop-like fixed columns instead of collapsing cards. */
+@media (min-width:621px) and (max-width:1180px){
+  body.home-page.home-clean-horizontal .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:44px 34px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-panel{
+    padding:22px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-card{
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-image{
+    height:54% !important;
+    flex:0 0 54% !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy{
+    padding:16px 0 0 !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy h2{
+    font-size:27px !important;
+    line-height:1.1 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy p{
+    font-size:12.5px !important;
+    line-height:1.68 !important;
+  }
+}
+
+/* Phone:
+   keep the horizontal canvas "desktop sized" like Thorsten.
+   The narrow viewport reveals portions of those columns while vertical
+   scrolling moves horizontally across them. */
+@media (max-width:620px){
+  body.home-page.home-clean-horizontal .ref-hero-panel{
+    display:none !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:36px 30px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:500px !important;
+    font-size:clamp(48px,14vw,62px) !important;
+    line-height:1.01 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy p{
+    margin:24px 0 0 !important;
+    max-width:430px !important;
+    font-size:14px !important;
+    line-height:1.68 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-cta{
+    margin-top:28px !important;
+    min-height:44px !important;
+    padding:0 20px !important;
+    font-size:12px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-panel{
+    padding:18px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-image{
+    width:100% !important;
+    height:52% !important;
+    flex:0 0 52% !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    padding:16px 0 0 !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-category{
+    display:block !important;
+    margin:0 0 9px !important;
+    font-size:8px !important;
+    letter-spacing:.22em !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy h2{
+    margin:0 0 8px !important;
+    font-size:28px !important;
+    line-height:1.1 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy p{
+    margin:0 !important;
+    font-size:13px !important;
+    line-height:1.68 !important;
+    -webkit-line-clamp:5 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-contact-copy,
+  body.home-page.home-clean-horizontal .ref-closing-copy{
+    height:100% !important;
+    padding:42px 34px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+  }
+
+  body.is-ar.home-page.home-clean-horizontal .ref-intro-copy,
+  body.is-ar.home-page.home-clean-horizontal .ref-card-copy,
+  body.is-ar.home-page.home-clean-horizontal .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+
+  body.is-ar.home-page.home-clean-horizontal .ref-intro-copy h1{
+    max-width:500px !important;
+    font-size:clamp(42px,12vw,56px) !important;
+    line-height:1.42 !important;
+  }
+
+  body.is-ar.home-page.home-clean-horizontal .ref-intro-copy p,
+  body.is-ar.home-page.home-clean-horizontal .ref-card-copy p{
+    line-height:1.9 !important;
+  }
+
+  body.is-ar.home-page.home-clean-horizontal .ref-card-copy h2{
+    font-size:26px !important;
+    line-height:1.42 !important;
+  }
+}
+
+
+/* =========================================================
+   V44 — FIXED HORIZONTAL VIEWPORT
+   The vertical document is only a scroll ruler.
+   The actual Home canvas stays fixed below the header while scrollY
+   moves the track sideways. No sticky/pin/touch hacks.
+   ========================================================= */
+html.home-clean-horizontal,
+body.home-page.home-clean-horizontal{
+  width:100% !important;
+  min-height:100% !important;
+  height:auto !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  touch-action:pan-y pinch-zoom !important;
+  overscroll-behavior-x:none !important;
+  overscroll-behavior-y:auto !important;
+}
+
+body.home-page.home-clean-horizontal .site-shell.home-shell{
+  width:100% !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow:visible !important;
+}
+
+body.home-page.home-clean-horizontal #horizontal-stage,
+body.home-page.home-clean-horizontal .ref-horizontal-stage{
+  position:relative !important;
+  width:100% !important;
+  height:var(--home-stage-h) !important;
+  min-height:var(--home-stage-h) !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:visible !important;
+  pointer-events:none !important;
+}
+
+body.home-page.home-clean-horizontal .horizontal-viewport,
+body.home-page.home-clean-horizontal .ref-horizontal-viewport{
+  position:fixed !important;
+  top:var(--header-h) !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:var(--home-footer-h) !important;
+  width:auto !important;
+  height:auto !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  background:var(--stone) !important;
+  pointer-events:auto !important;
+  touch-action:pan-y pinch-zoom !important;
+  overscroll-behavior:none !important;
+  z-index:20 !important;
+}
+
+body.home-page.home-clean-horizontal .horizontal-track,
+body.home-page.home-clean-horizontal .ref-track{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:max-content !important;
+  min-width:max-content !important;
+  height:100% !important;
+  min-height:100% !important;
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:stretch !important;
+  will-change:transform !important;
+}
+
+body.home-page.home-clean-horizontal .h-panel{
+  height:100% !important;
+  min-height:100% !important;
+  flex:0 0 auto !important;
+  overflow:hidden !important;
+  border-right:1px solid var(--line) !important;
+  border-bottom:0 !important;
+}
+
+/* Keep Home footer genuinely fixed outside the scroll ruler. */
+body.home-page.home-clean-horizontal .home-footer-bar{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:60 !important;
+}
+
+/* Mobile: preserve the desktop-style horizontal canvas.
+   Narrow viewport simply reveals part of the fixed-width columns. */
+@media (max-width:620px){
+  body.home-page.home-clean-horizontal .ref-intro-panel{
+    width:520px !important;
+    min-width:520px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-panel{
+    width:335px !important;
+    min-width:335px !important;
+    padding:18px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-contact-panel,
+  body.home-page.home-clean-horizontal .ref-closing-panel{
+    width:520px !important;
+    min-width:520px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy{
+    padding:44px 34px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy h1{
+    font-size:52px !important;
+    line-height:1.02 !important;
+    max-width:445px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-intro-copy p{
+    font-size:14px !important;
+    line-height:1.7 !important;
+    max-width:420px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-card{
+    height:100% !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-image{
+    height:50% !important;
+    flex:0 0 50% !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy{
+    padding-top:16px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy h2{
+    font-size:28px !important;
+    line-height:1.1 !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-card-copy p{
+    font-size:13px !important;
+    line-height:1.65 !important;
+  }
+
+  body.is-ar.home-page.home-clean-horizontal .ref-intro-copy h1{
+    font-size:45px !important;
+    line-height:1.42 !important;
+    max-width:445px !important;
+  }
+}
+
+/* Tablet: desktop geometry, just slightly tighter. */
+@media (min-width:621px) and (max-width:1180px){
+  body.home-page.home-clean-horizontal .ref-intro-panel{
+    width:500px !important;
+    min-width:500px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-hero-panel{
+    display:block !important;
+    width:560px !important;
+    min-width:560px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-project-panel{
+    width:350px !important;
+    min-width:350px !important;
+  }
+
+  body.home-page.home-clean-horizontal .ref-contact-panel,
+  body.home-page.home-clean-horizontal .ref-closing-panel{
+    width:580px !important;
+    min-width:580px !important;
   }
 }

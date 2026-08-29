@@ -1,0 +1,239 @@
+
+/* =========================================================
+   V45 — ISOLATED 0–850 HORIZONTAL HOME
+   Only this file owns Home geometry on phone/tablet.
+   ========================================================= */
+@media (max-width:850px){
+  html,
+  body.home-page{
+    width:100% !important;
+    max-width:100% !important;
+    min-height:100% !important;
+    height:auto !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior-x:none !important;
+    overscroll-behavior-y:auto !important;
+  }
+
+  body.home-page .site-shell.home-shell{
+    width:100% !important;
+    min-height:0 !important;
+    height:auto !important;
+    overflow:visible !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page #horizontal-stage,
+  body.home-page .ref-horizontal-stage{
+    position:relative !important;
+    width:100% !important;
+    height:var(--v45-stage-h, 100vh) !important;
+    min-height:var(--v45-stage-h, 100vh) !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:visible !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page .horizontal-viewport,
+  body.home-page .ref-horizontal-viewport{
+    position:fixed !important;
+    top:var(--header-h) !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:var(--home-footer-h) !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    overflow:hidden !important;
+    background:var(--stone) !important;
+    z-index:20 !important;
+    touch-action:pan-y pinch-zoom !important;
+    overscroll-behavior:none !important;
+  }
+
+  body.home-page .horizontal-track,
+  body.home-page .ref-track{
+    position:absolute !important;
+    top:0 !important;
+    left:0 !important;
+    right:auto !important;
+    bottom:auto !important;
+    width:max-content !important;
+    min-width:max-content !important;
+    max-width:none !important;
+    height:100% !important;
+    min-height:100% !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    transform:translate3d(0,0,0);
+    will-change:transform !important;
+  }
+
+  body.home-page .h-panel{
+    position:relative !important;
+    height:100% !important;
+    min-height:100% !important;
+    max-height:100% !important;
+    flex:0 0 auto !important;
+    overflow:hidden !important;
+    border-right:1px solid var(--line) !important;
+    border-bottom:0 !important;
+    background:var(--stone) !important;
+  }
+
+  body.home-page .home-footer-bar{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    z-index:70 !important;
+  }
+
+  /* Tablet / large phone */
+  body.home-page .ref-intro-panel{
+    width:500px !important;
+    min-width:500px !important;
+  }
+
+  body.home-page .ref-hero-panel{
+    width:560px !important;
+    min-width:560px !important;
+    display:block !important;
+  }
+
+  body.home-page .ref-project-panel{
+    width:350px !important;
+    min-width:350px !important;
+    padding:20px !important;
+  }
+
+  body.home-page .ref-contact-panel,
+  body.home-page .ref-closing-panel{
+    width:580px !important;
+    min-width:580px !important;
+  }
+
+  body.home-page .ref-intro-copy{
+    width:100% !important;
+    height:100% !important;
+    padding:44px 34px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:flex-start !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page .ref-project-card{
+    width:100% !important;
+    height:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  body.home-page .ref-card-image{
+    width:100% !important;
+    height:52% !important;
+    flex:0 0 52% !important;
+    overflow:hidden !important;
+  }
+
+  body.home-page .ref-card-image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+
+  body.home-page .ref-card-copy{
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    padding:16px 0 0 !important;
+    overflow:hidden !important;
+  }
+}
+
+@media (max-width:620px){
+  /* Phone keeps the desktop-like horizontal canvas.
+     The large standalone hero is removed as requested. */
+  body.home-page .ref-intro-panel{
+    width:520px !important;
+    min-width:520px !important;
+  }
+
+  body.home-page .ref-hero-panel{
+    display:none !important;
+    width:0 !important;
+    min-width:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+
+  body.home-page .ref-project-panel{
+    width:335px !important;
+    min-width:335px !important;
+    padding:18px !important;
+  }
+
+  body.home-page .ref-contact-panel,
+  body.home-page .ref-closing-panel{
+    width:520px !important;
+    min-width:520px !important;
+  }
+
+  body.home-page .ref-intro-copy{
+    padding:42px 34px !important;
+  }
+
+  body.home-page .ref-intro-copy h1{
+    margin:0 !important;
+    max-width:445px !important;
+    font-size:52px !important;
+    line-height:1.02 !important;
+  }
+
+  body.home-page .ref-intro-copy p{
+    margin:22px 0 0 !important;
+    max-width:420px !important;
+    font-size:14px !important;
+    line-height:1.7 !important;
+  }
+
+  body.home-page .ref-cta{
+    margin-top:26px !important;
+  }
+
+  body.home-page .ref-card-copy h2{
+    font-size:28px !important;
+    line-height:1.1 !important;
+  }
+
+  body.home-page .ref-card-copy p{
+    font-size:13px !important;
+    line-height:1.65 !important;
+  }
+
+  body.is-ar.home-page .ref-intro-copy,
+  body.is-ar.home-page .ref-card-copy,
+  body.is-ar.home-page .ref-contact-copy{
+    direction:rtl !important;
+    text-align:right !important;
+    align-items:flex-end !important;
+  }
+
+  body.is-ar.home-page .ref-intro-copy h1{
+    max-width:445px !important;
+    font-size:45px !important;
+    line-height:1.42 !important;
+  }
+
+  body.is-ar.home-page .ref-intro-copy p,
+  body.is-ar.home-page .ref-card-copy p{
+    line-height:1.9 !important;
+  }
+}

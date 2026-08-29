@@ -1,1 +1,1 @@
-V36 — responsive vertical-scroll-to-horizontal sticky driver
+V44 — fixed viewport, vertical scroll ruler -> horizontal translateX
