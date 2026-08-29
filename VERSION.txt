@@ -1,10 +1,1 @@
-Cross Sector / Thorsten V7 — Lenis RTL Horizontal
-29 Aug 2026
-
-Home fixes:
-- Lenis is now the single wheel/trackpad smoothing engine on Home.
-- GSAP maps Lenis vertical progress to horizontal project movement.
-- English moves forward left-to-right; Arabic is visually mirrored right-to-left.
-- Opening copy + hero image occupy exactly one complete desktop viewport.
-- Arabic language switching rebuilds the horizontal timeline without breaking layout.
-- Inner pages keep their existing vertical Lenis behavior and V6 team section.
+Cross Sector Thorsten V8 — Mobile Vertical + Desktop RTL

@@ -1,17 +1,12 @@
-# Cross Sector — Thorsten V7
+# Cross Sector — Thorsten V8
 
-This build keeps the V6 About/Team work and changes only the Home scrolling architecture.
+## What changed
+- Desktop home remains Lenis + GSAP horizontal.
+- Arabic desktop home runs in the opposite horizontal direction.
+- Mobile/tablet home (<= 900px) switches to a robust normal vertical Lenis scroll instead of pinning a horizontal rail.
+- The first mobile section fills the phone viewport; hero and service cards stack underneath.
+- Arabic desktop header and inner editorial grids now read right-to-left with safer Arabic typography.
+- Arabic mobile header/menu, inner pages, contact and footer received RTL/responsive cleanup.
+- About/team content from V6/V7 is preserved.
 
-## Home
-- Lenis owns the vertical wheel/trackpad input.
-- GSAP + ScrollTrigger map that smooth vertical progress to the horizontal rail.
-- EN: scroll down reveals projects toward the right.
-- AR: the rail is mirrored and scroll down reveals projects toward the left.
-- The first desktop view is exactly one screen: intro copy + hero image, with no third card peeking in.
-- Hash links such as `#research` and `#articles` scroll to the matching horizontal panel.
-
-## Language
-Arabic text stays RTL, and Home also mirrors the project rail itself. Switching languages preserves the logical horizontal position.
-
-## Run
-Open with a local server (for example VS Code Live Server), because Lenis, GSAP, Three.js, Font Awesome and Google Fonts are loaded from CDNs.
+Run with a local server (for example VS Code Live Server) because external libraries/fonts are loaded from CDN.

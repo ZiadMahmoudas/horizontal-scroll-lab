@@ -26,7 +26,7 @@
     body.classList.toggle('is-en', !ar);
     document.documentElement.lang = ar ? 'ar' : 'en';
     // Layout direction intentionally stays LTR. Arabic text itself is RTL in CSS.
-    document.documentElement.dir = 'ltr';
+    document.documentElement.dir = ar ? 'rtl' : 'ltr';
 
     langButtons.forEach(btn => {
       const label = btn.querySelector('.current-lang');
@@ -182,15 +182,16 @@
   }
 
   /* =========================================================
-     HOME — Lenis vertical input -> GSAP horizontal motion
+     HOME — responsive motion architecture (V8)
      ---------------------------------------------------------
-     EN: wheel down moves the project rail from left to right.
-     AR: the rail is row-reversed and the same wheel down motion
-         travels from right to left — the exact opposite visual
-         direction, while preserving the same content sequence.
+     Desktop (>900px): Lenis vertical progress drives the GSAP
+     horizontal rail. Arabic runs in the opposite visual direction.
 
-     The first intro panel always occupies one complete usable
-     viewport, so no second card peeks into the opening screen.
+     Mobile/tablet (<=900px): no pinned/fake horizontal document.
+     The same panels become a normal vertical editorial page and
+     Lenis owns a standard vertical scroll. This avoids the sticky +
+     dynamic mobile viewport conflict that could leave touch scrolling
+     unresponsive on Chrome/Safari mobile.
   ========================================================= */
   function initHomeHorizontal() {
     if (!isHome) return;
@@ -204,6 +205,7 @@
     const progressFill = document.querySelector('#progress-fill');
     const progressCurrent = document.querySelector('.progress-current');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobileMQ = matchMedia('(max-width: 900px)');
     let horizontalTween = null;
     let horizontalST = null;
     let resizeTimer = 0;
@@ -211,7 +213,7 @@
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     const headerHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 74;
-    const railWidth = () => matchMedia('(max-width:900px)').matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w')) || 74);
+    const railWidth = () => mobileMQ.matches ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rail-w')) || 74);
     const viewportWidth = () => Math.max(1, innerWidth - railWidth());
     const maxTravel = () => Math.max(0, track.scrollWidth - viewportWidth());
 
@@ -220,32 +222,35 @@
       const hero = panels[1];
       if (!intro) return;
 
+      if (mobileMQ.matches) {
+        // Inline sizes from desktop must not survive orientation/resize.
+        intro.style.removeProperty('width');
+        intro.style.removeProperty('min-width');
+        if (hero) {
+          hero.style.removeProperty('width');
+          hero.style.removeProperty('min-width');
+        }
+        return;
+      }
+
+      // Desktop opening screen is exactly one usable viewport.
       const width = viewportWidth();
-      if (innerWidth > 900 && hero) {
-        // The opening view is one complete screen: copy + hero image.
-        // Nothing from the third/project card is allowed to peek in.
-        const introWidth = Math.round(width * 0.44);
-        const heroWidth = width - introWidth;
-        intro.style.width = `${introWidth}px`;
-        intro.style.minWidth = `${introWidth}px`;
+      const introWidth = Math.round(width * 0.44);
+      const heroWidth = width - introWidth;
+      intro.style.width = `${introWidth}px`;
+      intro.style.minWidth = `${introWidth}px`;
+      if (hero) {
         hero.style.width = `${heroWidth}px`;
         hero.style.minWidth = `${heroWidth}px`;
-      } else {
-        // On touch layouts each opening panel gets a complete screen,
-        // which keeps Arabic/English readable and swipe-friendly.
-        intro.style.width = `${width}px`;
-        intro.style.minWidth = `${width}px`;
-        if (hero) {
-          hero.style.width = `${width}px`;
-          hero.style.minWidth = `${width}px`;
-        }
       }
     }
 
     function setStageHeight() {
+      if (mobileMQ.matches) {
+        stage.style.removeProperty('--home-stage-h');
+        return 0;
+      }
       const travel = maxTravel();
-      // Sticky viewport needs a parent as tall as one browser viewport
-      // plus the complete horizontal travel distance.
       stage.style.setProperty('--home-stage-h', `${Math.ceil(innerHeight + travel)}px`);
       return travel;
     }
@@ -276,17 +281,25 @@
 
       if (wrap && !panel.classList.contains('ref-hero-panel')) {
         tl.fromTo(wrap,
-          { y: -54, rotationX: -10, transformPerspective: 1200, transformOrigin: '50% 0%' },
-          { y: 0, rotationX: 0, duration: 0.9 }, 0);
+          { y: -42, rotationX: -8, transformPerspective: 1200, transformOrigin: '50% 0%' },
+          { y: 0, rotationX: 0, duration: 0.82 }, 0);
       }
-      if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: 0.95, ease: 'power4.inOut' }, 0.02);
-      if (image) tl.fromTo(image, { scale: 1.09 }, { scale: 1.015, duration: 1.25 }, 0);
+      if (curtain) tl.fromTo(curtain, { scaleY: 1 }, { scaleY: 0, duration: 0.9, ease: 'power4.inOut' }, 0.02);
+      if (image) tl.fromTo(image, { scale: 1.07 }, { scale: 1.01, duration: 1.15 }, 0);
       if (copy && !panel.classList.contains('ref-intro-panel')) {
-        tl.fromTo(copy, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.62 }, 0.22);
+        tl.fromTo(copy, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.58 }, 0.2);
       }
     }
 
     function updateVisiblePanels() {
+      if (mobileMQ.matches) {
+        const vh = innerHeight || document.documentElement.clientHeight;
+        panels.forEach(panel => {
+          const rect = panel.getBoundingClientRect();
+          if (rect.bottom > 30 && rect.top < vh - 30) revealPanel(panel);
+        });
+        return;
+      }
       const left = viewport.getBoundingClientRect().left;
       const right = viewport.getBoundingClientRect().right;
       panels.forEach(panel => {
@@ -296,6 +309,7 @@
     }
 
     function updateParallax() {
+      if (!hasGSAP || mobileMQ.matches) return;
       const viewportRect = viewport.getBoundingClientRect();
       const vw = viewportRect.width || 1;
       panels.forEach(panel => {
@@ -305,16 +319,14 @@
         if (rect.right < viewportRect.left - 150 || rect.left > viewportRect.right + 150) return;
         const center = rect.left - viewportRect.left + rect.width * 0.5;
         const normalized = (center - vw * 0.5) / vw;
-        const x = clamp(normalized * -18, -20, 20);
-        gsap.set(image, { x });
+        gsap.set(image, { x: clamp(normalized * -18, -20, 20) });
       });
     }
 
     function updateProgress(progress = currentProgress) {
       currentProgress = clamp(progress, 0, 1);
       if (progressFill) progressFill.style.transform = `scaleX(${currentProgress})`;
-
-      if (progressCurrent && panels.length) {
+      if (!mobileMQ.matches && progressCurrent && panels.length) {
         const logicalCenter = currentProgress * maxTravel() + viewportWidth() * 0.5;
         let cursor = 0;
         let active = panels.length - 1;
@@ -324,28 +336,40 @@
         }
         progressCurrent.textContent = String(active + 1).padStart(2, '0');
       }
-
       updateVisiblePanels();
-      if (hasGSAP) updateParallax();
+      updateParallax();
     }
 
     function killHorizontal() {
       if (horizontalTween) { horizontalTween.kill(); horizontalTween = null; }
       if (horizontalST) { horizontalST.kill(); horizontalST = null; }
+      if (hasGSAP) gsap.set(track, { clearProps: 'x,transform' });
     }
 
-    function buildHorizontal({ keepProgress = true } = {}) {
+    function buildMobile() {
+      killHorizontal();
+      setOpeningViewSize();
+      setStageHeight();
+      track.style.removeProperty('flex-direction');
+      currentProgress = 0;
+      if (progressFill) progressFill.style.transform = 'scaleX(0)';
+      // Make any desktop parallax translate disappear on mobile.
+      if (hasGSAP) track.querySelectorAll('.image-wrap img').forEach(img => gsap.set(img, { clearProps: 'x' }));
+      requestAnimationFrame(() => {
+        if (hasScrollTrigger) ScrollTrigger.refresh(true);
+        updateVisiblePanels();
+      });
+    }
+
+    function buildDesktop({ keepProgress = true } = {}) {
       const previousProgress = keepProgress ? currentProgress : 0;
       killHorizontal();
-
       setOpeningViewSize();
-      // Force layout after first-panel sizing and language row direction.
-      void track.offsetWidth;
-      const travel = setStageHeight();
-      const ar = body.classList.contains('is-ar');
 
+      const ar = body.classList.contains('is-ar');
       track.style.flexDirection = ar ? 'row-reverse' : 'row';
       void track.offsetWidth;
+      const travel = setStageHeight();
 
       if (!hasGSAP || !hasScrollTrigger || travel <= 0) {
         track.style.transform = ar ? `translate3d(${-travel}px,0,0)` : 'translate3d(0,0,0)';
@@ -365,7 +389,7 @@
           trigger: stage,
           start: 'top top',
           end: () => `+=${maxTravel()}`,
-          scrub: reducedMotion ? true : 0.2,
+          scrub: reducedMotion ? true : 0.22,
           invalidateOnRefresh: true,
           onRefresh(self) {
             horizontalST = self;
@@ -380,7 +404,6 @@
       });
       horizontalST = horizontalTween.scrollTrigger;
 
-      // Preserve the logical project position when switching EN <-> AR.
       requestAnimationFrame(() => {
         ScrollTrigger.refresh(true);
         const st = horizontalTween?.scrollTrigger;
@@ -393,17 +416,35 @@
       });
     }
 
+    function buildHome({ keepProgress = true } = {}) {
+      if (mobileMQ.matches) buildMobile();
+      else buildDesktop({ keepProgress });
+    }
+
     function scrollToPanel(target, immediate = false) {
       if (!target) return;
+
+      if (mobileMQ.matches) {
+        if (lenis) {
+          lenis.scrollTo(target, {
+            offset: -headerHeight(),
+            immediate,
+            duration: immediate ? 0 : 1.0,
+            force: true
+          });
+        } else {
+          const y = target.getBoundingClientRect().top + scrollY - headerHeight();
+          scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
+        }
+        return;
+      }
+
       const st = horizontalTween?.scrollTrigger;
       if (!st) return;
       const progress = panelProgress(target);
       const y = st.start + progress * (st.end - st.start);
-      if (lenis) {
-        lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.1, force: true });
-      } else {
-        scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
-      }
+      if (lenis) lenis.scrollTo(y, immediate ? { immediate: true, force: true } : { duration: 1.1, force: true });
+      else scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -420,6 +461,7 @@
     });
 
     viewport.addEventListener('keydown', event => {
+      if (mobileMQ.matches) return;
       const step = Math.max(260, viewportWidth() * 0.72);
       const ar = body.classList.contains('is-ar');
       const sign = ar ? -1 : 1;
@@ -440,30 +482,38 @@
     });
 
     panels[0] && (panels[0].dataset.revealed = '1');
-    buildHorizontal({ keepProgress: false });
+    buildHome({ keepProgress: false });
 
-    window.__crossSectorHomeRefresh = () => {
-      // Called after language change. The DOM order stays the same, but the
-      // visual flex direction reverses in Arabic, so rebuilding the timeline
-      // makes the wheel direction visually opposite without hacks.
-      buildHorizontal({ keepProgress: true });
-    };
+    window.__crossSectorHomeRefresh = () => buildHome({ keepProgress: !mobileMQ.matches });
 
     const ready = () => {
-      buildHorizontal({ keepProgress: false });
+      buildHome({ keepProgress: false });
       if (location.hash) {
         const target = document.querySelector(location.hash);
-        if (target) setTimeout(() => scrollToPanel(target, true), 120);
+        if (target) setTimeout(() => scrollToPanel(target, true), 130);
       }
     };
 
     if (document.fonts?.ready) document.fonts.ready.then(ready);
     else addEventListener('load', ready, { once: true });
 
+    mobileMQ.addEventListener?.('change', () => {
+      // Return to the top when switching architectures so no stale desktop
+      // vertical progress leaves mobile halfway through an invisible stage.
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+      else scrollTo(0, 0);
+      setTimeout(() => buildHome({ keepProgress: false }), 40);
+    });
+
     addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => buildHorizontal({ keepProgress: true }), 160);
+      resizeTimer = setTimeout(() => buildHome({ keepProgress: true }), 180);
     });
+
+    // Mobile vertical reveals follow real vertical scrolling.
+    addEventListener('scroll', () => {
+      if (mobileMQ.matches) updateVisiblePanels();
+    }, { passive: true });
   }
 
   /* =========================================================

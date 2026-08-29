@@ -866,3 +866,245 @@ body.is-ar.home-v3 .ref-intro-copy p{max-width:520px}
     padding-right:30px;
   }
 }
+
+/* =========================================================
+   V8 — MOBILE-FIRST HOME + DESKTOP ARABIC POLISH
+   ========================================================= */
+
+/* Arabic uses semantic RTL, while each complex component explicitly owns
+   its geometry. This keeps punctuation/caret/form behaviour correct. */
+html[dir="rtl"]{direction:rtl!important}
+body.is-ar{direction:rtl!important}
+
+/* ---------- Desktop Arabic ---------- */
+@media(min-width:901px){
+  /* Header reads naturally right-to-left without changing the home rail. */
+  body.is-ar .site-header{direction:rtl!important;grid-template-columns:var(--rail-w) 1fr auto}
+  body.is-ar .brand{grid-column:3;border-right:0;border-left:1px solid var(--line)}
+  body.is-ar .desktop-nav{
+    grid-column:2;
+    direction:rtl!important;
+    justify-content:flex-start;
+    padding:0 42px!important;
+    gap:clamp(22px,2.2vw,38px)!important;
+  }
+  body.is-ar .desktop-nav a{font-family:var(--arabic-ui);font-size:12px;line-height:1.8;text-align:right}
+  body.is-ar .header-actions{grid-column:1;grid-row:1;flex-direction:row-reverse;justify-self:start;direction:ltr!important}
+  body.is-ar .header-actions .language-toggle{border-left:0;border-right:1px solid var(--line)}
+  body.is-ar .header-actions .menu-trigger{border-left:0;border-right:1px solid var(--line)}
+
+  /* Inner pages genuinely mirror their editorial grids in Arabic. */
+  body.is-ar.inner-page .section-grid,
+  body.is-ar.inner-page .global-section,
+  body.is-ar.inner-page .contact-title-section,
+  body.is-ar.inner-page .contact-form-section,
+  body.is-ar.inner-page .locations-section,
+  body.is-ar.inner-page .method-grid,
+  body.is-ar.inner-page .stats-grid,
+  body.is-ar.inner-page .site-footer{direction:rtl!important}
+
+  body.is-ar.inner-page .section-label,
+  body.is-ar.inner-page .section-content,
+  body.is-ar.inner-page .global-copy,
+  body.is-ar.inner-page .method-card,
+  body.is-ar.inner-page .location-card,
+  body.is-ar.inner-page .contact-title-wrap,
+  body.is-ar.inner-page .form-intro,
+  body.is-ar.inner-page .footer-lead,
+  body.is-ar.inner-page .footer-col,
+  body.is-ar.inner-page .footer-contact{direction:rtl!important;text-align:right!important}
+
+  body.is-ar.inner-page .section-content h1{font-size:clamp(44px,4.6vw,72px);line-height:1.52!important}
+  body.is-ar.inner-page .section-content h2{font-size:clamp(36px,3.7vw,57px);line-height:1.55!important}
+  body.is-ar.inner-page .section-content p{font-size:16px;line-height:2.05!important}
+  body.is-ar.inner-page .manifesto-band{direction:rtl!important;text-align:right!important;padding-right:9vw;padding-left:9vw}
+  body.is-ar.inner-page .manifesto-band p{font-size:clamp(29px,3vw,44px);line-height:1.75!important;margin-right:0;margin-left:auto}
+  body.is-ar.inner-page .method-card{border-right:0;border-left:1px solid var(--line)}
+  body.is-ar.inner-page .method-card:nth-child(3n){border-left:0}
+  body.is-ar.inner-page .global-copy h2{line-height:1.6!important}
+  body.is-ar.inner-page .location-card{align-items:flex-end;border-right:0;border-left:1px solid var(--line)}
+  body.is-ar.inner-page .location-card:nth-child(3n){border-left:0}
+  body.is-ar.inner-page .contact-form{direction:rtl!important}
+  body.is-ar.inner-page .contact-form input,
+  body.is-ar.inner-page .contact-form textarea{text-align:right!important;direction:rtl!important}
+  body.is-ar.inner-page .form-submit{justify-self:end}
+
+  /* Home Arabic composition remains mirrored and its typography gets enough
+     width/line-height so it doesn't collide with the hero. */
+  body.is-ar.home-v3 .ref-intro-copy{padding-left:clamp(34px,3.3vw,56px);padding-right:clamp(34px,3.3vw,56px)}
+  body.is-ar.home-v3 .ref-intro-copy h1{font-size:clamp(35px,3.1vw,50px)!important;line-height:1.6!important;max-width:100%!important}
+  body.is-ar.home-v3 .ref-intro-copy p{font-size:14.5px!important;line-height:2.05!important;max-width:100%!important}
+  body.is-ar.home-v3 .ref-kicker{width:100%;justify-content:flex-start}
+  body.is-ar.home-v3 .ref-cta{margin-left:auto;margin-right:0;font-family:var(--arabic-ui)}
+  body.is-ar.home-v3 .ref-card-copy{align-items:flex-end!important}
+  body.is-ar.home-v3 .ref-card-copy h2{font-size:23px!important;line-height:1.65!important}
+  body.is-ar.home-v3 .ref-card-copy p{font-size:12.5px!important;line-height:1.9!important}
+}
+
+/* ---------- Mobile/tablet home: normal vertical editorial scroll ---------- */
+@media(max-width:900px){
+  html,body{max-width:100%;overflow-x:hidden!important}
+  body.home-page{
+    height:auto!important;
+    min-height:100dvh!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:auto!important;
+    touch-action:pan-y pinch-zoom!important;
+  }
+  .home-v3 #horizontal-stage,
+  .home-v3 .ref-horizontal-stage{
+    position:relative!important;
+    inset:auto!important;
+    margin:0!important;
+    padding-top:var(--header-h)!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:100dvh!important;
+    overflow:visible!important;
+  }
+  .home-v3 .ref-horizontal-viewport,
+  .home-v3 .horizontal-viewport{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+    touch-action:pan-y pinch-zoom!important;
+  }
+  .home-v3 .ref-track,
+  .home-v3 .horizontal-track,
+  body.is-ar.home-v3 .ref-track,
+  body.is-ar.home-v3 .horizontal-track{
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    min-width:0!important;
+    height:auto!important;
+    min-height:0!important;
+    display:block!important;
+    transform:none!important;
+    flex-direction:column!important;
+    direction:ltr!important;
+    will-change:auto!important;
+  }
+  .home-v3 .h-panel{
+    width:100%!important;
+    min-width:0!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border-right:0!important;
+    border-bottom:1px solid var(--line)!important;
+  }
+
+  /* First section is a complete phone screen. */
+  .home-v3 .ref-intro-panel{
+    min-height:calc(100svh - var(--header-h))!important;
+    display:flex!important;
+    align-items:stretch!important;
+  }
+  .home-v3 .ref-intro-copy{
+    width:100%!important;
+    min-height:calc(100svh - var(--header-h))!important;
+    padding:clamp(54px,9vh,86px) 24px 28px!important;
+  }
+  .home-v3 .ref-intro-copy h1{font-size:clamp(39px,11.3vw,55px)!important;line-height:1.02!important;max-width:92%!important}
+  .home-v3 .ref-intro-copy p{font-size:15px!important;line-height:1.7!important;max-width:92%!important;margin-top:24px!important}
+  .home-v3 .ref-kicker{margin-bottom:24px!important}
+  .home-v3 .ref-cta{margin-top:auto!important}
+
+  /* Hero becomes the second editorial block instead of a sideways slide. */
+  .home-v3 .ref-hero-panel{height:72svh!important;min-height:520px!important}
+  .home-v3 .ref-over-caption{left:24px!important;right:24px!important;bottom:24px!important;max-width:calc(100% - 48px)!important}
+  .home-v3 .ref-over-caption strong{font-size:25px!important}
+
+  /* Service cards stack vertically and get enough reading room. */
+  .home-v3 .ref-project-panel{padding:22px 20px 30px!important;background:var(--paper-2)!important}
+  .home-v3 .ref-project-card{height:auto!important;display:block!important}
+  .home-v3 .ref-card-image{height:56svh!important;min-height:360px!important;max-height:560px!important;flex:none!important}
+  .home-v3 .ref-card-copy{padding:24px 2px 2px!important;min-height:0!important}
+  .home-v3 .ref-category{min-height:0!important}
+  .home-v3 .ref-card-copy h2{font-size:31px!important;line-height:1.12!important;margin:11px 0 12px!important}
+  .home-v3 .ref-card-copy p{font-size:14px!important;line-height:1.7!important;display:block!important;overflow:visible!important;-webkit-line-clamp:unset!important}
+
+  .home-v3 .ref-closing-panel{min-height:76svh!important;display:flex!important}
+  .home-v3 .ref-closing-copy{width:100%!important;min-height:76svh!important;padding:62px 24px 28px!important}
+  .home-v3 .ref-closing-copy h2{font-size:clamp(40px,10.6vw,54px)!important;line-height:1.08!important}
+  .home-v3 .ref-text-link{margin-top:auto!important}
+  .home-v3 .ref-scroll-progress{display:none!important}
+
+  /* Arabic mobile is true RTL text, but vertical block order remains stable. */
+  body.is-ar.home-v3 .ref-intro-copy,
+  body.is-ar.home-v3 .ref-card-copy,
+  body.is-ar.home-v3 .ref-over-caption,
+  body.is-ar.home-v3 .ref-closing-copy{direction:rtl!important;text-align:right!important;align-items:flex-end!important}
+  body.is-ar.home-v3 .ref-intro-copy h1{font-size:clamp(32px,9.3vw,43px)!important;line-height:1.65!important;max-width:100%!important}
+  body.is-ar.home-v3 .ref-intro-copy p{font-size:14px!important;line-height:2!important;max-width:100%!important}
+  body.is-ar.home-v3 .ref-card-copy h2{font-size:26px!important;line-height:1.65!important}
+  body.is-ar.home-v3 .ref-card-copy p{font-size:13px!important;line-height:2!important}
+  body.is-ar.home-v3 .ref-closing-copy h2{font-size:34px!important;line-height:1.65!important}
+
+  /* Mobile header/menu stays compact in both languages. */
+  body.is-ar .site-header{direction:rtl!important;grid-template-columns:68px 1fr auto}
+  body.is-ar .brand{grid-column:3;border-right:0;border-left:1px solid var(--line)}
+  body.is-ar .header-actions{grid-column:1;grid-row:1;flex-direction:row-reverse;direction:ltr!important}
+  body.is-ar .header-actions .language-toggle{border-left:0;border-right:1px solid var(--line)}
+  body.is-ar .header-actions .menu-trigger{border-left:0;border-right:1px solid var(--line)}
+  .menu-overlay{height:100dvh!important;min-height:100dvh!important;overflow-y:auto!important}
+  .menu-links{padding-top:88px!important;justify-content:flex-start!important}
+  body.is-ar .menu-links{direction:rtl!important;text-align:right!important;align-items:flex-end!important}
+  body.is-ar .menu-links a{font-size:clamp(29px,9vw,39px)!important;line-height:1.65!important}
+
+  /* Inner pages: practical phone typography/spacing and no sideways overflow. */
+  .inner-main,.site-footer{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  .editorial-section{padding:68px 20px 72px!important}
+  .section-grid{gap:24px!important}
+  .section-content h1{font-size:clamp(36px,10vw,48px)!important;line-height:1.08!important}
+  .section-content h2{font-size:clamp(32px,8.7vw,42px)!important;line-height:1.14!important}
+  .section-content p{font-size:15px!important;line-height:1.75!important;margin-top:24px!important}
+  .manifesto-band{padding:52px 20px!important}
+  .method-grid,.stats-grid,.locations-section,.site-footer{grid-template-columns:1fr!important}
+  .method-card,.stats-grid>div,.location-card{min-height:auto!important;padding:34px 22px!important;border-right:0!important;border-left:0!important}
+  .global-copy{padding:62px 22px!important}
+  .contact-title-wrap{padding:82px 22px 44px!important}
+  .contact-title-wrap h1{font-size:clamp(48px,15vw,70px)!important}
+  .form-intro{padding:54px 22px!important}
+  .contact-form{padding:48px 22px!important;gap:28px!important}
+  .footer-lead,.footer-col,.footer-contact{padding:34px 22px!important}
+
+  body.is-ar.inner-page .section-grid,
+  body.is-ar.inner-page .section-content,
+  body.is-ar.inner-page .section-label,
+  body.is-ar.inner-page .manifesto-band,
+  body.is-ar.inner-page .method-card,
+  body.is-ar.inner-page .global-copy,
+  body.is-ar.inner-page .contact-title-wrap,
+  body.is-ar.inner-page .form-intro,
+  body.is-ar.inner-page .contact-form,
+  body.is-ar.inner-page .location-card,
+  body.is-ar.inner-page .site-footer,
+  body.is-ar.inner-page .footer-lead,
+  body.is-ar.inner-page .footer-col,
+  body.is-ar.inner-page .footer-contact{direction:rtl!important;text-align:right!important}
+  body.is-ar.inner-page .section-content h1{font-size:clamp(31px,8.6vw,42px)!important;line-height:1.65!important}
+  body.is-ar.inner-page .section-content h2{font-size:clamp(29px,8vw,38px)!important;line-height:1.65!important}
+  body.is-ar.inner-page .section-content p{line-height:2!important}
+  body.is-ar.inner-page .manifesto-band p{font-size:clamp(25px,7vw,33px)!important;line-height:1.75!important}
+  body.is-ar.inner-page .global-copy h2{line-height:1.65!important}
+  body.is-ar.inner-page .location-card{align-items:flex-end!important}
+}
+
+@media(max-width:420px){
+  .site-header{grid-template-columns:60px 1fr auto!important}
+  .brand{font-size:22px!important}
+  .language-toggle{min-width:52px!important}
+  .menu-trigger{width:56px!important}
+  .home-v3 .ref-intro-copy{padding-left:20px!important;padding-right:20px!important}
+  .home-v3 .ref-project-panel{padding-left:16px!important;padding-right:16px!important}
+  .home-v3 .ref-card-image{min-height:320px!important;height:52svh!important}
+  .home-v3 .ref-hero-panel{min-height:460px!important;height:68svh!important}
+  .team-section{padding-left:16px!important;padding-right:16px!important}
+}

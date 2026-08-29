@@ -50,51 +50,5 @@
   <div class="menu-overlay" aria-hidden="true"><div class="menu-topline"><span class="menu-brand">CS</span><button class="menu-close-text" type="button"><span class="lang-en">Close</span><span class="lang-ar">إغلاق</span></button><button class="menu-x" type="button" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button></div><div class="menu-rail"><div class="rail-social"><a href="#">In</a><a href="#">Ig</a></div><span class="rail-label"><span class="lang-en">FOLLOW US</span><span class="lang-ar">تابعنا</span></span></div><div class="menu-body"><nav class="menu-links"><a href="index.html"><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></a><a href="our-ecosystem.html"><span class="lang-en">Our Ecosystem</span><span class="lang-ar">منظومتنا</span></a><a href="index.html#research"><span class="lang-en">Research & Studies</span><span class="lang-ar">الأبحاث والتقارير</span></a><a href="index.html#articles"><span class="lang-en">Articles & Insight</span><span class="lang-ar">المقالات والرؤى</span></a><a href="contact.html"><span class="lang-en">Contact Us</span><span class="lang-ar">تواصل معنا</span></a></nav><div class="menu-contact"><div class="shape-mark"><i></i><i></i><i></i></div><div class="menu-address lang-en">King Abdullah Financial District<br>Floor 7, Building 4.07<br>Riyadh, Kingdom of Saudi Arabia<br><a href="mailto:info@cross-sector.co">info@cross-sector.co</a><br><a href="tel:+966115256800">+966 11 525 6800</a></div><div class="menu-address lang-ar">مركز الملك عبدالله المالي<br>الطابق 7، مبنى 4.07<br>الرياض، المملكة العربية السعودية<br><a href="mailto:info@cross-sector.co">info@cross-sector.co</a><br><a href="tel:+966115256800">+966 11 525 6800</a></div><span class="menu-follow"><span class="lang-en">FOLLOW US</span><span class="lang-ar">تابعنا</span></span><div class="menu-social-inline"><a href="#">In</a><a href="#">Ig</a></div></div></div></div>
   <div class="cursor-dot" aria-hidden="true"></div><div class="cursor-ring" aria-hidden="true"></div>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script><script src="js/app.js"></script>
-<script>
-
-(function() {
-    'use strict';
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F12' || e.keyCode === 123) {
-            e.preventDefault();
-            return false;
-        }
-
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) {
-            e.preventDefault();
-            return false;
-        }
-
-   if (e.ctrlKey && (e.key === 'u' || e.keyCode === 85)) {
-        e.preventDefault();
-        return false;
-    }
-    });
-
-    const devToolsCheck = function() {
-        if (window.console && window.console.time) {
-                (function() {
-                    (function() {
-                        debugger;
-                    }).apply(this, ['alwaysOn']);
-                })();
-         
-        }
-    };
-    
-
-    setInterval(devToolsCheck, 1000);
-
-
-    document.addEventListener('copy', function(e) {
-        e.preventDefault();
-    });
-
-})();
-</script>
 </body>
 </html>
